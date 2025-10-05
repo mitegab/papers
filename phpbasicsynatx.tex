@@ -1,0 +1,165 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\textbf{PHP Basic Syntax – Study Notes}}
+\lhead{Author: \textbf{Mitegab}}
+\rfoot{\thepage}
+
+\title{\textbf{PHP Basic Syntax}}
+\author{Mitegab}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Introduction}
+PHP (Hypertext Preprocessor) is a widely used, open source scripting language especially suited for web development.  
+This note summarizes the \textbf{basic syntax rules} and best practices for writing PHP code.
+
+\section{PHP Tags}
+\begin{itemize}[left=1em]
+  \item PHP code is enclosed between \verb|<?php ... ?>|.
+  \item Content outside these tags is sent directly to the browser (HTML or plain text).
+  \item \textbf{Whitespace rule:} A space, tab, or newline should follow \verb|<?php| to ensure proper token separation.
+  \item \textbf{Short echo tag:} \verb|<?= ... ?>| is shorthand for \verb|<?php echo ... ?>|.
+  \item \textbf{Short open tags:} \verb|<? ... ?>| only work if \texttt{short\_open\_tag} is enabled in \texttt{php.ini} or compiled accordingly.  
+        Recommended: stick to full tags \verb|<?php ... ?>| and \verb|<?= ... ?>| for portability.
+\end{itemize}
+
+\subsection*{Examples}
+\begin{verbatim}
+<?php echo 'Hello World'; ?>
+
+<?= 'Short echo works too'; ?>
+
+<? echo 'Short tags depend on php.ini'; ?>
+\end{verbatim}
+
+\section{Closing Tag Best Practice}
+\begin{itemize}[left=1em]
+  \item If a file ends with PHP code, omit the closing \verb|?>| tag to avoid accidental whitespace output.
+  \item This is especially useful when using \texttt{include} or \texttt{require} and when sending HTTP headers later.
+\end{itemize}
+
+\subsection*{Example}
+\begin{verbatim}
+<?php
+echo "Hello world\n";
+
+// ... more code
+
+echo "Last statement\n";
+// Script ends with no closing tag
+\end{verbatim}
+
+\section{Embedding PHP in HTML (Escaping)}
+\begin{itemize}[left=1em]
+  \item Everything outside \verb|<?php ... ?>| is ignored by the PHP parser.
+  \item This allows PHP to be embedded in HTML templates easily.
+\end{itemize}
+
+\subsection*{Example}
+\begin{verbatim}
+<p>This is ignored by PHP.</p>
+<?php echo 'This is parsed.'; ?>
+<p>This is also ignored by PHP.</p>
+\end{verbatim}
+
+\section{Advanced Escaping with Conditions}
+\begin{itemize}[left=1em]
+  \item You can drop out of PHP mode within conditional structures.
+  \item PHP skips the HTML blocks where the condition is not met.
+\end{itemize}
+
+\subsection*{Example}
+\begin{verbatim}
+<?php if ($expression == true): ?>
+  This will show if expression is true.
+<?php else: ?>
+  Otherwise this will show.
+<?php endif; ?>
+\end{verbatim}
+
+\textbf{Tip:} For large text blocks, dropping out of PHP mode is more efficient than echoing everything.
+
+\section{Instruction Separation (Semicolons)}
+\begin{itemize}[left=1em]
+  \item Like C or Perl, PHP statements must end with a semicolon.
+  \item The closing \verb|?>| tag automatically implies a semicolon.
+  \item The closing tag will also include the immediately trailing newline if present.
+\end{itemize}
+
+\subsection*{Examples}
+\begin{verbatim}
+<?php echo "Some text"; ?>
+No newline
+<?= "But newline now" ?>
+\end{verbatim}
+
+Outputs:
+\begin{verbatim}
+Some textNo newline
+But newline now
+\end{verbatim}
+
+\section{Comments in PHP}
+PHP supports C, C++ and shell-style comments:
+\begin{itemize}[left=1em]
+  \item \verb|// This is a one-line (C++) comment|
+  \item \verb|# This is a one-line shell style comment|
+  \item \verb|/* Multi-line comment */|
+\end{itemize}
+
+\subsection*{Example}
+\begin{verbatim}
+<?php
+echo "This is a test\n"; // One-line C++ style
+/* This is a multi-line comment
+   yet another line */
+echo "Another test\n";
+echo "Final test\n"; # Shell-style comment
+?>
+\end{verbatim}
+
+\textbf{Important:}
+\begin{itemize}[left=1em]
+  \item One-line comments end at the end of the line or at the next \verb|?>|.
+  \item HTML after \verb|// ... ?>| or \verb|# ... ?>| will still be printed (because PHP exited).
+  \item Do not nest \verb|/* */| comments; the first \verb|*/| ends the comment.
+\end{itemize}
+
+\subsection*{Problematic Example (Nested Comments)}
+\begin{verbatim}
+<?php
+ /*
+    echo 'This is a test'; /* This comment will cause a problem */
+ */
+?>
+\end{verbatim}
+
+\section{Additional Tips and Best Practices}
+\begin{itemize}[left=1em]
+  \item Use UTF-8 encoding without BOM to avoid hidden output before headers.
+  \item Use \texttt{declare(strict\_types=1);} at the top of files if using PHP 7+ for strict typing.
+  \item Always validate and escape user input (security).
+  \item Follow PSR standards (PSR-1, PSR-12) for coding style consistency.
+\end{itemize}
+
+\section*{Summary}
+\begin{itemize}[left=1em]
+  \item Always use \verb|<?php ... ?>| and \verb|<?= ... ?>| for compatibility.
+  \item Prefer omitting closing tag at end of PHP-only files.
+  \item Drop out of PHP for large HTML blocks.
+  \item End statements with semicolons.
+  \item Use proper comment styles and avoid nesting block comments.
+\end{itemize}
+
+\bigskip
+\noindent\textbf{Reference:} \href{https://www.php.net/manual/en/language.basic-syntax.php}{PHP Manual – Basic Syntax}
+
+\end{document}
