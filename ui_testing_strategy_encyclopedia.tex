@@ -1,0 +1,235 @@
+\clearpage
+\section{Testing Strategy Encyclopedia}
+
+Testing strategy is where the abstract quality claims of a UI library are translated into repeatable engineering practice. In mature teams, testing is not a postscript to implementation; it is the mechanism that preserves component contracts as the design system evolves.
+
+\subsection{Testing philosophy}
+A good UI testing strategy separates concerns into four layers: behavior, accessibility, visual fidelity, and operational resilience. Unit tests should prove component logic. Integration tests should prove composition. Visual tests should prove appearance. End-to-end tests should prove workflows. None of these replaces the others.
+
+The highest-quality teams also treat testing as a design-system property. A component that cannot be tested predictably is not truly reusable, because every reuse increases uncertainty.
+
+\subsection{Unit testing component behavior in each library}
+Unit tests should focus on isolated behavior: toggles, validation state, disabled state, keyboard interaction, and derived output. The exact technique differs by library, but the goal is consistent.
+
+\subsubsection{shadcn/ui and local primitives}
+Source-owned primitives are easy to test because the component source is local and explicit. Teams usually test render state, event callbacks, and variant output.
+
+\begin{verbatim}
+import { render, screen } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
+import { Button } from "@/components/ui/button"
+
+test("calls onClick once", async () => {
+  const user = userEvent.setup()
+  const onClick = vi.fn()
+
+  render(<Button onClick={onClick}>Save</Button>)
+  await user.click(screen.getByRole("button", { name: "Save" }))
+
+  expect(onClick).toHaveBeenCalledTimes(1)
+})
+\end{verbatim}
+
+\subsubsection{Material UI}
+MUI unit tests should check prop-driven rendering and theme-dependent behavior. Because MUI often uses wrappers, regression risk often appears in custom theme overrides.
+
+\begin{verbatim}
+import { ThemeProvider, createTheme } from "@mui/material/styles"
+import { render, screen } from "@testing-library/react"
+
+const theme = createTheme({ palette: { primary: { main: "#0f172a" } } })
+
+render(
+  <ThemeProvider theme={theme}>
+    <MyButton />
+  </ThemeProvider>
+)
+\end{verbatim}
+
+\subsubsection{Chakra UI}
+Chakra unit tests frequently need a provider wrapper because tokens, color mode, and system context influence rendering.
+
+\begin{verbatim}
+function renderWithChakra(ui: React.ReactElement) {
+  return render(<ChakraProvider>{ui}</ChakraProvider>)
+}
+\end{verbatim}
+
+\subsubsection{Ant Design}
+Ant Design tests should check form state, table behavior, and controlled component outputs. Enterprise workflows often fail through subtle interaction regressions rather than pure rendering defects.
+
+\begin{verbatim}
+test("shows validation message", async () => {
+  render(<LoginForm />)
+  await userEvent.click(screen.getByRole("button", { name: /sign in/i }))
+  expect(await screen.findByText(/email is required/i)).toBeInTheDocument()
+})
+\end{verbatim}
+
+\subsubsection{Radix UI and custom systems}
+Radix primitives are often tested by asserting behavior contracts: open/close state, keyboard navigation, and ARIA exposure.
+
+\begin{verbatim}
+expect(screen.getByRole("dialog")).toHaveAttribute("aria-modal", "true")
+\end{verbatim}
+
+\subsection{Integration testing with React Testing Library}
+React Testing Library is the default integration layer for most React teams because it encourages user-centered assertions.
+
+\subsubsection{Testing the rendered experience, not the implementation}
+The best practice is to query by role, label text, and visible output. Avoid brittle selectors unless the UI surface is genuinely non-semantic.
+
+\begin{verbatim}
+const user = userEvent.setup()
+render(<SearchBox />)
+await user.type(screen.getByRole("searchbox"), "invoice")
+expect(screen.getByText(/results/i)).toBeVisible()
+\end{verbatim}
+
+\subsubsection{Composition tests for shared shells}
+Integration tests should verify that sidebars, headers, drawers, modals, and table filters compose correctly.
+
+\begin{verbatim}
+render(<DashboardLayout />)
+expect(screen.getByRole("navigation")).toBeInTheDocument()
+expect(screen.getByRole("main")).toBeInTheDocument()
+\end{verbatim}
+
+\subsection{Accessibility testing with axe-core automation}
+Axe automation should run in component tests and in CI for critical pages. The value is not just compliance; it is regression detection for the easiest-to-miss defects.
+
+\begin{verbatim}
+import { axe } from "jest-axe"
+
+it("has no axe violations", async () => {
+  const { container } = render(<LoginForm />)
+  expect(await axe(container)).toHaveNoViolations()
+})
+\end{verbatim}
+
+For libraries with headless primitives, axe tests should cover focus visibility, label association, and dialog semantics. For libraries with opinionated visuals, axe tests should also cover theme contrast and color-mode transitions.
+
+\subsection{Visual regression testing with Chromatic and Percy}
+Visual regression testing is essential when teams depend on design-system stability. Chromatic is especially useful when Storybook is the source of truth; Percy works well when teams need production-route screenshots and broader workflow coverage.
+
+\begin{itemize}[leftmargin=*, itemsep=0.35em]
+  \item Use Chromatic for component-level visual diffs in Storybook.
+  \item Use Percy for cross-route and cross-browser visual baselines.
+  \item Keep snapshot thresholds strict for foundational primitives.
+  \item Allow slightly wider tolerances for content-rich and data-heavy surfaces.
+\end{itemize}
+
+\subsection{End-to-end testing with Playwright and Cypress}
+E2E testing should verify user journeys that span authentication, navigation, filtering, and saving state. Playwright is strong for multi-browser automation; Cypress is strong for fast feedback and rich debugging in app-level workflows.
+
+\begin{verbatim}
+// Playwright example
+await page.getByRole("button", { name: "Sign in" }).click()
+await expect(page.getByRole("heading", { name: /dashboard/i })).toBeVisible()
+\end{verbatim}
+
+\begin{verbatim}
+// Cypress example
+cy.findByRole("button", { name: /save/i }).click()
+cy.findByText(/saved successfully/i).should("be.visible")
+\end{verbatim}
+
+\subsection{Storybook-driven development workflow}
+Storybook provides an excellent feedback loop when used as a design-system workbench rather than a demo gallery. Stories should encode state combinations, edge cases, and accessibility notes.
+
+\begin{itemize}[leftmargin=*, itemsep=0.35em]
+  \item Create one story per meaningful state.
+  \item Add controls only when they clarify component APIs.
+  \item Use MDX or docs blocks to explain conventions and pitfalls.
+  \item Wire Chromatic to every merge request for visible regression gating.
+\end{itemize}
+
+\subsection{Testing custom hooks that interact with theme context}
+Hooks that depend on theme values, color mode, or token configuration should be wrapped in a provider test harness.
+
+\begin{verbatim}
+function renderHookWithTheme<T>(hook: () => T) {
+  return renderHook(hook, {
+    wrapper: ({ children }) => <ThemeProvider>{children}</ThemeProvider>,
+  })
+}
+\end{verbatim}
+
+\subsection{Mocking library providers in tests}
+Mock only the providers that are required to isolate the behavior under test. Over-mocking hides integration failures.
+
+\begin{verbatim}
+vi.mock("@/lib/auth", () => ({
+  useSession: () => ({ user: { id: "1" }, loading: false }),
+}))
+\end{verbatim}
+
+\subsection{Snapshot testing tradeoffs and when to avoid it}
+Snapshots are useful for stable, low-entropy output but harmful when overused for dynamic layouts or content-rich screens. Avoid snapshots for tables with user-generated content, charts, or components with unavoidable date/time variance.
+
+A better approach is to snapshot stable structure and assert dynamic behavior separately.
+
+\subsection{Component contract testing for design systems}
+Contract tests verify that shared components continue to honor the public API expected by application teams.
+
+\begin{itemize}[leftmargin=*, itemsep=0.35em]
+  \item Required props remain required.
+  \item Default variants do not change silently.
+  \item Keyboard semantics remain stable.
+  \item Theme tokens continue to resolve correctly.
+\end{itemize}
+
+\subsection{Performance testing components under load}
+Performance tests should stress the cases that break at scale: large tables, virtualized lists, long trees, and repeated rerenders.
+
+\begin{verbatim}
+for (let i = 0; i < 1000; i++) {
+  rerender(<VirtualizedTable rows={bigDataset.slice(0, i)} />)
+}
+\end{verbatim}
+
+Measure commit time, interaction latency, and memory growth over repeated mount/unmount cycles.
+
+\subsection{Cross-browser testing strategy}
+Cross-browser coverage should include Chromium, WebKit, and Firefox where possible. Focus on layout, font rendering, keyboard behavior, and scroll mechanics.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Cross-browser focus areas}
+  \begin{tabularx}{\textwidth}{@{}p{0.24\textwidth}Y@{}}
+    \toprule
+    \textbf{Browser family} & \textbf{Primary risk area} \\
+    \midrule
+    Chromium & Fast-moving feature support and layout assumptions. \\
+    Firefox & Scroll, focus, and CSS edge-case behavior. \\
+    WebKit & Mobile rendering, input behavior, and color/zoom quirks. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Mobile testing considerations}
+Mobile testing should verify touch targets, gesture handling, virtual keyboard overlap, and scrolling behavior inside drawers or dialogs. A desktop-perfect component can still fail badly on small screens.
+
+\subsection{Testing dark mode and theme switching}
+Theme switching tests should assert token propagation, contrast stability, and persistence of user preference.
+
+\begin{verbatim}
+render(<ThemeToggle />)
+await userEvent.click(screen.getByRole("switch"))
+expect(document.documentElement).toHaveClass("dark")
+\end{verbatim}
+
+\subsection{Continuous integration setup for component testing pipelines}
+A mature CI pipeline should run in layers: lint, typecheck, unit tests, accessibility checks, story snapshots, visual diffs, and E2E smoke flows.
+
+\begin{enumerate}[leftmargin=*, itemsep=0.3em]
+  \item Fast preflight: type and lint.
+  \item Component-level confidence: unit, RTL, axe.
+  \item Visual gate: Storybook and image diff.
+  \item Workflow gate: Playwright or Cypress smoke tests.
+  \item Release gate: browser matrix and performance budgets.
+\end{enumerate}
+
+\begin{highlightbox}{Testing principle}
+The best testing strategy is layered, user-centered, and selective. It protects the design system without turning every component into a fragile mass of duplicated assertions.
+\end{highlightbox}

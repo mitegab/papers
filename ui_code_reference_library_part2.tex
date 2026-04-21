@@ -1,0 +1,357 @@
+\clearpage
+\subsection{Dashboard Layout Patterns}
+
+This part of the reference library focuses on the structural surfaces that define how a product feels at scale: navigation shells, metric panels, activity views, and notification systems. These are usually the most reused layouts in production applications, and they are also the surfaces where architectural habits become visible to users.
+
+\subsubsection{Sidebar navigation with collapsible sections}
+\paragraph{shadcn/ui}
+\begin{verbatim}
+"use client"
+import { useState } from "react"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
+
+type Group = { id: string; label: string; items: { href: string; label: string }[] }
+
+export function SidebarShadcn({ groups }: { groups: Group[] }) {
+  const [open, setOpen] = useState<Record<string, boolean>>({})
+
+  return (
+    <aside className="w-72 border-r bg-background p-3">
+      {groups.map(group => (
+        <Collapsible key={group.id} open={open[group.id]} onOpenChange={value => setOpen(prev => ({ ...prev, [group.id]: value }))}>
+          <CollapsibleTrigger className="flex w-full items-center justify-between rounded px-3 py-2 hover:bg-muted">
+            {group.label}
+          </CollapsibleTrigger>
+          <CollapsibleContent className="space-y-1 pl-3 pt-2">
+            {group.items.map(item => (
+              <a key={item.href} href={item.href} className="block rounded px-3 py-2 text-sm hover:bg-muted">
+                {item.label}
+              </a>
+            ))}
+          </CollapsibleContent>
+        </Collapsible>
+      ))}
+    </aside>
+  )
+}
+\end{verbatim}
+
+\paragraph{Material UI}
+\begin{verbatim}
+import { useState } from "react"
+import { Drawer, List, ListItemButton, Collapse, ListSubheader } from "@mui/material"
+
+export function SidebarMUI({ groups }) {
+  const [open, setOpen] = useState({})
+  return (
+    <Drawer variant="permanent" open>
+      <List subheader={<ListSubheader>Navigation</ListSubheader>}>
+        {groups.map(group => (
+          <Fragment key={group.id}>
+            <ListItemButton onClick={() => setOpen(prev => ({ ...prev, [group.id]: !prev[group.id] }))}>
+              {group.label}
+            </ListItemButton>
+            <Collapse in={Boolean(open[group.id])} unmountOnExit>
+              {group.items.map(item => <ListItemButton key={item.href}>{item.label}</ListItemButton>)}
+            </Collapse>
+          </Fragment>
+        ))}
+      </List>
+    </Drawer>
+  )
+}
+\end{verbatim}
+
+\paragraph{Chakra UI}
+\begin{verbatim}
+import { Accordion, Box, Link, Stack } from "@chakra-ui/react"
+
+export function SidebarChakra({ groups }) {
+  return (
+    <Box w="72" borderRightWidth="1px" p="3">
+      <Accordion.Root multiple>
+        {groups.map(group => (
+          <Accordion.Item key={group.id} value={group.id}>
+            <Accordion.ItemTrigger>{group.label}</Accordion.ItemTrigger>
+            <Accordion.ItemContent>
+              <Stack pl="3" pt="2" gap="1">
+                {group.items.map(item => <Link key={item.href} href={item.href}>{item.label}</Link>)}
+              </Stack>
+            </Accordion.ItemContent>
+          </Accordion.Item>
+        ))}
+      </Accordion.Root>
+    </Box>
+  )
+}
+\end{verbatim}
+
+\paragraph{Ant Design}
+\begin{verbatim}
+import { Menu, Layout } from "antd"
+
+export function SidebarAnt({ items }) {
+  return (
+    <Layout.Sider width={280}>
+      <Menu mode="inline" items={items} />
+    </Layout.Sider>
+  )
+}
+\end{verbatim}
+
+\paragraph{Radix + Tailwind}
+\begin{verbatim}
+import * as Accordion from "@radix-ui/react-accordion"
+
+export function SidebarRadix({ groups }) {
+  return (
+    <aside className="w-72 border-r p-3">
+      <Accordion.Root type="multiple" className="space-y-2">
+        {groups.map(group => (
+          <Accordion.Item key={group.id} value={group.id} className="rounded border">
+            <Accordion.Trigger className="w-full px-3 py-2 text-left">{group.label}</Accordion.Trigger>
+            <Accordion.Content className="space-y-1 px-3 pb-3">
+              {group.items.map(item => <a key={item.href} className="block text-sm" href={item.href}>{item.label}</a>)}
+            </Accordion.Content>
+          </Accordion.Item>
+        ))}
+      </Accordion.Root>
+    </aside>
+  )
+}
+\end{verbatim}
+
+\subsubsection{Top navigation with dropdown menus}
+Top navigation should expose workspace switching, profile actions, and context-sensitive shortcuts without forcing the user to dig through nested pages.
+
+\begin{verbatim}
+// Example using Radix Menu primitives for a shared top bar
+<Menu.Root>
+  <Menu.Trigger className="rounded px-3 py-2 hover:bg-muted">Workspace</Menu.Trigger>
+  <Menu.Content className="rounded border bg-background p-1 shadow">
+    <Menu.Item className="px-3 py-2">Switch workspace</Menu.Item>
+    <Menu.Item className="px-3 py-2">Team settings</Menu.Item>
+    <Menu.Separator />
+    <Menu.Item className="px-3 py-2 text-red-600">Log out</Menu.Item>
+  </Menu.Content>
+</Menu.Root>
+\end{verbatim}
+
+\subsubsection{Breadcrumb systems for deep navigation hierarchies}
+Breadcrumbs should remain short, semantic, and stable in responsive views. They are especially useful in settings, admin tools, and nested resource editors.
+
+\begin{verbatim}
+const crumbs = [
+  { label: "Dashboard", href: "/dashboard" },
+  { label: "Billing", href: "/billing" },
+  { label: "Invoices", href: "/billing/invoices" },
+  { label: `Invoice ${invoiceNumber}`, href: "#" },
+]
+\end{verbatim}
+
+\subsubsection{Dashboard grid layouts with responsive breakpoints}
+\begin{verbatim}
+<div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+  {metrics.map(metric => <MetricCard key={metric.id} {...metric} />)}
+</div>
+\end{verbatim}
+
+\subsubsection{Card-based metric displays}
+Metric cards should combine headline value, time-window selector, trend cue, and drill-down action. Consistency matters more than ornament.
+
+\subsubsection{Activity feed components}
+\begin{verbatim}
+function ActivityFeed({ events }) {
+  return (
+    <ul className="space-y-3">
+      {events.map(event => (
+        <li key={event.id} className="rounded border p-3">
+          <div className="flex items-center justify-between">
+            <span className="font-medium">{event.actor}</span>
+            <time className="text-sm text-muted-foreground">{event.timeLabel}</time>
+          </div>
+          <p className="text-sm text-muted-foreground">{event.description}</p>
+        </li>
+      ))}
+    </ul>
+  )
+}
+\end{verbatim}
+
+\subsubsection{Notification center implementations}
+Use a clear distinction between unread, actionable, and archived items. Avoid mixing system notices with content notifications.
+
+\begin{verbatim}
+const notifications = useMemo(() => notificationsData.filter(n => !n.archived), [notificationsData])
+\end{verbatim}
+
+\subsection{Data Display Patterns}
+
+\subsubsection{Complex table implementations with sorting, filtering, and pagination}
+The most useful table pattern today is usually built on TanStack Table because it separates data logic from rendering structure.
+
+\begin{verbatim}
+const table = useReactTable({
+  data,
+  columns,
+  state: { sorting, columnFilters, pagination },
+  onSortingChange: setSorting,
+  onColumnFiltersChange: setColumnFilters,
+  onPaginationChange: setPagination,
+  getCoreRowModel: getCoreRowModel(),
+  getSortedRowModel: getSortedRowModel(),
+  getFilteredRowModel: getFilteredRowModel(),
+})
+\end{verbatim}
+
+\paragraph{MUI table example}
+\begin{verbatim}
+<TableContainer>
+  <Table stickyHeader size="small">
+    <TableHead>
+      <TableRow>{columns.map(col => <TableCell key={col.id}>{col.header}</TableCell>)}</TableRow>
+    </TableHead>
+    <TableBody>{rows.map(row => <TableRow key={row.id}>{/* cells */}</TableRow>)}</TableBody>
+  </Table>
+</TableContainer>
+\end{verbatim}
+
+\paragraph{Ant Design table example}
+\begin{verbatim}
+<Table columns={columns} dataSource={data} pagination={{ pageSize: 20 }} rowKey="id" />
+\end{verbatim}
+
+\subsubsection{Virtualized list implementations for large datasets}
+Virtualization is essential when list size grows beyond a few hundred visible rows.
+
+\begin{verbatim}
+const rowVirtualizer = useVirtualizer({
+  count: rows.length,
+  getScrollElement: () => parentRef.current,
+  estimateSize: () => 44,
+  overscan: 10,
+})
+\end{verbatim}
+
+\subsubsection{Kanban board component architecture}
+Use lane virtualization, optimistic drag updates, and a rollback-safe state snapshot. The visual layer is simple; the interaction model is where most bugs occur.
+
+\subsubsection{Calendar and date range picker integrations}
+For calendar work, timezone normalization and range serialization matter more than widget choice. Implement selection state separately from display state.
+
+\subsubsection{Chart integration patterns with Recharts and Chart.js}
+\begin{verbatim}
+<ResponsiveContainer width="100%" height={280}>
+  <LineChart data={series}>
+    <XAxis dataKey="date" />
+    <YAxis />
+    <Tooltip />
+    <Line type="monotone" dataKey="value" stroke="#1f2937" />
+  </LineChart>
+</ResponsiveContainer>
+\end{verbatim}
+
+\subsubsection{Tree view implementations for hierarchical data}
+\begin{verbatim}
+function renderNode(node) {
+  return (
+    <TreeItem key={node.id} nodeId={node.id} label={node.label}>
+      {node.children?.map(renderNode)}
+    </TreeItem>
+  )
+}
+\end{verbatim}
+
+\subsubsection{Timeline components for audit logs and history}
+Timelines should emphasize actor, event type, and time ordering. The design pattern is narrative, but the data pattern is audit-grade.
+
+\subsection{Form Patterns}
+
+\subsubsection{Multi-step form wizard with state management}
+\begin{verbatim}
+const schemaByStep = [accountSchema, profileSchema, companySchema]
+const currentSchema = schemaByStep[step]
+\end{verbatim}
+
+\subsubsection{Dynamic form generation from JSON schema}
+\begin{verbatim}
+function DynamicField({ field }) {
+  switch (field.kind) {
+    case "text": return <Input name={field.name} />
+    case "select": return <Select options={field.options} />
+    case "checkbox": return <Checkbox name={field.name} />
+    default: return null
+  }
+}
+\end{verbatim}
+
+\subsubsection{File upload with preview and progress}
+\begin{verbatim}
+const upload = new XMLHttpRequest()
+upload.upload.onprogress = (e) => setProgress(Math.round((e.loaded / e.total) * 100))
+\end{verbatim}
+
+\subsubsection{Rich text editor integration}
+Use controlled serialization, sanitize output before render, and preserve cursor state separately from document state.
+
+\subsubsection{Address autocomplete forms}
+Throttle API calls and keep keyboard-first result navigation. Good address autocomplete is a latency and accessibility problem more than a styling problem.
+
+\subsubsection{Payment form patterns with Stripe integration}
+\begin{verbatim}
+const result = await stripe.confirmPayment({
+  elements,
+  confirmParams: { return_url: `${origin}/billing/result` },
+})
+\end{verbatim}
+
+\subsubsection{Search with instant results and keyboard navigation}
+\begin{verbatim}
+const deferredQuery = useDeferredValue(query)
+const results = useMemo(() => index.search(deferredQuery), [deferredQuery])
+\end{verbatim}
+
+\subsection{Feedback and Communication Patterns}
+
+\subsubsection{Toast notification systems compared across libraries}
+The toast surface should include deduplication, actions, stack control, and accessibility announcements. Avoid unbounded notification spam.
+
+\subsubsection{Modal and drawer patterns with focus trap management}
+\begin{verbatim}
+<Dialog open={open} onOpenChange={setOpen}>
+  <DialogContent onOpenAutoFocus={preventNonCriticalFocusShift}>
+    ...
+  </DialogContent>
+</Dialog>
+\end{verbatim}
+
+\subsubsection{Confirmation dialog patterns}
+Confirmations should include a concise action summary, an irreversible warning, and a safe secondary exit.
+
+\subsubsection{Inline editing implementations}
+\begin{verbatim}
+const [editing, setEditing] = useState(false)
+const [draft, setDraft] = useState(value)
+\end{verbatim}
+
+\subsubsection{Skeleton loading states}
+Skeleton geometry should match the final content footprint to reduce layout shift and avoid jarring visual transitions.
+
+\subsubsection{Error boundary UI patterns}
+\begin{verbatim}
+class FeatureErrorBoundary extends React.Component {
+  state = { hasError: false }
+  static getDerivedStateFromError() { return { hasError: true } }
+  render() {
+    if (this.state.hasError) return <FeatureFallback />
+    return this.props.children
+  }
+}
+\end{verbatim}
+
+\subsubsection{Empty state illustrations and components}
+Empty states should explain why the surface is empty, what the next action is, and when sample data or onboarding help is appropriate.
+
+\begin{highlightbox}{Operational note}
+Code examples in this section are intentionally implementation-first. Teams should adapt naming, token references, and data boundaries to local architecture standards.
+\end{highlightbox}

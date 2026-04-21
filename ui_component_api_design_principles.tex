@@ -1,0 +1,230 @@
+\clearpage
+\section{Component API Design Principles}
+
+Component APIs are the language of a design system. They determine how easily developers can understand the component, how safely they can extend it, and how much surprise the API introduces when it is used in real products. The best APIs feel obvious after one or two uses. The worst APIs require a reference manual for every prop.
+
+This section focuses on the practical design choices that shape how component APIs age over time.
+
+\subsection{The principle of least surprise}
+A component API should behave the way a developer expects it to behave given the component name, the surrounding ecosystem, and common UI conventions. Least surprise does not mean minimal surface area. It means the API should be consistent with mental models that already exist.
+
+\begin{itemize}[leftmargin=*, itemsep=0.35em]
+  \item A Button should trigger an action.
+  \item A Dialog should open and close predictably.
+  \item A Switch should represent a binary state change.
+  \item A Form field should surface validation in a discoverable way.
+\end{itemize}
+
+Surprise is expensive because it slows adoption and forces every new user to learn the library through error rather than intuition.
+
+\subsection{Composition over configuration}
+Good component systems favor composition when the behavior can be layered cleanly. Excessive configuration often creates long prop lists, hidden interactions, and awkward special cases.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Composition versus configuration}
+  \begin{tabularx}{\textwidth}{@{}p{0.22\textwidth}p{0.35\textwidth}Y@{}}
+    \toprule
+    \textbf{Approach} & \textbf{Strength} & \textbf{Risk} \\
+    \midrule
+    Composition & Reusable patterns and flexible structure. & Can become verbose if over-fragmented. \\
+    Configuration & Easy for simple cases and quick setup. & Can produce sprawling prop surfaces and special-case logic. \\
+    Hybrid & Good default behavior with extension hooks. & Requires judgment about where configuration ends and composition begins. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The rule of thumb is simple: use configuration for low-level knobs, and composition for structural decisions. A component that needs many structural exceptions is often a candidate for a split API.
+
+\subsection{Variant system design patterns}
+Variant systems should encode stable visual and behavioral choices without exploding into countless combinations. Good systems use a small number of orthogonal axes such as size, tone, density, and emphasis.
+
+\begin{verbatim}
+type ButtonProps = {
+  variant?: "primary" | "secondary" | "ghost"
+  size?: "sm" | "md" | "lg"
+  tone?: "neutral" | "danger"
+}
+\end{verbatim}
+
+The strongest variant systems keep defaults meaningful and avoid hiding critical logic behind visual variants. If a variant changes semantics, it should be documented clearly.
+
+\subsection{Controlled versus uncontrolled tradeoffs}
+Controlled components make the state explicit. Uncontrolled components reduce ceremony and can be easier for simple cases. The API should choose carefully based on whether the component is a leaf control or a more complex pattern.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Controlled and uncontrolled API tradeoffs}
+  \begin{tabularx}{\textwidth}{@{}p{0.22\textwidth}p{0.28\textwidth}Y@{}}
+    \toprule
+    \textbf{Model} & \textbf{Benefit} & \textbf{When it becomes painful} \\
+    \midrule
+    Controlled & Clear state ownership and easy synchronization. & The caller must manage every interaction detail. \\
+    Uncontrolled & Simple setup and less boilerplate. & External coordination becomes harder. \\
+    Hybrid & Sensible defaults with override support. & Requires good documentation of precedence rules. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+A useful pattern is to support both, but to document one as the preferred model. Otherwise, consumers are left guessing which state path is authoritative.
+
+\subsection{Default prop strategy and the TypeScript implications}
+Default props should reduce friction without creating hidden behavior. In TypeScript, defaults influence inference and can change how consumers understand optional versus required fields.
+
+\begin{verbatim}
+type AlertProps = {
+  tone?: "info" | "warning" | "error"
+  title: string
+  description?: string
+}
+
+function Alert({ tone = "info", title, description }: AlertProps) {
+  ...
+}
+\end{verbatim}
+
+The key is to keep defaults explicit and predictable. If a default changes semantics dramatically, it should be documented and versioned as part of the public contract.
+
+\subsection{Event naming conventions and their rationale}
+Event names should be consistent across the library and easy to infer from the component behavior. Many teams prefer the `onXChange` convention for state transitions and `onX` for generic actions.
+
+\begin{itemize}[leftmargin=*, itemsep=0.35em]
+  \item `onOpenChange` is clearer than `onToggle` for components with explicit open state.
+  \item `onValueChange` is clearer than `onChange` when the value is not a native input event.
+  \item `onSelect` is useful for menu or list item choices when the item is the unit of interaction.
+\end{itemize}
+
+The naming should map to user intent, not implementation internals. Developers can guess `onOpenChange`; they cannot guess an idiosyncratic event name without reading the source.
+
+\subsection{Children versus render prop versus slot patterns}
+The choice among children, render props, and slots determines how expressive and composable the API can be.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Composition pattern tradeoffs}
+  \begin{tabularx}{\textwidth}{@{}p{0.20\textwidth}p{0.24\textwidth}Y@{}}
+    \toprule
+    \textbf{Pattern} & \textbf{Strength} & \textbf{Tradeoff} \\
+    \midrule
+    Children & Natural React ergonomics and simple nesting. & Harder to control exact layout shape. \\
+    Render prop & Full control over rendering decisions. & More verbose and less declarative. \\
+    Slot pattern & Clear structural composition and semantic ownership. & Requires a carefully designed API surface. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Children are usually the default for simple containers. Render props are useful when the consumer needs direct control over state-driven rendering. Slots work especially well when the component has a few named structural regions such as header, body, footer, and action area.
+
+\subsection{The as and asChild polymorphic patterns compared}
+Polymorphism can make APIs more flexible, but it can also make them harder to reason about. The `as` pattern lets the consumer change the rendered element. The `asChild` pattern lets the component adopt a child element while preserving behavior wrappers. Both are useful, but both should be used deliberately.
+
+\begin{verbatim}
+<Button as="a" href="/settings">Settings</Button>
+
+<Dialog.Trigger asChild>
+  <button>Open dialog</button>
+</Dialog.Trigger>
+\end{verbatim}
+
+`asChild` often produces cleaner DOM and better control over semantics, especially when used with headless primitives. `as` can be easier for simple polymorphic links or layout elements. The key is to keep the supported combinations narrow enough that type inference remains manageable.
+
+\subsection{Error boundary integration in component design}
+Some components need to fail gracefully when data fetches or render logic break. Error boundaries should not be an afterthought. They should be part of the design system for complex surfaces such as dashboards, editors, and data-heavy workflows.
+
+\begin{verbatim}
+class CardErrorBoundary extends React.Component {
+  state = { failed: false }
+  static getDerivedStateFromError() { return { failed: true } }
+  render() {
+    if (this.state.failed) return <CardFallback />
+    return this.props.children
+  }
+}
+\end{verbatim}
+
+When a component has a known failure mode, its API should include a recovery or fallback story. Otherwise, the consumer has to invent one.
+
+\subsection{Loading state API patterns}
+Loading should be supported as a first-class component state, not a loose spinner bolted onto the side. The API should make it clear whether loading is global, local, blocking, or inline.
+
+\begin{itemize}[leftmargin=*, itemsep=0.35em]
+  \item Inline loading works best for buttons and table rows.
+  \item Blocking loading works best for modal transitions and full-page fetches.
+  \item Skeleton loading works best when layout continuity matters.
+  \item Deferred loading should be explicit when content arrives asynchronously.
+\end{itemize}
+
+The best APIs separate `loading` from `disabled` because the user meaning is not the same. A disabled button may imply permission or validation. A loading button implies an in-flight action.
+
+\subsection{Empty state API patterns}
+Empty states should be designed as structured API surfaces rather than ad hoc children. They often need a title, explanation, primary action, and sometimes a secondary action or illustration.
+
+\begin{verbatim}
+<EmptyState
+  title="No invoices yet"
+  description="Invoices will appear here after your first billing cycle."
+  primaryAction={{ label: "Create invoice", onClick: openCreate }}
+  secondaryAction={{ label: "Learn more", href: "/help/invoices" }}
+/>
+\end{verbatim}
+
+This pattern keeps the empty-state contract consistent across screens and makes it easier for teams to support localization and accessibility.
+
+\subsection{Accessibility props surfacing strategy}
+The API should surface accessibility props where they matter, but not force consumers to micromanage every aria attribute. The trick is to expose the important controls while preserving safe defaults.
+
+\begin{itemize}[leftmargin=*, itemsep=0.35em]
+  \item Let labels be explicit and easy to override.
+  \item Surface `aria-label` when visual text is not enough.
+  \item Expose `aria-describedby` for helper and error text.
+  \item Make focus and keyboard semantics default behaviors.
+\end{itemize}
+
+If the component needs many accessibility escape hatches, that often means the base API needs to be simplified.
+
+\subsection{Data attribute usage for testing and styling hooks}
+Data attributes are often the safest way to support testing and styling hooks without overloading class names or prop surfaces. They are especially useful for stable selectors in E2E tests and for targeted style hooks where semantic class names are not enough.
+
+\begin{verbatim}
+<button data-state={open ? "open" : "closed"} data-tone="primary">
+  Save
+</button>
+\end{verbatim}
+
+The design system should standardize which data attributes are public and which are private. If they are uncontrolled, they become a second API surface by accident.
+
+\subsection{Deprecation API patterns with warnings}
+Deprecation should be visible, soft at first, and measurable. Good APIs emit warnings in development, document replacement paths, and keep a predictable removal schedule.
+
+\begin{verbatim}
+if (process.env.NODE_ENV !== "production") {
+  console.warn("Button size='xl' is deprecated. Use size='lg' instead.")
+}
+\end{verbatim}
+
+Warnings should explain the replacement and the timeline. Hidden or ambiguous deprecations create churn and mistrust.
+
+\subsection{Handling breaking changes gracefully}
+Breaking changes are inevitable. The quality of the API is partly determined by how painful those changes are to consume. Graceful breaking changes include codemods, migration notes, dual support windows, and clear versioning.
+
+\begin{enumerate}[leftmargin=*, itemsep=0.35em]
+  \item Announce the breaking change early.
+  \item Provide a migration guide with before and after examples.
+  \item Offer automated codemods where feasible.
+  \item Keep the deprecation window long enough for real adoption.
+  \item Validate the change against common usage patterns before release.
+\end{enumerate}
+
+\subsection{API review checklist}
+\begin{itemize}[leftmargin=*, itemsep=0.35em]
+  \item Is the API predictable from the component name?
+  \item Are state and behavior boundaries explicit?
+  \item Does TypeScript help or hinder the consumer?
+  \item Are composition and extension paths obvious?
+  \item Are accessibility and testing hooks built in?
+  \item Can the API survive future deprecations without a rewrite?
+\end{itemize}
+
+\begin{highlightbox}{API principle}
+The best component APIs reduce the number of decisions a consumer has to make while preserving enough escape hatches for real-world product work.
+\end{highlightbox}

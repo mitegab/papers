@@ -1,0 +1,675 @@
+\clearpage
+\phantomsection
+\section*{Appendix Q: Glossary of Terms}
+\addcontentsline{toc}{section}{Appendix Q: Glossary of Terms}
+
+This glossary defines the technical vocabulary used throughout the report. The terms are written for practitioners, not for a marketing audience, so the definitions favor operational precision over abstract elegance.
+
+\begin{longtable}{@{}p{0.22\textwidth}p{0.70\textwidth}@{}}
+\caption{Glossary of terms}\label{tab:glossary}\\
+\toprule
+\textbf{Term} & \textbf{Definition} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Term} & \textbf{Definition} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+Design token & A named design value that can be consumed consistently across design tools, code, and runtime themes. \\
+Primitive token & A raw value such as a base color, spacing unit, or radius step that is not yet assigned semantic meaning. \\
+Semantic token & A role-based token such as primary action or surface background that describes intent rather than raw appearance. \\
+Component token & A token scoped to a specific component surface or state, such as button background or dialog backdrop. \\
+Headless component & A component that provides behavior and accessibility without prescribing visual styling. \\
+Primitive & A low-level building block that handles interaction semantics, accessibility, or basic structure. \\
+Compound component & A multi-part component composed of coordinated subcomponents with shared state and semantics. \\
+Atomic design & A design methodology that organizes UI elements from atoms to molecules to organisms and beyond. \\
+Design system & A governed collection of tokens, components, patterns, documentation, and release rules. \\
+Component library & A reusable set of UI components that can be imported into product code. \\
+Style dictionary & A token transformation and export pipeline used to generate platform-specific style outputs. \\
+Token pipeline & The full process of moving tokens from source design data into validated code and runtime themes. \\
+Registry & A structured distribution mechanism for versioned components, tokens, and metadata. \\
+Source ownership & The practice of keeping component source in the product repository so the team can inspect and modify it locally. \\
+Variant & A named option that changes the appearance or behavior of a component without changing its fundamental role. \\
+Slot & A structural area within a component reserved for consumer-provided content. \\
+Polymorphic component & A component that can render different underlying elements while preserving its core behavior. \\
+Controlled component & A component whose state is owned by the consuming application. \\
+Uncontrolled component & A component that manages its own local state unless overridden. \\
+Render prop & A composition pattern where the consumer provides a function that controls rendering. \\
+AsChild & A polymorphic pattern that lets a component apply its behavior to a child element. \\
+Theme augmentation & The extension of a library theme type to support custom brand values and tokens. \\
+Server component & A React component rendered on the server with explicit client boundaries for interactivity. \\
+Client component & A React component that executes in the browser and can manage interactive state. \\
+Hydration & The process by which server-rendered markup becomes interactive in the browser. \\
+Accessibility tree & The semantic structure exposed to assistive technologies such as screen readers. \\
+Keyboard trap & A failure mode where keyboard users cannot move focus out of a component. \\
+Focus ring & The visual indicator that shows which control currently has keyboard focus. \\
+ARIA landmark & A semantic region that helps screen reader users navigate large pages. \\
+Live region & A part of the page reserved for announcing dynamic updates to assistive technologies. \\
+Virtualization & A rendering strategy that keeps the DOM small by rendering only visible items. \\
+Localization & The adaptation of UI content and behavior for a specific language or region. \\
+Internationalization & The broader practice of designing UI systems so they can support multiple languages and locales. \\
+RTL & Right-to-left layout direction used by languages such as Arabic and Hebrew. \\
+IME & Input Method Editor, used for composing characters in languages such as Chinese, Japanese, and Korean. \\
+Design-to-code & A workflow that turns design artifacts or structured specs into implementation-ready code. \\
+Visual regression & A test process that detects unintended visual changes between versions. \\
+Contract test & A test that validates public API behavior and prevents breaking changes. \\
+Codemod & An automated source transformation used to perform large-scale API migrations. \\
+Changelog & A release log that explains what changed, what broke, and what consumers should do next. \\
+Rollback & The act of reverting a release or migration after a problem is found. \\
+Telemetry & Usage and runtime signals collected to understand adoption, performance, or quality. \\
+White-label & A product model where the same core software is rebranded for multiple customers or tenants. \\
+Multi-brand & A design architecture that supports multiple visual identities over a shared base system. \\
+Density & The amount of information and spacing available in a given UI layout. \\
+Responsive design & The adaptation of layout and behavior across viewport sizes and device classes. \\
+Touch target & The area of a control that can be tapped or clicked accurately. \\
+Focus management & The deliberate control of keyboard focus across interactions and overlays. \\
+Accessibility audit & A structured review of UI behavior against accessibility criteria and usage patterns. \\
+Audit trail & A record of changes, actions, and accountability in a system. \\
+Plugin architecture & An extension model that lets outside modules contribute to the core system safely. \\
+Registry manifest & A machine-readable description of a component, its dependencies, and its metadata. \\
+Semantic versioning & A versioning model that communicates breaking, minor, and patch-level change expectations. \\
+\end{longtable}
+
+\clearpage
+\phantomsection
+\section*{Appendix R: Bibliography and Further Reading}
+\addcontentsline{toc}{section}{Appendix R: Bibliography and Further Reading}
+
+The references below are annotated for practitioners. They are organized by the kind of learning task they support: strategy, implementation, governance, accessibility, and operational maturity.
+
+\subsection*{R.1 Influential articles and blog resources}
+\begin{longtable}{@{}p{0.24\textwidth}p{0.20\textwidth}p{0.44\textwidth}@{}}
+\caption{Annotated articles and blog resources}\label{tab:bibliography-articles}\\
+\toprule
+\textbf{Resource} & \textbf{Type} & \textbf{Why it matters} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Resource} & \textbf{Type} & \textbf{Why it matters} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+A List Apart & Editorial publication & Long-running source of practical design and front-end thought leadership. \\
+Smashing Magazine & Editorial publication & Useful for patterns, accessibility, and design-system operations. \\
+Design Systems Handbook & Online guide & Broad overview of design-system practice and implementation tradeoffs. \\
+Material Design documentation & Product documentation & Strong reference for component semantics and theming concepts. \\
+Carbon Design System docs & Product documentation & Strong enterprise patterns and accessibility guidance. \\
+Spectrum documentation & Product documentation & Well-structured token and component language for large product families. \\
+Salesforce Lightning Design System & Product documentation & Mature enterprise UI conventions and token-driven system language. \\
+Storybook blog & Product blog & Useful for component-driven development and docs workflows. \\
+Radix UI blog and docs & Product docs & Excellent reference for primitive-first accessibility patterns. \\
+shadcn/ui documentation & Product docs & Useful for source-owned registry workflows and local component ownership. \\
+\end{longtable}
+
+\subsection*{R.2 Book recommendations}
+\begin{longtable}{@{}p{0.24\textwidth}p{0.20\textwidth}p{0.44\textwidth}@{}}
+\caption{Book recommendations for design systems practitioners}\label{tab:bibliography-books}\\
+\toprule
+\textbf{Book} & \textbf{Author} & \textbf{Why it is useful} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Book} & \textbf{Author} & \textbf{Why it is useful} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+Design Systems & Alla Kholmatova & Strong conceptual grounding in governance, consistency, and product-scale design language. \\
+Atomic Design & Brad Frost & Helpful for understanding UI composition hierarchies and component thinking. \\
+Refactoring UI & Adam Wathan and Steve Schoger & Practical guidance for interface polish and implementation decisions. \\
+Don't Make Me Think & Steve Krug & Still valuable for usability clarity and navigation simplicity. \\
+The Design of Everyday Things & Don Norman & Excellent for understanding affordance, feedback, and user mental models. \\
+\end{longtable}
+
+\subsection*{R.3 Conference talks and recorded sessions}
+\begin{longtable}{@{}p{0.24\textwidth}p{0.20\textwidth}p{0.44\textwidth}@{}}
+\caption{Conference talks and recorded sessions}\label{tab:bibliography-talks}\\
+\toprule
+\textbf{Talk} & \textbf{Speaker} & \textbf{Why to watch} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Talk} & \textbf{Speaker} & \textbf{Why to watch} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+Design Systems and the Rule of One & industry talks & Good framing for token and component consistency. \\
+Accessible Components in Practice & accessibility community talks & Practical keyboard and screen reader design patterns. \\
+Component-Driven Development workflows & Storybook community sessions & Useful for testing and docs integration. \\
+Scaling Design Systems in Multi-Team Organizations & design-system conference talks & Strong guidance for governance and adoption. \\
+Server Components and the UI Future & React ecosystem talks & Useful for understanding new architectural constraints. \\
+\end{longtable}
+
+\subsection*{R.4 GitHub repositories worth following}
+\begin{longtable}{@{}p{0.24\textwidth}p{0.20\textwidth}p{0.44\textwidth}@{}}
+\caption{GitHub repositories worth following}\label{tab:bibliography-github}\\
+\toprule
+\textbf{Repository} & \textbf{Category} & \textbf{Why it matters} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Repository} & \textbf{Category} & \textbf{Why it matters} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+adobe/react-spectrum & Design system & Strong accessibility-oriented primitives and ecosystem depth. \\
+carbon-design-system/carbon & Design system & Mature enterprise patterns and token structure. \\
+salesforce-ux/design-system & Design system & Long-running enterprise design-system reference. \\
+mui/material-ui & Component library & Broad component coverage and mature ecosystem. \\
+radix-ui/primitives & Primitives & Excellent behavior-first implementation reference. \\
+shadcn-ui/ui & Source-owned registry & Useful for local ownership and component distribution workflows. \\
+chakra-ui/chakra-ui & Component library & Friendly composition model and evolving architecture. \\
+storybookjs/storybook & Tooling & Core environment for component development and documentation. \\
+\end{longtable}
+
+\subsection*{R.5 Newsletters and community resources}
+\begin{longtable}{@{}p{0.24\textwidth}p{0.20\textwidth}p{0.44\textwidth}@{}}
+\caption{Newsletters and community resources}\label{tab:bibliography-newsletters}\\
+\toprule
+\textbf{Resource} & \textbf{Format} & \textbf{What it provides} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Resource} & \textbf{Format} & \textbf{What it provides} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+Design Systems Weekly & Newsletter & Curated writing and links on design-system operations. \\
+The Component Collective & Community & Practical conversations about component-driven development. \\
+A11y Slack communities & Community & Fast feedback on accessibility questions and testing. \\
+Frontend Focus & Newsletter & Frontend trends and tooling updates relevant to UI systems. \\
+UI Dev tools communities & Community & Useful for learning packaging, docs, and release tooling. \\
+\end{longtable}
+
+\subsection*{R.6 Academic and research-oriented reading}
+\begin{longtable}{@{}p{0.24\textwidth}p{0.20\textwidth}p{0.44\textwidth}@{}}
+\caption{Academic and research-oriented reading}\label{tab:bibliography-academic}\\
+\toprule
+\textbf{Topic} & \textbf{Source type} & \textbf{Why it matters} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Topic} & \textbf{Source type} & \textbf{Why it matters} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+Consistency in UI patterns & Human-computer interaction research & Helps justify structured component languages. \\
+Accessibility behavior & HCI and assistive technology papers & Supports rigorous keyboard and screen-reader planning. \\
+Visual search and readability & Cognitive psychology research & Useful for typography, hierarchy, and dense data surfaces. \\
+Responsive adaptation & UX and interaction design research & Helps teams reason about device context and layout changes. \\
+Localization and comprehension & Multilingual interface research & Important for global product quality and translation strategy. \\
+\end{longtable}
+
+\subsection*{R.7 Practical reading strategy}
+The most productive way to use this appendix is to pair one strategic source, one implementation source, and one operational source for each quarter of work.
+
+\begin{itemize}[leftmargin=*, itemsep=0.35em]
+  \item Strategy source: helps the team decide what kind of system to build or buy.
+  \item Implementation source: helps engineers translate concepts into code.
+  \item Operational source: helps the team keep the system healthy after launch.
+\end{itemize}
+
+\begin{highlightbox}{Bibliography principle}
+A useful reading list should help teams make better choices, not just accumulate impressive names.
+\end{highlightbox}
+
+\clearpage
+\phantomsection
+\section*{Appendix S: Interview Transcripts}
+\addcontentsline{toc}{section}{Appendix S: Interview Transcripts}
+
+The transcripts below are fictional but realistic. They are written to capture the kind of reasoning teams use when selecting and operating component libraries inside real organizations.
+
+\subsection*{S.1 Interview 1: Design System Lead at a Financial Platform}
+\textbf{Interviewee:} Elena Patel, design system lead at a mid-size financial services company.
+
+\textbf{Q: What drove the library decision?}
+The core issue was not visual taste. It was control. We needed a system that our team could own without waiting on a vendor release cycle, but we also could not afford to rebuild tables, dialogs, and forms from scratch. That is why we ended up with a hybrid: source-owned primitives for the shell and a mature data layer for the hardest surfaces.
+
+\textbf{Q: What did the evaluation process look like?}
+We made it practical. Each candidate had to survive a real pilot with one dashboard, one form workflow, and one accessibility audit. A lot of libraries look great in screenshots and then fall apart when you put them under keyboard-only testing or enterprise density requirements. We treated the pilot as the actual selection process.
+
+\textbf{Q: What was the biggest surprise?}
+How much the team cared about update safety. The engineers were willing to own source, but only if there was a way to patch components predictably. The library choice changed once that became a first-class criterion.
+
+\textbf{Q: What advice would you give to other teams?}
+Do not ask only which library is best. Ask which maintenance model your organization can actually support. If the answer is unclear, you are not ready to decide yet.
+
+\textbf{Q: What would you do differently?}
+I would involve accessibility and QA earlier. We waited until later than we should have, and that made some of the component decisions harder to reverse.
+
+\subsection*{S.2 Interview 2: Senior Frontend Engineer at a Developer Tool Startup}
+\textbf{Interviewee:} Jonas Reed, senior frontend engineer at a startup building a developer platform.
+
+\textbf{Q: Why did your team prefer a source-owned stack?}
+Because our product changed every week. We had dark mode, keyboard shortcuts, inline code blocks, and a lot of dense stateful surfaces. If we had used a rigid library, we would have spent more time fighting it than shipping features.
+
+\textbf{Q: What did AI-assisted development change?}
+It helped, but only when the component code was readable. The assistant could draft a dialog or a table quickly, but the real value was that our local source structure made the code easy to review and patch. We did not want the AI to invent the architecture for us.
+
+\textbf{Q: What was the hardest implementation problem?}
+Shortcut conflicts and focus management. Developer tools attract power users, so every interaction detail matters. We had to build a command registry, test focus return constantly, and make sure the mobile layout did not break when the keyboard appeared.
+
+\textbf{Q: What was the lesson?}
+The library is only half the decision. The other half is how much discipline the team has around tokens, tests, and documentation. Without that, a source-owned system just becomes a pile of local patches.
+
+\textbf{Q: What would you recommend to other startups?}
+Choose a system that matches your speed, then enforce just enough structure to keep it coherent. Startups do not need heavyweight governance, but they do need some.
+
+\subsection*{S.3 Interview 3: Product Manager at a White-Label SaaS Company}
+\textbf{Interviewee:} Priya Nair, product manager at a white-label business platform company.
+
+\textbf{Q: Why was token architecture so important?}
+Because we were selling the same product to many brands. If the UI system did not separate meaning from appearance, we would have had to fork the codebase every time a customer wanted different colors or typography. Semantic tokens let us keep the core stable while swapping presentation safely.
+
+\textbf{Q: What did the team learn about design requests?}
+That brand requests are often not really about color. They are about perceived control and recognition. Once we gave customers a reliable theme layer and good preview tools, the number of change requests dropped.
+
+\textbf{Q: How did the library choice affect product operations?}
+It changed how customer success worked. They could preview brand packs, understand which tokens mapped to which interface roles, and help customers without engineering touching every change. That made the system feel more like a platform and less like a custom project.
+
+\textbf{Q: What was the most important metric?}
+Time to onboard a new customer brand. Once we measured that consistently, the team had a real reason to improve the token pipeline instead of debating aesthetics forever.
+
+\textbf{Q: Any advice?}
+If your business model depends on customization, do not hide the system behind vague theme settings. Make tokens and roles explicit so everyone can reason about them.
+
+\subsection*{S.4 Interview 4: Accessibility Lead at a Government Services Org}
+\textbf{Interviewee:} Marcus Chen, accessibility lead for a citizen services portal.
+
+\textbf{Q: What made the accessibility work difficult?}
+Older browsers, slower devices, and a wide range of user ability. We could not assume the latest browser features, and we could not assume the user had a fast connection or a lot of patience.
+
+\textbf{Q: How did the library choice help?}
+We chose a library with stable defaults and explicit accessibility behavior. That reduced the number of places where we had to reinvent keyboard navigation or form semantics. But we still had to audit everything because no library makes a system accessible by itself.
+
+\textbf{Q: What were the most common failures?}
+Missing accessible names, focus that disappeared behind sticky headers, and interactions that only worked with a mouse. Those are easy to miss if your team mainly tests visually.
+
+\textbf{Q: How do you convince non-technical stakeholders?}
+By showing task completion data and support-call reduction. Accessibility is not just a compliance issue. It is a service quality issue. Once stakeholders see that users can complete forms faster and with fewer errors, they start to treat accessibility as a performance characteristic.
+
+\textbf{Q: What is your main advice for teams building public-facing services?}
+Test under realistic constraints. Older browsers, text scaling, low bandwidth, and keyboard-only use are not edge cases. For public services, they are the real operating environment.
+
+\begin{highlightbox}{Interview takeaway}
+The reason teams choose a library almost never comes down to one feature. It comes down to whether the library matches the organization's constraints, and whether the team is willing to own the discipline that the library requires.
+\end{highlightbox}
+
+\clearpage
+\phantomsection
+\section*{Appendix T: Benchmark Data}
+\addcontentsline{toc}{section}{Appendix T: Benchmark Data}
+
+Appendix T summarizes fictional benchmark data collected from representative prototype builds. The purpose is to compare relative behavior under controlled scenarios rather than to produce universal performance claims.
+
+\subsection*{T.1 Benchmark methodology}
+\begin{enumerate}[leftmargin=*, itemsep=0.35em]
+  \item Build each library against the same feature set: shell, form flow, table view, overlay, and settings page.
+  \item Measure baseline bundle size, server render time, interaction latency, and memory growth.
+  \item Use the same content, typography scale, and test data for every run.
+  \item Repeat tests in baseline, dark mode, RTL, and dense data scenarios.
+  \item Record the median of three runs for each metric.
+\end{enumerate}
+
+\subsection*{T.2 Bundle size measurements}
+\begin{table}[htbp]
+  \centering
+  \caption{Bundle size benchmark, gzip KB}
+  \begin{tabularx}{\textwidth}{@{}p{0.18\textwidth}p{0.12\textwidth}p{0.12\textwidth}p{0.12\textwidth}p{0.12\textwidth}p{0.12\textwidth}Y@{}}
+    \toprule
+    \textbf{Scenario} & \textbf{shadcn/ui} & \textbf{MUI} & \textbf{Chakra} & \textbf{AntD} & \textbf{Radix+Tailwind} & \textbf{Notes} \\
+    \midrule
+    Baseline shell & 48 & 82 & 64 & 104 & 36 & shadcn and Radix stayed smallest because the shell was source-owned and local. \\
+    Shell + forms & 61 & 98 & 76 & 121 & 49 & Form support and validation increased all packages, especially enterprise suites. \\
+    Shell + tables & 74 & 124 & 89 & 151 & 58 & Data components raised AntD most because of feature breadth. \\
+    Dark mode + RTL & 79 & 132 & 95 & 158 & 62 & Theme and direction support added modest overhead. \\
+    Full dashboard prototype & 102 & 168 & 128 & 201 & 88 & The gap narrows when apps pull in more shared features. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection*{T.3 Render time comparisons}
+\begin{table}[htbp]
+  \centering
+  \caption{Median render time for a 1,000-row table view, ms}
+  \begin{tabularx}{\textwidth}{@{}p{0.22\textwidth}p{0.14\textwidth}p{0.14\textwidth}p{0.14\textwidth}p{0.14\textwidth}Y@{}}
+    \toprule
+    \textbf{Library} & \textbf{Mount} & \textbf{Update} & \textbf{Filter} & \textbf{Sort} & \textbf{Interpretation} \\
+    \midrule
+    shadcn/ui & 28 & 14 & 21 & 24 & Fast when primitives and virtualization are used well. \\
+    MUI & 35 & 18 & 24 & 29 & Slightly heavier, but still within common app budgets. \\
+    Chakra UI & 33 & 17 & 23 & 27 & Strong composition with moderate overhead. \\
+    Ant Design & 42 & 21 & 29 & 35 & Dense enterprise features come with a cost. \\
+    Radix+Tailwind & 25 & 12 & 18 & 20 & Smallest rendering cost when the host shell is lean. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection*{T.4 Memory usage over application lifetime}
+\begin{table}[htbp]
+  \centering
+  \caption{Memory growth after 90 minutes of repeated interaction, MB}
+  \begin{tabularx}{\textwidth}{@{}p{0.22\textwidth}p{0.14\textwidth}p{0.14\textwidth}p{0.14\textwidth}p{0.14\textwidth}Y@{}}
+    \toprule
+    \textbf{Library} & \textbf{Start} & \textbf{30 min} & \textbf{60 min} & \textbf{90 min} & \textbf{Notes} \\
+    \midrule
+    shadcn/ui & 120 & 131 & 137 & 142 & Stable when local state is managed cleanly. \\
+    MUI & 124 & 136 & 143 & 149 & Theme objects and provider trees need care. \\
+    Chakra UI & 122 & 134 & 141 & 146 & Provider depth affects the curve slightly. \\
+    Ant Design & 128 & 143 & 151 & 157 & Heavy tables and dense interactions add cost. \\
+    Radix+Tailwind & 118 & 128 & 132 & 136 & Smallest growth under a disciplined shell. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection*{T.5 Build time impact}
+\begin{table}[htbp]
+  \centering
+  \caption{Build time impact, seconds}
+  \begin{tabularx}{\textwidth}{@{}p{0.22\textwidth}p{0.14\textwidth}p{0.14\textwidth}p{0.14\textwidth}p{0.14\textwidth}Y@{}}
+    \toprule
+    \textbf{Library} & \textbf{Cold build} & \textbf{Hot rebuild} & \textbf{CI build} & \textbf{Notes} & \textbf{Interpretation} \\
+    \midrule
+    shadcn/ui & 54 & 8 & 69 & Local source compiles quickly. & Good for source-owned workflows. \\
+    MUI & 61 & 10 & 78 & Theme processing adds modest time. & Acceptable for enterprise teams. \\
+    Chakra UI & 58 & 9 & 73 & Build overhead is manageable. & Good balance of speed and capability. \\
+    Ant Design & 69 & 11 & 89 & Feature breadth and style generation cost more. & Fine for large teams with a budget. \\
+    Radix+Tailwind & 51 & 7 & 66 & Leanest output in this sample. & Excellent when the host app is disciplined. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection*{T.6 How to read the benchmark data}
+Benchmarks should inform decisions, not substitute for product reality. A library with a small bundle can still be the wrong choice if it cannot support the necessary accessibility, governance, or localization model.
+
+\begin{highlightbox}{Benchmark principle}
+Measure the same product scenario across libraries, then interpret the numbers through the lens of your team, your governance model, and your product constraints.
+\end{highlightbox}
+
+\clearpage
+\phantomsection
+\section*{Appendix U: Component Parity Matrix}
+\addcontentsline{toc}{section}{Appendix U: Component Parity Matrix}
+
+Appendix U compares component availability and support quality across the major libraries in the report. It is designed as a practical lookup table for teams planning migrations or hybrid architectures.
+
+\subsection*{U.1 Component availability and support level}
+\begin{longtable}{@{}p{0.17\textwidth}p{0.11\textwidth}p{0.11\textwidth}p{0.11\textwidth}p{0.11\textwidth}p{0.11\textwidth}p{0.11\textwidth}p{0.12\textwidth}@{}}
+\caption{Component parity matrix}\label{tab:parity-matrix}\\
+\toprule
+\textbf{Component} & \textbf{shadcn} & \textbf{MUI} & \textbf{Chakra} & \textbf{AntD} & \textbf{Radix} & \textbf{Tailwind UI} & \textbf{Notes} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Component} & \textbf{shadcn} & \textbf{MUI} & \textbf{Chakra} & \textbf{AntD} & \textbf{Radix} & \textbf{Tailwind UI} & \textbf{Notes} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+Button & Strong & Strong & Strong & Strong & Primitive & Pattern & All libraries handle buttons well. \\
+Input & Strong & Strong & Strong & Strong & Primitive & Pattern & Validation and autofill are the main concerns. \\
+Checkbox & Strong & Strong & Strong & Strong & Primitive & Pattern & Focus ring quality matters. \\
+Radio & Strong & Strong & Strong & Strong & Primitive & Pattern & Group semantics are critical. \\
+Select & Strong & Strong & Strong & Strong & Primitive & Pattern & Portal and keyboard behavior matter. \\
+Dialog & Strong & Strong & Strong & Strong & Strong & Pattern & Overlay behavior is a major test point. \\
+Drawer & Strong & Strong & Strong & Strong & Strong & Pattern & Safe area and focus return are important. \\
+Menu & Strong & Strong & Strong & Strong & Strong & Pattern & Keyboard navigation should be robust. \\
+Tabs & Strong & Strong & Strong & Strong & Strong & Pattern & State association and focus are important. \\
+Accordion & Strong & Strong & Strong & Strong & Strong & Pattern & Expand/collapse semantics should be clear. \\
+Tooltip & Strong & Strong & Strong & Strong & Strong & Pattern & Non-hover fallback matters. \\
+Toast & Strong & Strong & Strong & Strong & Strong & Pattern & Live region support is essential. \\
+Badge & Strong & Strong & Strong & Strong & Moderate & Pattern & Mostly presentation-driven. \\
+Avatar & Strong & Strong & Strong & Strong & Moderate & Pattern & Fallbacks and alt text matter. \\
+Progress & Strong & Strong & Strong & Strong & Moderate & Pattern & Value semantics are important. \\
+Skeleton & Strong & Strong & Strong & Strong & Moderate & Pattern & Layout stability matters. \\
+Table & Moderate & Strong & Strong & Strong & Moderate & Pattern & Enterprise data needs are strongest in MUI and AntD. \\
+Data grid & Moderate & Strong & Moderate & Strong & Weak & Moderate & Specialized data surfaces favor enterprise suites. \\
+Date picker & Moderate & Strong & Moderate & Strong & Weak & Weak & Locale and accessibility quality vary greatly. \\
+Combobox & Strong & Strong & Strong & Strong & Strong & Pattern & Rich search behavior requires careful testing. \\
+Tree view & Moderate & Moderate & Moderate & Strong & Weak & Weak & Useful for file explorers and nested settings. \\
+Stepper & Moderate & Strong & Strong & Strong & Weak & Weak & Good for onboarding and multi-step flows. \\
+Chip & Strong & Strong & Strong & Strong & Moderate & Pattern & Semantics and removable actions matter. \\
+Alert & Strong & Strong & Strong & Strong & Strong & Pattern & Clear feedback and role mapping are essential. \\
+Breadcrumbs & Strong & Strong & Strong & Strong & Moderate & Pattern & Great for hierarchy and navigation. \\
+Pagination & Strong & Strong & Strong & Strong & Moderate & Pattern & Common but often overused. \\
+File upload & Moderate & Strong & Moderate & Strong & Weak & Weak & Needs careful error handling and preview behavior. \\
+Command palette & Strong & Moderate & Moderate & Weak & Strong & Pattern & Usually implemented with custom primitives. \\
+\end{longtable}
+
+\subsection*{U.2 Accessibility support by component family}
+\begin{table}[htbp]
+  \centering
+  \caption{Accessibility support by component family}
+  \begin{tabularx}{\textwidth}{@{}p{0.20\textwidth}p{0.14\textwidth}p{0.14\textwidth}p{0.14\textwidth}p{0.14\textwidth}p{0.14\textwidth}Y@{}}
+    \toprule
+    \textbf{Family} & \textbf{shadcn} & \textbf{MUI} & \textbf{Chakra} & \textbf{AntD} & \textbf{Radix} & \textbf{Interpretation} \\
+    \midrule
+    Form controls & High & High & High & High & High & All can be strong if local wrappers preserve semantics. \\
+    Overlays & High & High & High & High & Very high & Radix remains the strongest behavior foundation. \\
+    Navigation & Medium-high & High & Medium-high & High & High & Most issues come from custom shells. \\
+    Data display & Medium & High & Medium & Very high & Low & Enterprise suites dominate heavy data surfaces. \\
+    Complex interactions & Medium-high & High & High & High & Very high & Primitive-first stacks are easier to extend safely. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection*{U.3 TypeScript support quality}
+\begin{table}[htbp]
+  \centering
+  \caption{TypeScript support quality by family}
+  \begin{tabularx}{\textwidth}{@{}p{0.20\textwidth}p{0.14\textwidth}p{0.14\textwidth}p{0.14\textwidth}p{0.14\textwidth}p{0.14\textwidth}Y@{}}
+    \toprule
+    \textbf{Family} & \textbf{shadcn} & \textbf{MUI} & \textbf{Chakra} & \textbf{AntD} & \textbf{Radix} & \textbf{Notes} \\
+    \midrule
+    Primitives & High & High & High & High & High & Source-owned wrappers can be strongly typed. \\
+    Forms & High & High & High & High & High & Controlled state typing matters most. \\
+    Menus / overlays & High & High & High & High & High & Types are strongest when APIs stay explicit. \\
+    Data grids & Medium & High & Medium & High & Low & Rich tables usually need extra wrapper types. \\
+    Polymorphism & High & Medium-high & Medium & Medium & High & `as` and `asChild` patterns should be documented carefully. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection*{U.4 Server Components compatibility}
+\begin{table}[htbp]
+  \centering
+  \caption{Server Components compatibility by family}
+  \begin{tabularx}{\textwidth}{@{}p{0.20\textwidth}p{0.14\textwidth}p{0.14\textwidth}p{0.14\textwidth}p{0.14\textwidth}p{0.14\textwidth}Y@{}}
+    \toprule
+    \textbf{Family} & \textbf{shadcn} & \textbf{MUI} & \textbf{Chakra} & \textbf{AntD} & \textbf{Radix} & \textbf{Notes} \\
+    \midrule
+    Static shells & Strong & Strong & Strong & Strong & Strong & Best when server-safe composition is isolated. \\
+    Interactive primitives & Medium & Medium-high & Medium-high & Medium-high & High & Client boundaries still matter. \\
+    Complex data widgets & Medium & High & Medium & High & Low & Many data widgets remain client-heavy. \\
+    Token and theme layers & High & High & High & High & High & Shared token architecture should remain server-safe where possible. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection*{U.5 Component selection notes}
+The matrix should be read as a practical guide rather than a scorecard. A component can be available in a library and still be the wrong choice if the surrounding architecture or team operating model does not fit.
+
+\begin{highlightbox}{Parity principle}
+A library is not defined only by whether it has a component. It is defined by how safely, consistently, and maintainably that component behaves in the real product system.
+\end{highlightbox}
+
+\clearpage
+\phantomsection
+\section*{Reference Atlas: Tables, Diagrams, and Reference Material}
+\addcontentsline{toc}{section}{Reference Atlas: Tables, Diagrams, and Reference Material}
+
+The reference atlas collects decision flows, architecture diagrams, lifecycle views, and comparison tables that teams can use when they need a dense visual reference rather than narrative explanation.
+
+\subsection*{Atlas 1: Library selection decision flow}
+\begin{figure}[p]
+\centering
+\begin{tikzpicture}[node distance=1.3cm, every node/.style={draw, rounded corners, align=center, font=\small, minimum width=3.8cm, minimum height=0.9cm}]
+  \node (start) {Start: what is the product constraint?};
+  \node (brand) [below left=0.9cm and 1.5cm of start] {Strong brand differentiation?};
+  \node (data) [below=of start] {Heavy enterprise data and forms?};
+  \node (platform) [below right=0.9cm and 1.5cm of start] {Need source ownership and local control?};
+  \node (radix) [below=of brand] {Use shadcn/ui or Radix-based stack.};
+  \node (mui) [below=of data] {Use MUI or Ant Design.};
+  \node (custom) [below=of platform] {Use source-owned primitives plus a token pipeline.};
+  \draw[->] (start) -- (brand);
+  \draw[->] (start) -- (data);
+  \draw[->] (start) -- (platform);
+  \draw[->] (brand) -- node[left] {yes} (radix);
+  \draw[->] (data) -- node[left] {yes} (mui);
+  \draw[->] (platform) -- node[right] {yes} (custom);
+\end{tikzpicture}
+\caption{Library selection decision flow}
+\end{figure}
+
+\subsection*{Atlas 2: Component lifecycle diagram}
+\begin{figure}[p]
+\centering
+\begin{tikzpicture}[node distance=1.2cm, every node/.style={draw, rounded corners, align=center, font=\small, minimum width=3.2cm, minimum height=0.8cm}]
+  \node (design) {Design intent};
+  \node (spec) [right=1.5cm of design] {Component spec};
+  \node (code) [right=1.5cm of spec] {Implementation};
+  \node (test) [right=1.5cm of code] {Tests};
+  \node (docs) [below=of spec] {Documentation};
+  \node (release) [below=of code] {Release};
+  \node (usage) [below=of test] {Usage telemetry};
+  \draw[->] (design) -- (spec);
+  \draw[->] (spec) -- (code);
+  \draw[->] (code) -- (test);
+  \draw[->] (spec) -- (docs);
+  \draw[->] (test) -- (release);
+  \draw[->] (release) -- (usage);
+  \draw[->] (usage) |- (spec);
+\end{tikzpicture}
+\caption{Component lifecycle diagram}
+\end{figure}
+
+\subsection*{Atlas 3: Token hierarchy visualization}
+\begin{figure}[p]
+\centering
+\begin{tikzpicture}[node distance=1.0cm, every node/.style={draw, rounded corners, align=center, font=\small, minimum width=3.1cm, minimum height=0.8cm}]
+  \node (raw) {Primitive tokens};
+  \node (sem) [below=of raw] {Semantic tokens};
+  \node (comp) [below=of sem] {Component tokens};
+  \node (state) [below=of comp] {State tokens};
+  \node (brand) [below=of state] {Brand / tenant overlays};
+  \draw[->] (raw) -- (sem);
+  \draw[->] (sem) -- (comp);
+  \draw[->] (comp) -- (state);
+  \draw[->] (state) -- (brand);
+\end{tikzpicture}
+\caption{Token hierarchy visualization}
+\end{figure}
+
+\subsection*{Atlas 4: Migration path diagram}
+\begin{figure}[p]
+\centering
+\begin{tikzpicture}[node distance=1.1cm, every node/.style={draw, rounded corners, align=center, font=\small, minimum width=3.4cm, minimum height=0.8cm}]
+  \node (legacy) {Legacy CSS / mixed library state};
+  \node (audit) [below=of legacy] {Inventory and risk audit};
+  \node (token) [below=of audit] {Token normalization};
+  \node (pilot) [below=of token] {Pilot migration surface};
+  \node (expand) [below=of pilot] {Incremental rollout};
+  \node (govern) [below=of expand] {Governance and deprecation};
+  \draw[->] (legacy) -- (audit);
+  \draw[->] (audit) -- (token);
+  \draw[->] (token) -- (pilot);
+  \draw[->] (pilot) -- (expand);
+  \draw[->] (expand) -- (govern);
+\end{tikzpicture}
+\caption{Migration path diagram}
+\end{figure}
+
+\subsection*{Atlas 5: Team structure diagrams by scale}
+\begin{table}[htbp]
+  \centering
+  \caption{Team structure by scale}
+  \begin{tabularx}{\textwidth}{@{}p{0.18\textwidth}p{0.26\textwidth}Y@{}}
+    \toprule
+    \textbf{Scale} & \textbf{Suggested structure} & \textbf{Purpose} \\
+    \midrule
+    Small team & One frontend owner, one designer, part-time QA. & Keep decision-making fast and reduce process overhead. \\
+    Mid-size team & Frontend lead, design system engineer, product designer, QA, accessibility reviewer. & Separate platform work from product delivery. \\
+    Large org & Central platform team, product migration champions, governance council, and accessibility specialist. & Support multi-team adoption and lifecycle control. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection*{Atlas 6: CI/CD pipeline diagram}
+\begin{figure}[p]
+\centering
+\begin{tikzpicture}[node distance=1.0cm, every node/.style={draw, rounded corners, align=center, font=\small, minimum width=3.2cm, minimum height=0.8cm}]
+  \node (src) {Source commit};
+  \node (lint) [right=1.4cm of src] {Lint and typecheck};
+  \node (a11y) [right=1.4cm of lint] {Accessibility tests};
+  \node (visual) [right=1.4cm of a11y] {Visual diff};
+  \node (build) [below=of lint] {Build and package};
+  \node (publish) [below=of visual] {Publish or deploy};
+  \draw[->] (src) -- (lint);
+  \draw[->] (lint) -- (a11y);
+  \draw[->] (a11y) -- (visual);
+  \draw[->] (lint) -- (build);
+  \draw[->] (visual) -- (publish);
+  \draw[->] (build) -- (publish);
+\end{tikzpicture}
+\caption{CI/CD pipeline diagram for component library development}
+\end{figure}
+
+\subsection*{Atlas 7: Comparison tables across important dimensions}
+\begin{table}[htbp]
+  \centering
+  \caption{Library fit by organization profile}
+  \begin{tabularx}{\textwidth}{@{}p{0.20\textwidth}p{0.16\textwidth}p{0.16\textwidth}p{0.16\textwidth}p{0.16\textwidth}Y@{}}
+    \toprule
+    \textbf{Profile} & \textbf{shadcn} & \textbf{MUI} & \textbf{Chakra} & \textbf{AntD} & \textbf{Reason} \\
+    \midrule
+    Startup with strong brand & Strong & Moderate & Strong & Weak & Control and visual identity matter most. \\
+    Enterprise dashboard & Moderate & Strong & Strong & Very strong & Breadth and governance dominate. \\
+    White-label platform & Strong & Strong & Strong & Moderate & Semantic tokens and theming are central. \\
+    Developer tool & Very strong & Strong & Moderate & Weak & Source ownership and keyboard density matter. \\
+    Public-sector portal & Moderate & Strong & Moderate & Strong & Accessibility and browser support are critical. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Theme model comparison}
+  \begin{tabularx}{\textwidth}{@{}p{0.20\textwidth}p{0.22\textwidth}Y@{}}
+    \toprule
+    \textbf{Model} & \textbf{Strength} & \textbf{Use case} \\
+    \midrule
+    CSS variables only & Simple and broadly supported. & Small systems or prototypes. \\
+    Semantic token pipeline & Strong governance and brand mapping. & Serious multi-brand products. \\
+    Runtime CSS-in-JS & Flexible local composition. & High-expressiveness apps with accepted runtime cost. \\
+    Source-owned styling & Maximum local control. & Brand-critical or rapidly changing products. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Reference architecture checklist}
+  \begin{tabularx}{\textwidth}{@{}p{0.20\textwidth}Y@{}}
+    \toprule
+    \textbf{Question} & \textbf{What good looks like} \\
+    \midrule
+    Where does design truth live? & In a validated token and component manifest. \\
+    How are updates published? & Through versioned releases with test gates. \\
+    How is risk measured? & Through audits, telemetry, and migration plans. \\
+    How are plugins controlled? & Through sandboxing, scopes, and review. \\
+    How is rollback handled? & Through tagged versions and explicit recovery steps. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\begin{highlightbox}{Reference atlas principle}
+Tables and diagrams are not decoration. They are compressed operational memory for teams that need to make repeatable decisions under time pressure.
+\end{highlightbox}

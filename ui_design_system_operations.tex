@@ -1,0 +1,158 @@
+\clearpage
+\section{Design System Operations}
+
+A design system is not sustained by component inventory alone. It survives through operating discipline: ownership, release management, education, measurement, support, and a clear path for product teams to adopt the system without friction.
+
+\subsection{Operating model}
+The operating model should answer four questions clearly: who owns the system, who consumes it, how changes are approved, and how the system proves value. If any of these are vague, the system becomes a set of isolated UI packages that drift apart over time.
+
+The strongest models treat the design system as an internal product with a roadmap, a service level expectation, and measurable adoption goals.
+
+\subsection{Team structure and responsibilities}
+The team does not need to be large, but it does need explicit responsibility boundaries.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Typical design system operating roles}
+  \begin{tabularx}{\textwidth}{@{}p{0.22\textwidth}p{0.26\textwidth}X@{}}
+    \toprule
+    \textbf{Role} & \textbf{Primary focus} & \textbf{Operational responsibility} \\
+    \midrule
+    Design system lead & Direction and prioritization & Owns roadmap, scope, and cross-functional alignment. \\
+    UI engineer & Component implementation & Maintains primitives, patterns, and release quality. \\
+    Designer & Visual and interaction integrity & Oversees tokens, accessibility, and composition guidance. \\
+    Product partner & Adoption and coordination & Connects system work to business outcomes and timelines. \\
+    Documentation owner & Knowledge architecture & Keeps examples, migration notes, and governance pages current. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Decision-making and governance}
+Strong governance avoids two common failure modes: uncontrolled contribution sprawl and central bottlenecking. The best systems use lightweight review gates and explicit decision categories.
+
+\begin{itemize}[leftmargin=*, itemsep=0.35em]
+  \item Standard changes: can be merged through normal review and test coverage.
+  \item Pattern changes: require design sign-off and compatibility review.
+  \item Breaking changes: require migration planning, release notes, and adoption outreach.
+  \item Platform changes: require architecture review because they affect many downstream products.
+\end{itemize}
+
+\subsection{Contribution model}
+A healthy design system invites contributions from product teams but does not allow uncontrolled divergence. The contribution workflow should be obvious, documented, and repeatable.
+
+\begin{enumerate}[leftmargin=*, itemsep=0.3em]
+  \item A product team identifies a reusable pattern.
+  \item The pattern is discussed in a short intake review.
+  \item A design proof and implementation sketch are produced.
+  \item The change is evaluated for API consistency and accessibility.
+  \item The system team merges, documents, and announces the update.
+\end{enumerate}
+
+The goal is not to block contributions. The goal is to transform local innovation into reusable institutional capability.
+
+\subsection{Release engineering}
+Versioning is one of the most visible signs that a design system is professionally operated. Releases should be predictable and semantically meaningful.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Release classes and communication expectations}
+  \begin{tabularx}{\textwidth}{@{}p{0.2\textwidth}p{0.24\textwidth}X@{}}
+    \toprule
+    \textbf{Release type} & \textbf{Trigger} & \textbf{Communication requirement} \\
+    \midrule
+    Patch & Bug fix or documentation improvement & Changelog note, no migration burden. \\
+    Minor & New backward-compatible capability & Short release summary and examples. \\
+    Major & Breaking API or behavior change & Migration guide, deprecation window, and direct outreach. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The release pipeline should include automated checks for type safety, accessibility, and visual regression before publishing.
+
+\subsection{Versioning strategy}
+Semver is still the default choice because consuming teams understand it. That said, semver only works when the team is disciplined about what counts as breaking.
+
+A change is breaking if it forces a downstream app to modify code, change semantics, or revisit accessibility assumptions. Pure internal refactors are not breaking, but they still need validation.
+
+\subsection{Documentation architecture}
+Documentation is the interface between the design system team and the rest of the organization. If the docs are weak, adoption will be slow even when the components are excellent.
+
+A useful documentation architecture usually contains five layers:
+
+\begin{itemize}[leftmargin=*, itemsep=0.35em]
+  \item Overview pages that explain the system mission and scope.
+  \item Component pages with usage, props, variants, and accessibility notes.
+  \item Pattern pages that show cross-component workflows.
+  \item Migration pages that explain how to move from older implementations.
+  \item Governance pages that describe contribution and release rules.
+\end{itemize}
+
+\subsection{Office hours and support model}
+Office hours are a simple but high-leverage practice. They convert support from reactive interruption into scheduled collaboration. Product teams can ask questions about component selection, token usage, and implementation tradeoffs before they drift into inconsistent local solutions.
+
+Support should be tiered. Questions about usage conventions should be answered quickly. Questions about API redesign or architecture should be routed into roadmap review.
+
+\subsection{Adoption metrics}
+A design system should be measured by actual adoption and reduction in duplication, not by the count of published components.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Adoption metrics that matter}
+  \begin{tabularx}{\textwidth}{@{}p{0.23\textwidth}X@{}}
+    \toprule
+    \textbf{Metric} & \textbf{Why it matters} \\
+    \midrule
+    Percentage of screens using system components & Indicates real product penetration. \\
+    Variant reuse rate & Shows whether APIs are expressive enough. \\
+    Token override frequency & Reveals whether theming is too rigid or too loose. \\
+    Migration completion time & Measures how expensive change management is. \\
+    Support ticket volume by component & Highlights brittle or confusing surfaces. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Health dashboards}
+Health dashboards should combine technical and product signals. A healthy system is not just passing tests; it is actually being used.
+
+\begin{itemize}[leftmargin=*, itemsep=0.35em]
+  \item Build and test pass rates.
+  \item Release frequency and change volume.
+  \item Accessibility audit score trends.
+  \item Storybook interaction coverage.
+  \item Consumption counts from application telemetry.
+  \item Time-to-adopt after a major release.
+\end{itemize}
+
+\subsection{Deprecation workflow}
+Deprecation should feel like a managed transition, not an ambush. Every deprecated component or prop needs a runway.
+
+\begin{enumerate}[leftmargin=*, itemsep=0.3em]
+  \item Mark the item deprecated in docs and code.
+  \item Identify replacement paths and preferred alternatives.
+  \item Set a removal date and communicate it early.
+  \item Emit runtime or lint warnings where useful.
+  \item Remove only after adoption has had a realistic window.
+\end{enumerate}
+
+\subsection{Handling incidents and regressions}
+Design system incidents often appear as visual regressions, broken forms, or accessibility failures in high-traffic workflows. Incident response should prioritize blast radius and user impact.
+
+The operational sequence is straightforward: confirm the issue, freeze risky releases, patch the library or package, communicate the workaround, and validate downstream impact. A quick response is more important than a perfect postmortem in the first hour.
+
+\subsection{Quarterly reviews}
+Quarterly reviews keep the system aligned to product reality. The review should answer whether the roadmap still matches team needs, whether the docs are keeping pace, and whether the published APIs are actually the ones teams use.
+
+\begin{itemize}[leftmargin=*, itemsep=0.35em]
+  \item What did teams adopt most and least?
+  \item Where did they fork the system locally?
+  \item Which missing primitives caused the most friction?
+  \item Which migrations are still in flight?
+  \item What should be retired or consolidated?
+\end{itemize}
+
+\subsection{Executive buy-in}
+Executive support matters because design systems are cost-saving infrastructure, not a one-off feature team output. The case for buy-in is strongest when presented in terms of speed, quality, and consistency.
+
+\begin{highlightbox}{Operating principle}
+A well-run design system behaves like a product and a platform at the same time: it serves consumers, it tracks its own health, and it improves its delivery process continuously.
+\end{highlightbox}

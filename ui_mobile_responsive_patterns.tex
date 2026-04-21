@@ -1,0 +1,299 @@
+\clearpage
+\section{Mobile and Responsive Patterns}
+
+Responsive design is not a layout polish exercise. It is the operational discipline of making complex interfaces usable on small screens, touch-first devices, variable viewports, and lower-power hardware. The best component libraries do not merely shrink gracefully; they preserve task clarity under constrained space and constrained input.
+
+A mobile-friendly UI stack needs to answer four questions well: how the user touches controls, how navigation reorganizes itself, how forms adapt to virtual keyboards, and how performance holds up on devices that are not desktop-class. Different libraries expose different levels of help, but none removes the need for local responsive policy.
+
+\subsection{Touch target size guidelines and enforcement by library}
+Touch target size is one of the easiest mobile failures to avoid and one of the most common to miss. The practical baseline is at least 44 by 44 CSS pixels, with extra padding for high-friction actions and gesture-heavy surfaces.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Touch target support and enforcement by library}
+  \begin{tabularx}{\textwidth}{@{}p{0.16\textwidth}p{0.21\textwidth}p{0.21\textwidth}Y@{}}
+    \toprule
+    \textbf{Library} & \textbf{Default posture} & \textbf{What helps} & \textbf{Common gap} \\
+    \midrule
+    shadcn/ui & Flexible, team-owned & Easy to add padding and size tokens locally. & Nothing enforces minimum hit area automatically. \\
+    Material UI & Good defaults & Button, icon, and touch-friendly spacing patterns are widely documented. & Dense custom overrides can shrink targets too far. \\
+    Chakra UI & Good defaults & Prop-based sizing makes touch spacing easy to tune. & Teams may rely on style props without a clear standard. \\
+    Ant Design & Strong enterprise density & Many controls are designed for operational workflows. & Dense layouts can become too compact on small screens. \\
+    Radix UI & Neutral, host-driven & Primitives can be wrapped with minimum-size utility classes. & The library does not impose touch policy by itself. \\
+    Tailwind UI & Depends on local implementation & Utility classes make hit areas easy to codify. & Copy-paste can preserve desktop-sized controls if unchecked. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The enforcement layer should not rely on visual inspection alone. Teams can add automated checks for small hit areas, especially on icon buttons and dense navigation surfaces.
+
+\begin{verbatim}
+button:focus-visible,
+a[role="button"],
+button.icon-only {
+  min-width: 44px;
+  min-height: 44px;
+}
+\end{verbatim}
+
+\subsection{Gesture handling in component libraries}
+Gestures such as swipe, pan, long press, and drag create a tension between native-feeling behavior and accidental conflict with scroll. Libraries differ in how much of that problem they solve.
+
+MUI includes richer gesture-adjacent patterns such as swipeable drawers and mobile navigation helpers. Chakra and shadcn-based systems typically rely on the host application or a gesture utility to define the interaction. Radix is intentionally behavior-focused but not a gesture framework, so gesture support must come from the host stack.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Gesture handling comparison}
+  \begin{tabularx}{\textwidth}{@{}p{0.22\textwidth}p{0.18\textwidth}p{0.20\textwidth}Y@{}}
+    \toprule
+    \textbf{Gesture type} & \textbf{Best library fit} & \textbf{Typical implementation} & \textbf{Risk} \\
+    \midrule
+    Swipe to dismiss & MUI or custom stack & Drawer, toast, and list item gestures. & Can conflict with horizontal scrolling. \\
+    Long press & Custom or Radix-based host layer & Context menu or action reveal. & Needs careful mobile feedback. \\
+    Drag and drop & Custom stack or enterprise grid tools & Kanban boards, reordering, file panels. & Accessibility and pointer fallback are easy to miss. \\
+    Tap and hold menu & Tailored host component & Context actions on cards or rows. & Can be misread as accidental press. \\
+    Edge swipe navigation & Mobile shell implementation & Native-like back navigation patterns. & Interacts badly with browser gestures if not scoped. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The main rule is restraint: gestures should accelerate a task, not replace a visible control without warning.
+
+\subsection{Mobile-first versus desktop-first component design}
+Mobile-first design starts with the smallest viewport and adds complexity as space grows. Desktop-first design starts with the widest screen and subtracts or collapses elements later. For product teams building serious software, mobile-first is often the safer planning heuristic because it forces a simpler hierarchy.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Mobile-first versus desktop-first}
+  \begin{tabularx}{\textwidth}{@{}p{0.18\textwidth}p{0.32\textwidth}Y@{}}
+    \toprule
+    \textbf{Strategy} & \textbf{Benefit} & \textbf{When it fails} \\
+    \midrule
+    Mobile-first & Clarifies priorities, reduces clutter, and improves touch use. & Can under-serve dense desktop workflows if not expanded thoughtfully. \\
+    Desktop-first & Matches many data-heavy enterprise products. & Often hides mobile breakpoints until late, causing awkward collapse behavior. \\
+    Hybrid adaptive & Treats layout as a responsive contract rather than a single device target. & Requires a strong design token and behavior model. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+A useful principle is to design the content order independent of viewport and let layout express importance, not invent it.
+
+\subsection{Responsive navigation pattern comparison}
+Navigation is the clearest place where responsive design becomes visible. A pattern that works on desktop can become unusable on a narrow screen if it is not re-authored.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Responsive navigation patterns}
+  \begin{tabularx}{\textwidth}{@{}p{0.24\textwidth}p{0.18\textwidth}p{0.18\textwidth}Y@{}}
+    \toprule
+    \textbf{Pattern} & \textbf{Mobile fit} & \textbf{Desktop fit} & \textbf{Notes} \\
+    \midrule
+    Bottom navigation & Strong & Weak & Great for a small number of top-level destinations. \\
+    Drawer or side sheet & Strong & Strong & Useful when the information architecture is deeper. \\
+    Tab bar & Good & Good & Best for limited mode switching rather than deep navigation. \\
+    Hamburger menu & Adequate & Weak & Often necessary, but usually not the best discoverability model. \\
+    Command palette & Moderate & Strong & Excellent for power users, but not a primary mobile nav system. \\
+    Hybrid shell & Strong & Strong & Often combines drawer, tabs, and contextual action surfaces. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+MUI offers mature drawer and bottom navigation patterns. Ant Design handles broader nav structures well, but mobile density needs careful tuning. shadcn/ui and Radix-based stacks are very strong when the team wants to own the shell behavior and appearance. Tailwind UI accelerates the visual side of these patterns but still requires interaction logic.
+
+\subsection{Bottom sheet and drawer patterns for mobile}
+Bottom sheets are often better than modals on mobile because they align with thumb reach and preserve context. Drawers work well for menus, filter panels, and secondary workflows. The implementation details matter: safe-area support, drag handles, scroll containment, and escape behavior all affect usability.
+
+\begin{verbatim}
+function MobileSheet({ open, onOpenChange, children }) {
+  return (
+    <div
+      className="fixed inset-x-0 bottom-0 rounded-t-2xl bg-background shadow-2xl"
+      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+    >
+      <div className="mx-auto mt-2 h-1.5 w-12 rounded-full bg-muted" />
+      {children}
+    </div>
+  )
+}
+\end{verbatim}
+
+Libraries that expose portals and focus management well make these patterns easier to implement safely, but the visual shell still needs explicit mobile tuning.
+
+\subsection{Mobile form optimization strategies}
+Mobile forms should reduce typing, use the right input types, and avoid unnecessary columns or nested grouping. Every extra step becomes more expensive when the keyboard is open and screen real estate is small.
+
+\begin{itemize}[leftmargin=*, itemsep=0.35em]
+  \item Use `inputMode`, `type`, and `enterKeyHint` to guide the keyboard.
+  \item Prefer one-column layouts on small screens.
+  \item Place labels above controls for better readability and touch accuracy.
+  \item Reduce the number of required fields before the first commitment step.
+  \item Use autocomplete, picker components, and defaults to reduce typing burden.
+\end{itemize}
+
+\begin{verbatim}
+<input
+  type="email"
+  inputMode="email"
+  autoComplete="email"
+  enterKeyHint="next"
+/>
+\end{verbatim}
+
+The strongest library is the one that makes these defaults easy to encode repeatedly, not the one that merely looks good in a screenshot.
+
+\subsection{Viewport and orientation change handling}
+Responsive systems need to respond to viewport changes, orientation changes, and split-screen behavior. CSS media queries handle a lot of this, but apps often need runtime awareness as well.
+
+\begin{verbatim}
+function useViewportState() {
+  const [state, setState] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  })
+
+  useEffect(() => {
+    const handler = () => setState({ width: window.innerWidth, height: window.innerHeight })
+    window.addEventListener("resize", handler)
+    window.addEventListener("orientationchange", handler)
+    return () => {
+      window.removeEventListener("resize", handler)
+      window.removeEventListener("orientationchange", handler)
+    }
+  }, [])
+
+  return state
+}
+\end{verbatim}
+
+The `visualViewport` API is often useful for keyboard-aware layouts because the visible area can shrink even when the CSS viewport does not fully reflect the keyboard state.
+
+\subsection{Progressive Web App considerations}
+A component library can support PWA behavior well when it keeps the app shell responsive, cache-friendly, and installable. Mobile products benefit from offline awareness, deferred hydration, and compact navigation surfaces that remain legible when connectivity is unstable.
+
+\begin{itemize}[leftmargin=*, itemsep=0.35em]
+  \item Use app-shell layouts that do not depend on a full desktop navigation frame.
+  \item Keep critical surfaces available offline or in low-connectivity fallback mode.
+  \item Ensure install prompts and update notices do not block core workflows.
+  \item Respect safe-area insets and notch constraints on modern devices.
+\end{itemize}
+
+\subsection{Native-feeling animations on mobile}
+Mobile animations should feel like interface feedback rather than decoration. Fast, small, and physically legible transitions tend to work best. Overscrolled drawers, bottom sheets, and card transitions should move on transform and opacity, not on expensive layout-driven properties.
+
+\begin{verbatim}
+.sheet-enter {
+  transform: translateY(100%);
+  opacity: 0;
+}
+.sheet-enter-active {
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 220ms cubic-bezier(.2,.8,.2,1), opacity 220ms ease;
+}
+\end{verbatim}
+
+MUI and Radix-based stacks tend to be good foundations for this because the interaction semantics are explicit. The animation layer should remain light.
+
+\subsection{Scroll behavior and momentum scrolling}
+Scroll behavior becomes a quality issue on mobile when the app traps the page, nests scroll containers without purpose, or interrupts momentum. Drawers and modals should contain scroll appropriately, but the document itself should not fight the browser.
+
+\begin{verbatim}
+.modal-body {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+\end{verbatim}
+
+Scroll-lock logic inside overlays should be tested carefully because body locks and nested scroll containers often create bugs that only appear on real devices.
+
+\subsection{Virtual keyboard handling in mobile forms}
+The virtual keyboard changes the visible viewport and can obscure buttons, fields, and sticky action bars. A well-behaved mobile form should keep the current input visible, avoid abrupt focus jumps, and allow the user to complete the flow without manual screen repositioning.
+
+\begin{verbatim}
+function focusAndReveal(el: HTMLElement) {
+  el.scrollIntoView({ block: "center", behavior: "smooth" })
+  el.focus()
+}
+\end{verbatim}
+
+Sticky footers are useful, but they must respect safe-area insets and not cover the last field. This is especially important in checkout, signup, and settings flows.
+
+\subsection{Responsive table strategies}
+Tables are difficult on mobile because wide data does not naturally fit a narrow screen. The best strategy depends on the task.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Responsive table strategies}
+  \begin{tabularx}{\textwidth}{@{}p{0.24\textwidth}p{0.24\textwidth}Y@{}}
+    \toprule
+    \textbf{Strategy} & \textbf{Best use case} & \textbf{Tradeoff} \\
+    \midrule
+    Horizontal scroll & Dense admin views with many columns. & Can be hard to discover and scan. \\
+    Stacked card rows & Task-oriented data with a small number of key fields. & Less compact than a true table. \\
+    Column prioritization & When only a few fields matter on mobile. & Secondary fields need drill-down. \\
+    Expandable rows & Complex records with optional detail. & Adds interaction complexity. \\
+    Separate mobile view & Consumer or semi-structured workflows. & Requires duplicate layout logic. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Ant Design and MUI remain strong for desktop-heavy tables, but mobile often requires a companion pattern. shadcn/ui and Radix-based systems are usually easier to reshape because the team owns the final markup.
+
+\subsection{Image handling in responsive component contexts}
+Images need responsive sizing, stable aspect ratios, lazy loading, and content-aware cropping. Components should avoid layout shift by reserving space before the image arrives.
+
+\begin{verbatim}
+<img
+  src="/hero.jpg"
+  srcSet="/hero-640.jpg 640w, /hero-1280.jpg 1280w"
+  sizes="(max-width: 768px) 100vw, 50vw"
+  alt="Product dashboard preview"
+  loading="lazy"
+  decoding="async"
+/>
+\end{verbatim}
+
+Avatars, banners, product screenshots, and charts all need different responsive rules. A design system should centralize those choices instead of leaving each screen to invent its own.
+
+\subsection{Performance on low-end mobile devices}
+The mobile constraint is not only screen size. It is also CPU, memory, network quality, thermal throttling, and battery pressure. A component library that feels fine on a flagship device may struggle badly on a low-end Android phone.
+
+\begin{itemize}[leftmargin=*, itemsep=0.35em]
+  \item Reduce initial JavaScript and defer noncritical features.
+  \item Prefer static or server-rendered markup where possible.
+  \item Avoid expensive shadow and blur effects on large areas.
+  \item Keep animation count low and duration short.
+  \item Subset fonts and compress images aggressively.
+\end{itemize}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Low-end mobile risk areas}
+  \begin{tabularx}{\textwidth}{@{}p{0.22\textwidth}p{0.23\textwidth}Y@{}}
+    \toprule
+    \textbf{Risk area} & \textbf{Why it hurts} & \textbf{Mitigation} \\
+    \midrule
+    Heavy client bundles & Slow startup and delayed interaction. & Split routes and lazy-load noncritical UI. \\
+    Rich animations & Excess GPU and CPU consumption. & Use transform and opacity only, and keep durations short. \\
+    Dense component trees & More DOM and reconciliation cost. & Flatten wrappers and virtualize long lists. \\
+    Large fonts and images & Network and memory overhead. & Subset and compress, then use responsive loading. \\
+    Long reflows from layout shift & Repaint cost and visual instability. & Reserve space and avoid unstable placeholders. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Responsive testing and verification}
+Responsive components should be validated with real device classes, throttled network conditions, and simulated keyboard and orientation changes. Browser devtools are useful, but they are not enough to cover the full range of mobile behavior.
+
+\begin{enumerate}[leftmargin=*, itemsep=0.35em]
+  \item Test touch targets on a coarse pointer profile.
+  \item Verify drawer and sheet behavior under keyboard open and closed states.
+  \item Check navigation, table, and form patterns in portrait and landscape.
+  \item Profile bundle and render cost on low-end emulation settings.
+  \item Validate safe-area spacing on notched devices.
+\end{enumerate}
+
+\begin{highlightbox}{Responsive principle}
+A component is not truly responsive until it remains understandable, touchable, and performant on the smallest device the product has to support.
+\end{highlightbox}

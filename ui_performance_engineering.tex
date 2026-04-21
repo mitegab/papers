@@ -1,0 +1,160 @@
+\clearpage
+\section{Performance Engineering}
+
+Performance engineering is the place where library choice becomes measurable rather than rhetorical. Visual appeal matters, but teams ship production experiences that are constrained by bundle weight, paint time, hydration behavior, memory pressure, and the cost of rerendering complex trees.
+
+\subsection{Bundle size analysis methodology}
+Bundle analysis should use route-level measurements rather than package-level assumptions. A library that looks large in theory may be acceptable in practice if tree shaking works well and only a narrow subset is shipped to each route.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Bundle analysis methodology}
+  \begin{tabularx}{\textwidth}{@{}p{0.26\textwidth}Y@{}}
+    \toprule
+    \textbf{Metric} & \textbf{Why it matters} \\
+    \midrule
+    Initial JS payload & Predicts first-load latency and mobile cost. \\
+    Route-level chunk weight & Shows what users actually download per workflow. \\
+    CSS payload weight & Reveals style-generation overhead. \\
+    Hydration cost & Measures how much client work follows server render. \\
+    Shared vendor duplication & Identifies repeated runtime cost across routes. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Code splitting strategies by library}
+\subsubsection{shadcn/ui}
+Source-owned components split naturally because teams only import what they use. The main performance risk comes from over-centralized custom wrappers that accidentally pull large dependency sets into common bundles.
+
+\begin{verbatim}
+const SettingsModal = lazy(() => import("@/components/settings-modal"))
+\end{verbatim}
+
+\subsubsection{Material UI}
+MUI benefits from route-level boundary discipline and selective import patterns. Wide imports often erase tree-shaking gains.
+
+\begin{verbatim}
+import Button from "@mui/material/Button"
+import Dialog from "@mui/material/Dialog"
+\end{verbatim}
+
+\subsubsection{Chakra UI}
+Chakra performs best when provider trees are stable and components are not wrapped in expensive context layers unnecessarily.
+
+\subsubsection{Ant Design}
+Ant Design benefits from aggressively narrowing imported submodules. Dense enterprise screens often require careful chunk discipline to avoid overloading first paint.
+
+\subsubsection{Radix UI and Tailwind UI}
+Radix primitives are usually lightweight, but custom shells can become heavy if teams rebuild too much local behavior around them.
+
+\subsection{Tree shaking effectiveness with webpack and Vite}
+Tree shaking quality depends on package structure, side-effect flags, and import style. Vite typically rewards cleaner ESM boundaries, while webpack behavior can vary more with legacy package metadata.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Tree shaking behavior summary}
+  \begin{tabularx}{\textwidth}{@{}p{0.22\textwidth}p{0.18\textwidth}Y@{}}
+    \toprule
+    \textbf{Library} & \textbf{Tree-shake quality} & \textbf{Typical note} \\
+    \midrule
+    shadcn/ui & Strong & Local source makes import boundaries explicit. \\
+    MUI & Strong if imported narrowly & Barrel imports can increase bundle size unexpectedly. \\
+    Chakra UI & Good & Provider and helper costs matter more than primitive weight. \\
+    Ant Design & Moderate to strong & Wide feature surface requires import discipline. \\
+    Radix UI & Strong & Headless primitives are usually modular and lightweight. \\
+    Tailwind UI & High variance & Copy-paste patterns depend on local implementation choices. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Runtime performance and paint-time behavior}
+Runtime cost is often visible in interaction-heavy flows rather than initial page paint. Heavy state updates, large tables, and deep context trees are the main stressors.
+
+\begin{verbatim}
+performance.mark("table-render-start")
+setRows(nextRows)
+requestAnimationFrame(() => performance.mark("table-render-end"))
+\end{verbatim}
+
+\subsection{Memory usage in long-running applications}
+Long-running dashboards are often memory-bound by retained closures, unbounded caches, and event listeners attached to recreated components.
+
+\begin{itemize}[leftmargin=*, itemsep=0.35em]
+  \item Reuse memoized selectors for derived data.
+  \item Avoid recreating large style objects on every render.
+  \item Release subscriptions when panels collapse or routes change.
+  \item Prefer windowed rendering over giant DOM trees.
+\end{itemize}
+
+\subsection{Lazy loading component patterns}
+Lazy loading is most effective for infrequently used flows such as settings, admin panels, and advanced filters.
+
+\begin{verbatim}
+const AdvancedFilters = lazy(() => import("./advanced-filters"))
+\end{verbatim}
+
+\subsection{Virtualization strategies for large trees}
+Virtualization matters for tables, lists, timelines, and tree views. The core strategy is the same: render only what the user can see, then overscan a small buffer.
+
+\begin{verbatim}
+const virtualRows = useVirtualizer({
+  count: data.length,
+  estimateSize: () => 40,
+  overscan: 8,
+})
+\end{verbatim}
+
+\subsection{CSS-in-JS runtime cost analysis}
+Libraries that generate styles at runtime can pay a cost in CPU, style recalculation, and cache complexity. This is not automatically bad, but it should be measured.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Runtime style generation tradeoff}
+  \begin{tabularx}{\textwidth}{@{}p{0.24\textwidth}p{0.25\textwidth}Y@{}}
+    \toprule
+    \textbf{Approach} & \textbf{Benefit} & \textbf{Tradeoff} \\
+    \midrule
+    CSS variables + utility CSS & Strong browser cache behavior & Less dynamic expressiveness in some cases. \\
+    Runtime CSS-in-JS & Powerful local composition & CPU and style-generation overhead. \\
+    Static extraction & Predictable output & Some runtime flexibility is lost. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Atomic CSS versus runtime style generation}
+Atomic CSS tends to move cost into build time and away from runtime. Runtime style generation can be expressive, but it should be used deliberately in high-traffic products.
+
+\subsection{React DevTools profiler analysis}
+Profiler data typically reveals two major patterns: rerender cascades from context churn and expensive list/table rendering. Teams should inspect commit time, render duration, and flamegraph width for critical workflows.
+
+\subsection{Lighthouse and Core Web Vitals impact}
+Lighthouse and CWV outcomes are usually strongest when component libraries are paired with disciplined import hygiene, server-render boundaries, and minimal client-side boot cost.
+
+\subsection{Server-side rendering performance comparison}
+SSR is strongest when the library supports consistent markup generation and hydration that does not require excessive client correction. MUI, Radix-based systems, and shadcn-style local primitives can all perform well if boundaries are clear.
+
+\subsection{Streaming SSR and Suspense compatibility}
+Libraries must tolerate partial rendering and delayed client boundaries. Heavy reliance on client-only state can reduce the effectiveness of streaming SSR.
+
+\subsection{Debugging edge-case performance failures}
+Common failures include scroll jank from heavy virtualization, hydration mismatch, and repeated layout shift from unstable placeholders.
+
+\begin{verbatim}
+function debugHydration(label: string) {
+  console.log(label, performance.now())
+}
+\end{verbatim}
+
+\subsection{Library-specific performance guidance}
+\begin{itemize}[leftmargin=*, itemsep=0.35em]
+  \item shadcn/ui: keep local wrappers lean and avoid introducing accidental shared megabundles.
+  \item Material UI: import narrowly, profile theme cost, and minimize broad style overrides.
+  \item Chakra UI: stabilize provider trees and watch for rerender amplification.
+  \item Ant Design: use route-level boundaries and aggressive table virtualization.
+  \item Radix UI: pair primitives with carefully measured custom shells.
+  \item Tailwind UI: copy patterns selectively and avoid accidental duplication across screens.
+\end{itemize}
+
+\begin{highlightbox}{Performance principle}
+The fastest library is the one whose cost model your product can predict, measure, and control in production rather than in a marketing benchmark.
+\end{highlightbox}

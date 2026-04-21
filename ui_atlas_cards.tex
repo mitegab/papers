@@ -1,0 +1,1666 @@
+\clearpage
+\subsection*{Atlas Card 01: Enterprise Admin Console}
+\textbf{Context.} This card models a production setting for a enterprise admin console where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Local component forks are diverging and upstream fixes are not propagating safely.
+\textbf{Architecture intervention.} Adopt manifest-driven component metadata with explicit ownership, dependencies, and test contracts.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset enterprise-core
+ui-tool add data-grid tenant-switcher
+ui-tool sync --brand default --plan
+ui-tool patch data-grid --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Type-check generated source and fail on unresolved alias paths.
+  \item Run accessibility tests for keyboard flow, focus visibility, and label integrity.
+  \item Compare visual snapshots across compact, comfortable, and spacious density profiles.
+  \item Reject patches that increase bundle size beyond agreed thresholds.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Patch-merge success rate above 95% across three consecutive releases.
+  \item Accessibility escape defects reduced below one per release cycle.
+  \item Mean review time for shared primitive updates below one business day.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 02: Developer Platform Onboarding}
+\textbf{Context.} This card models a production setting for a developer platform onboarding where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Token aliases are inconsistent across brands, producing unstable visual outcomes.
+\textbf{Architecture intervention.} Compile primitive and semantic tokens into CSS variables and Tailwind mappings from one source.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset startup-saas
+ui-tool add command-palette audit-timeline
+ui-tool sync --brand enterprise --plan
+ui-tool patch command-palette --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Run accessibility tests for keyboard flow, focus visibility, and label integrity.
+  \item Compare visual snapshots across compact, comfortable, and spacious density profiles.
+  \item Reject patches that increase bundle size beyond agreed thresholds.
+  \item Verify product-level analytics and event hooks remain present after sync.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Accessibility escape defects reduced below one per release cycle.
+  \item Mean review time for shared primitive updates below one business day.
+  \item Component reuse ratio increases quarter over quarter across active teams.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 03: AI Operations Workspace}
+\textbf{Context.} This card models a production setting for a ai operations workspace where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Accessibility regressions appear after seemingly harmless component updates.
+\textbf{Architecture intervention.} Introduce AST-aware patch transactions to preserve local edits while ingesting upstream fixes.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset regulated-finance
+ui-tool add filter-panel status-badge
+ui-tool sync --brand compact --plan
+ui-tool patch filter-panel --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Compare visual snapshots across compact, comfortable, and spacious density profiles.
+  \item Reject patches that increase bundle size beyond agreed thresholds.
+  \item Verify product-level analytics and event hooks remain present after sync.
+  \item Validate manifest schema and dependency graph integrity before publish.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Mean review time for shared primitive updates below one business day.
+  \item Component reuse ratio increases quarter over quarter across active teams.
+  \item Token-drift incidents reduced to zero in milestone release branches.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 04: Internal Tooling Suite}
+\textbf{Context.} This card models a production setting for a internal tooling suite where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Generated components do not match repository conventions, increasing review friction.
+\textbf{Architecture intervention.} Split registry-managed primitives from product compositions under separate directories.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset ai-ops
+ui-tool add tenant-switcher policy-editor
+ui-tool sync --brand contrast --plan
+ui-tool patch tenant-switcher --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Reject patches that increase bundle size beyond agreed thresholds.
+  \item Verify product-level analytics and event hooks remain present after sync.
+  \item Validate manifest schema and dependency graph integrity before publish.
+  \item Run interaction smoke tests for modal, menu, and command-surface behavior.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Component reuse ratio increases quarter over quarter across active teams.
+  \item Token-drift incidents reduced to zero in milestone release branches.
+  \item Rollback frequency decreases while release cadence remains constant.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 05: Design System Registry Service}
+\textbf{Context.} This card models a production setting for a design system registry service where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Dense tables and filters have drifted into multiple incompatible pattern variants.
+\textbf{Architecture intervention.} Enforce release gates for keyboard traversal, focus return, and ARIA conformance.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset design-system
+ui-tool add audit-timeline token-inspector
+ui-tool sync --brand regional --plan
+ui-tool patch audit-timeline --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Verify product-level analytics and event hooks remain present after sync.
+  \item Validate manifest schema and dependency graph integrity before publish.
+  \item Run interaction smoke tests for modal, menu, and command-surface behavior.
+  \item Confirm token references remain semantic and avoid raw primitive hardcoding.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Token-drift incidents reduced to zero in milestone release branches.
+  \item Rollback frequency decreases while release cadence remains constant.
+  \item Time-to-add-component remains stable as registry size scales.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 06: White-Label SaaS Product}
+\textbf{Context.} This card models a production setting for a white-label saas product where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Release velocity is high, but rollback confidence is low for shared UI primitives.
+\textbf{Architecture intervention.} Treat component generation as a deterministic pipeline with context hydration and schema validation.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset multibrand
+ui-tool add status-badge activity-stream
+ui-tool sync --brand dark --plan
+ui-tool patch status-badge --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Validate manifest schema and dependency graph integrity before publish.
+  \item Run interaction smoke tests for modal, menu, and command-surface behavior.
+  \item Confirm token references remain semantic and avoid raw primitive hardcoding.
+  \item Type-check generated source and fail on unresolved alias paths.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Rollback frequency decreases while release cadence remains constant.
+  \item Time-to-add-component remains stable as registry size scales.
+  \item Cross-team adoption growth sustained over two planning cycles.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 07: Financial Workflow Interface}
+\textbf{Context.} This card models a production setting for a financial workflow interface where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Theming updates require hand-editing dozens of components across product surfaces.
+\textbf{Architecture intervention.} Standardize density and motion as token dimensions rather than per-component overrides.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset developer-tools
+ui-tool add policy-editor permissions-matrix
+ui-tool sync --brand default --plan
+ui-tool patch policy-editor --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Run interaction smoke tests for modal, menu, and command-surface behavior.
+  \item Confirm token references remain semantic and avoid raw primitive hardcoding.
+  \item Type-check generated source and fail on unresolved alias paths.
+  \item Run accessibility tests for keyboard flow, focus visibility, and label integrity.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Time-to-add-component remains stable as registry size scales.
+  \item Cross-team adoption growth sustained over two planning cycles.
+  \item Patch-merge success rate above 95% across three consecutive releases.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 08: High-Density Analytics Surface}
+\textbf{Context.} This card models a production setting for a high-density analytics surface where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Patch merges overwrite product-specific analytics hooks and interaction instrumentation.
+\textbf{Architecture intervention.} Attach rollback metadata to every UI patch so failed releases can be reversed safely.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset enterprise-core
+ui-tool add token-inspector data-grid
+ui-tool sync --brand enterprise --plan
+ui-tool patch token-inspector --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Confirm token references remain semantic and avoid raw primitive hardcoding.
+  \item Type-check generated source and fail on unresolved alias paths.
+  \item Run accessibility tests for keyboard flow, focus visibility, and label integrity.
+  \item Compare visual snapshots across compact, comfortable, and spacious density profiles.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Cross-team adoption growth sustained over two planning cycles.
+  \item Patch-merge success rate above 95% across three consecutive releases.
+  \item Accessibility escape defects reduced below one per release cycle.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 09: Customer Success Operations Hub}
+\textbf{Context.} This card models a production setting for a customer success operations hub where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Command-line workflows are non-deterministic across developer environments.
+\textbf{Architecture intervention.} Publish component documentation from manifests to keep API, behavior, and tests synchronized.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset startup-saas
+ui-tool add activity-stream command-palette
+ui-tool sync --brand compact --plan
+ui-tool patch activity-stream --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Type-check generated source and fail on unresolved alias paths.
+  \item Run accessibility tests for keyboard flow, focus visibility, and label integrity.
+  \item Compare visual snapshots across compact, comfortable, and spacious density profiles.
+  \item Reject patches that increase bundle size beyond agreed thresholds.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Patch-merge success rate above 95% across three consecutive releases.
+  \item Accessibility escape defects reduced below one per release cycle.
+  \item Mean review time for shared primitive updates below one business day.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 10: Multi-Tenant Policy Center}
+\textbf{Context.} This card models a production setting for a multi-tenant policy center where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Design and engineering teams use different semantic vocabularies for the same patterns.
+\textbf{Architecture intervention.} Use repository-aware codegen templates that honor local aliases, lint rules, and utility helpers.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset regulated-finance
+ui-tool add permissions-matrix filter-panel
+ui-tool sync --brand contrast --plan
+ui-tool patch permissions-matrix --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Run accessibility tests for keyboard flow, focus visibility, and label integrity.
+  \item Compare visual snapshots across compact, comfortable, and spacious density profiles.
+  \item Reject patches that increase bundle size beyond agreed thresholds.
+  \item Verify product-level analytics and event hooks remain present after sync.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Accessibility escape defects reduced below one per release cycle.
+  \item Mean review time for shared primitive updates below one business day.
+  \item Component reuse ratio increases quarter over quarter across active teams.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 11: Documentation and API Explorer}
+\textbf{Context.} This card models a production setting for a documentation and api explorer where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Local component forks are diverging and upstream fixes are not propagating safely.
+\textbf{Architecture intervention.} Adopt manifest-driven component metadata with explicit ownership, dependencies, and test contracts.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset ai-ops
+ui-tool add data-grid tenant-switcher
+ui-tool sync --brand regional --plan
+ui-tool patch data-grid --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Compare visual snapshots across compact, comfortable, and spacious density profiles.
+  \item Reject patches that increase bundle size beyond agreed thresholds.
+  \item Verify product-level analytics and event hooks remain present after sync.
+  \item Validate manifest schema and dependency graph integrity before publish.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Mean review time for shared primitive updates below one business day.
+  \item Component reuse ratio increases quarter over quarter across active teams.
+  \item Token-drift incidents reduced to zero in milestone release branches.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 12: Data Governance Control Plane}
+\textbf{Context.} This card models a production setting for a data governance control plane where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Token aliases are inconsistent across brands, producing unstable visual outcomes.
+\textbf{Architecture intervention.} Compile primitive and semantic tokens into CSS variables and Tailwind mappings from one source.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset design-system
+ui-tool add command-palette audit-timeline
+ui-tool sync --brand dark --plan
+ui-tool patch command-palette --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Reject patches that increase bundle size beyond agreed thresholds.
+  \item Verify product-level analytics and event hooks remain present after sync.
+  \item Validate manifest schema and dependency graph integrity before publish.
+  \item Run interaction smoke tests for modal, menu, and command-surface behavior.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Component reuse ratio increases quarter over quarter across active teams.
+  \item Token-drift incidents reduced to zero in milestone release branches.
+  \item Rollback frequency decreases while release cadence remains constant.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 13: Incident Response Console}
+\textbf{Context.} This card models a production setting for a incident response console where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Accessibility regressions appear after seemingly harmless component updates.
+\textbf{Architecture intervention.} Introduce AST-aware patch transactions to preserve local edits while ingesting upstream fixes.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset multibrand
+ui-tool add filter-panel status-badge
+ui-tool sync --brand default --plan
+ui-tool patch filter-panel --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Verify product-level analytics and event hooks remain present after sync.
+  \item Validate manifest schema and dependency graph integrity before publish.
+  \item Run interaction smoke tests for modal, menu, and command-surface behavior.
+  \item Confirm token references remain semantic and avoid raw primitive hardcoding.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Token-drift incidents reduced to zero in milestone release branches.
+  \item Rollback frequency decreases while release cadence remains constant.
+  \item Time-to-add-component remains stable as registry size scales.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 14: Growth Experimentation Studio}
+\textbf{Context.} This card models a production setting for a growth experimentation studio where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Generated components do not match repository conventions, increasing review friction.
+\textbf{Architecture intervention.} Split registry-managed primitives from product compositions under separate directories.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset developer-tools
+ui-tool add tenant-switcher policy-editor
+ui-tool sync --brand enterprise --plan
+ui-tool patch tenant-switcher --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Validate manifest schema and dependency graph integrity before publish.
+  \item Run interaction smoke tests for modal, menu, and command-surface behavior.
+  \item Confirm token references remain semantic and avoid raw primitive hardcoding.
+  \item Type-check generated source and fail on unresolved alias paths.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Rollback frequency decreases while release cadence remains constant.
+  \item Time-to-add-component remains stable as registry size scales.
+  \item Cross-team adoption growth sustained over two planning cycles.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 15: Enterprise Admin Console}
+\textbf{Context.} This card models a production setting for a enterprise admin console where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Dense tables and filters have drifted into multiple incompatible pattern variants.
+\textbf{Architecture intervention.} Enforce release gates for keyboard traversal, focus return, and ARIA conformance.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset enterprise-core
+ui-tool add audit-timeline token-inspector
+ui-tool sync --brand compact --plan
+ui-tool patch audit-timeline --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Run interaction smoke tests for modal, menu, and command-surface behavior.
+  \item Confirm token references remain semantic and avoid raw primitive hardcoding.
+  \item Type-check generated source and fail on unresolved alias paths.
+  \item Run accessibility tests for keyboard flow, focus visibility, and label integrity.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Time-to-add-component remains stable as registry size scales.
+  \item Cross-team adoption growth sustained over two planning cycles.
+  \item Patch-merge success rate above 95% across three consecutive releases.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 16: Developer Platform Onboarding}
+\textbf{Context.} This card models a production setting for a developer platform onboarding where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Release velocity is high, but rollback confidence is low for shared UI primitives.
+\textbf{Architecture intervention.} Treat component generation as a deterministic pipeline with context hydration and schema validation.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset startup-saas
+ui-tool add status-badge activity-stream
+ui-tool sync --brand contrast --plan
+ui-tool patch status-badge --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Confirm token references remain semantic and avoid raw primitive hardcoding.
+  \item Type-check generated source and fail on unresolved alias paths.
+  \item Run accessibility tests for keyboard flow, focus visibility, and label integrity.
+  \item Compare visual snapshots across compact, comfortable, and spacious density profiles.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Cross-team adoption growth sustained over two planning cycles.
+  \item Patch-merge success rate above 95% across three consecutive releases.
+  \item Accessibility escape defects reduced below one per release cycle.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 17: AI Operations Workspace}
+\textbf{Context.} This card models a production setting for a ai operations workspace where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Theming updates require hand-editing dozens of components across product surfaces.
+\textbf{Architecture intervention.} Standardize density and motion as token dimensions rather than per-component overrides.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset regulated-finance
+ui-tool add policy-editor permissions-matrix
+ui-tool sync --brand regional --plan
+ui-tool patch policy-editor --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Type-check generated source and fail on unresolved alias paths.
+  \item Run accessibility tests for keyboard flow, focus visibility, and label integrity.
+  \item Compare visual snapshots across compact, comfortable, and spacious density profiles.
+  \item Reject patches that increase bundle size beyond agreed thresholds.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Patch-merge success rate above 95% across three consecutive releases.
+  \item Accessibility escape defects reduced below one per release cycle.
+  \item Mean review time for shared primitive updates below one business day.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 18: Internal Tooling Suite}
+\textbf{Context.} This card models a production setting for a internal tooling suite where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Patch merges overwrite product-specific analytics hooks and interaction instrumentation.
+\textbf{Architecture intervention.} Attach rollback metadata to every UI patch so failed releases can be reversed safely.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset ai-ops
+ui-tool add token-inspector data-grid
+ui-tool sync --brand dark --plan
+ui-tool patch token-inspector --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Run accessibility tests for keyboard flow, focus visibility, and label integrity.
+  \item Compare visual snapshots across compact, comfortable, and spacious density profiles.
+  \item Reject patches that increase bundle size beyond agreed thresholds.
+  \item Verify product-level analytics and event hooks remain present after sync.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Accessibility escape defects reduced below one per release cycle.
+  \item Mean review time for shared primitive updates below one business day.
+  \item Component reuse ratio increases quarter over quarter across active teams.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 19: Design System Registry Service}
+\textbf{Context.} This card models a production setting for a design system registry service where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Command-line workflows are non-deterministic across developer environments.
+\textbf{Architecture intervention.} Publish component documentation from manifests to keep API, behavior, and tests synchronized.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset design-system
+ui-tool add activity-stream command-palette
+ui-tool sync --brand default --plan
+ui-tool patch activity-stream --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Compare visual snapshots across compact, comfortable, and spacious density profiles.
+  \item Reject patches that increase bundle size beyond agreed thresholds.
+  \item Verify product-level analytics and event hooks remain present after sync.
+  \item Validate manifest schema and dependency graph integrity before publish.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Mean review time for shared primitive updates below one business day.
+  \item Component reuse ratio increases quarter over quarter across active teams.
+  \item Token-drift incidents reduced to zero in milestone release branches.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 20: White-Label SaaS Product}
+\textbf{Context.} This card models a production setting for a white-label saas product where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Design and engineering teams use different semantic vocabularies for the same patterns.
+\textbf{Architecture intervention.} Use repository-aware codegen templates that honor local aliases, lint rules, and utility helpers.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset multibrand
+ui-tool add permissions-matrix filter-panel
+ui-tool sync --brand enterprise --plan
+ui-tool patch permissions-matrix --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Reject patches that increase bundle size beyond agreed thresholds.
+  \item Verify product-level analytics and event hooks remain present after sync.
+  \item Validate manifest schema and dependency graph integrity before publish.
+  \item Run interaction smoke tests for modal, menu, and command-surface behavior.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Component reuse ratio increases quarter over quarter across active teams.
+  \item Token-drift incidents reduced to zero in milestone release branches.
+  \item Rollback frequency decreases while release cadence remains constant.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 21: Financial Workflow Interface}
+\textbf{Context.} This card models a production setting for a financial workflow interface where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Local component forks are diverging and upstream fixes are not propagating safely.
+\textbf{Architecture intervention.} Adopt manifest-driven component metadata with explicit ownership, dependencies, and test contracts.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset developer-tools
+ui-tool add data-grid tenant-switcher
+ui-tool sync --brand compact --plan
+ui-tool patch data-grid --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Verify product-level analytics and event hooks remain present after sync.
+  \item Validate manifest schema and dependency graph integrity before publish.
+  \item Run interaction smoke tests for modal, menu, and command-surface behavior.
+  \item Confirm token references remain semantic and avoid raw primitive hardcoding.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Token-drift incidents reduced to zero in milestone release branches.
+  \item Rollback frequency decreases while release cadence remains constant.
+  \item Time-to-add-component remains stable as registry size scales.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 22: High-Density Analytics Surface}
+\textbf{Context.} This card models a production setting for a high-density analytics surface where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Token aliases are inconsistent across brands, producing unstable visual outcomes.
+\textbf{Architecture intervention.} Compile primitive and semantic tokens into CSS variables and Tailwind mappings from one source.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset enterprise-core
+ui-tool add command-palette audit-timeline
+ui-tool sync --brand contrast --plan
+ui-tool patch command-palette --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Validate manifest schema and dependency graph integrity before publish.
+  \item Run interaction smoke tests for modal, menu, and command-surface behavior.
+  \item Confirm token references remain semantic and avoid raw primitive hardcoding.
+  \item Type-check generated source and fail on unresolved alias paths.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Rollback frequency decreases while release cadence remains constant.
+  \item Time-to-add-component remains stable as registry size scales.
+  \item Cross-team adoption growth sustained over two planning cycles.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 23: Customer Success Operations Hub}
+\textbf{Context.} This card models a production setting for a customer success operations hub where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Accessibility regressions appear after seemingly harmless component updates.
+\textbf{Architecture intervention.} Introduce AST-aware patch transactions to preserve local edits while ingesting upstream fixes.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset startup-saas
+ui-tool add filter-panel status-badge
+ui-tool sync --brand regional --plan
+ui-tool patch filter-panel --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Run interaction smoke tests for modal, menu, and command-surface behavior.
+  \item Confirm token references remain semantic and avoid raw primitive hardcoding.
+  \item Type-check generated source and fail on unresolved alias paths.
+  \item Run accessibility tests for keyboard flow, focus visibility, and label integrity.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Time-to-add-component remains stable as registry size scales.
+  \item Cross-team adoption growth sustained over two planning cycles.
+  \item Patch-merge success rate above 95% across three consecutive releases.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 24: Multi-Tenant Policy Center}
+\textbf{Context.} This card models a production setting for a multi-tenant policy center where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Generated components do not match repository conventions, increasing review friction.
+\textbf{Architecture intervention.} Split registry-managed primitives from product compositions under separate directories.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset regulated-finance
+ui-tool add tenant-switcher policy-editor
+ui-tool sync --brand dark --plan
+ui-tool patch tenant-switcher --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Confirm token references remain semantic and avoid raw primitive hardcoding.
+  \item Type-check generated source and fail on unresolved alias paths.
+  \item Run accessibility tests for keyboard flow, focus visibility, and label integrity.
+  \item Compare visual snapshots across compact, comfortable, and spacious density profiles.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Cross-team adoption growth sustained over two planning cycles.
+  \item Patch-merge success rate above 95% across three consecutive releases.
+  \item Accessibility escape defects reduced below one per release cycle.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 25: Documentation and API Explorer}
+\textbf{Context.} This card models a production setting for a documentation and api explorer where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Dense tables and filters have drifted into multiple incompatible pattern variants.
+\textbf{Architecture intervention.} Enforce release gates for keyboard traversal, focus return, and ARIA conformance.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset ai-ops
+ui-tool add audit-timeline token-inspector
+ui-tool sync --brand default --plan
+ui-tool patch audit-timeline --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Type-check generated source and fail on unresolved alias paths.
+  \item Run accessibility tests for keyboard flow, focus visibility, and label integrity.
+  \item Compare visual snapshots across compact, comfortable, and spacious density profiles.
+  \item Reject patches that increase bundle size beyond agreed thresholds.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Patch-merge success rate above 95% across three consecutive releases.
+  \item Accessibility escape defects reduced below one per release cycle.
+  \item Mean review time for shared primitive updates below one business day.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 26: Data Governance Control Plane}
+\textbf{Context.} This card models a production setting for a data governance control plane where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Release velocity is high, but rollback confidence is low for shared UI primitives.
+\textbf{Architecture intervention.} Treat component generation as a deterministic pipeline with context hydration and schema validation.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset design-system
+ui-tool add status-badge activity-stream
+ui-tool sync --brand enterprise --plan
+ui-tool patch status-badge --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Run accessibility tests for keyboard flow, focus visibility, and label integrity.
+  \item Compare visual snapshots across compact, comfortable, and spacious density profiles.
+  \item Reject patches that increase bundle size beyond agreed thresholds.
+  \item Verify product-level analytics and event hooks remain present after sync.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Accessibility escape defects reduced below one per release cycle.
+  \item Mean review time for shared primitive updates below one business day.
+  \item Component reuse ratio increases quarter over quarter across active teams.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 27: Incident Response Console}
+\textbf{Context.} This card models a production setting for a incident response console where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Theming updates require hand-editing dozens of components across product surfaces.
+\textbf{Architecture intervention.} Standardize density and motion as token dimensions rather than per-component overrides.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset multibrand
+ui-tool add policy-editor permissions-matrix
+ui-tool sync --brand compact --plan
+ui-tool patch policy-editor --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Compare visual snapshots across compact, comfortable, and spacious density profiles.
+  \item Reject patches that increase bundle size beyond agreed thresholds.
+  \item Verify product-level analytics and event hooks remain present after sync.
+  \item Validate manifest schema and dependency graph integrity before publish.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Mean review time for shared primitive updates below one business day.
+  \item Component reuse ratio increases quarter over quarter across active teams.
+  \item Token-drift incidents reduced to zero in milestone release branches.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 28: Growth Experimentation Studio}
+\textbf{Context.} This card models a production setting for a growth experimentation studio where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Patch merges overwrite product-specific analytics hooks and interaction instrumentation.
+\textbf{Architecture intervention.} Attach rollback metadata to every UI patch so failed releases can be reversed safely.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset developer-tools
+ui-tool add token-inspector data-grid
+ui-tool sync --brand contrast --plan
+ui-tool patch token-inspector --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Reject patches that increase bundle size beyond agreed thresholds.
+  \item Verify product-level analytics and event hooks remain present after sync.
+  \item Validate manifest schema and dependency graph integrity before publish.
+  \item Run interaction smoke tests for modal, menu, and command-surface behavior.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Component reuse ratio increases quarter over quarter across active teams.
+  \item Token-drift incidents reduced to zero in milestone release branches.
+  \item Rollback frequency decreases while release cadence remains constant.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 29: Enterprise Admin Console}
+\textbf{Context.} This card models a production setting for a enterprise admin console where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Command-line workflows are non-deterministic across developer environments.
+\textbf{Architecture intervention.} Publish component documentation from manifests to keep API, behavior, and tests synchronized.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset enterprise-core
+ui-tool add activity-stream command-palette
+ui-tool sync --brand regional --plan
+ui-tool patch activity-stream --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Verify product-level analytics and event hooks remain present after sync.
+  \item Validate manifest schema and dependency graph integrity before publish.
+  \item Run interaction smoke tests for modal, menu, and command-surface behavior.
+  \item Confirm token references remain semantic and avoid raw primitive hardcoding.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Token-drift incidents reduced to zero in milestone release branches.
+  \item Rollback frequency decreases while release cadence remains constant.
+  \item Time-to-add-component remains stable as registry size scales.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 30: Developer Platform Onboarding}
+\textbf{Context.} This card models a production setting for a developer platform onboarding where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Design and engineering teams use different semantic vocabularies for the same patterns.
+\textbf{Architecture intervention.} Use repository-aware codegen templates that honor local aliases, lint rules, and utility helpers.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset startup-saas
+ui-tool add permissions-matrix filter-panel
+ui-tool sync --brand dark --plan
+ui-tool patch permissions-matrix --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Validate manifest schema and dependency graph integrity before publish.
+  \item Run interaction smoke tests for modal, menu, and command-surface behavior.
+  \item Confirm token references remain semantic and avoid raw primitive hardcoding.
+  \item Type-check generated source and fail on unresolved alias paths.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Rollback frequency decreases while release cadence remains constant.
+  \item Time-to-add-component remains stable as registry size scales.
+  \item Cross-team adoption growth sustained over two planning cycles.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 31: AI Operations Workspace}
+\textbf{Context.} This card models a production setting for a ai operations workspace where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Local component forks are diverging and upstream fixes are not propagating safely.
+\textbf{Architecture intervention.} Adopt manifest-driven component metadata with explicit ownership, dependencies, and test contracts.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset regulated-finance
+ui-tool add data-grid tenant-switcher
+ui-tool sync --brand default --plan
+ui-tool patch data-grid --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Run interaction smoke tests for modal, menu, and command-surface behavior.
+  \item Confirm token references remain semantic and avoid raw primitive hardcoding.
+  \item Type-check generated source and fail on unresolved alias paths.
+  \item Run accessibility tests for keyboard flow, focus visibility, and label integrity.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Time-to-add-component remains stable as registry size scales.
+  \item Cross-team adoption growth sustained over two planning cycles.
+  \item Patch-merge success rate above 95% across three consecutive releases.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 32: Internal Tooling Suite}
+\textbf{Context.} This card models a production setting for a internal tooling suite where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Token aliases are inconsistent across brands, producing unstable visual outcomes.
+\textbf{Architecture intervention.} Compile primitive and semantic tokens into CSS variables and Tailwind mappings from one source.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset ai-ops
+ui-tool add command-palette audit-timeline
+ui-tool sync --brand enterprise --plan
+ui-tool patch command-palette --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Confirm token references remain semantic and avoid raw primitive hardcoding.
+  \item Type-check generated source and fail on unresolved alias paths.
+  \item Run accessibility tests for keyboard flow, focus visibility, and label integrity.
+  \item Compare visual snapshots across compact, comfortable, and spacious density profiles.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Cross-team adoption growth sustained over two planning cycles.
+  \item Patch-merge success rate above 95% across three consecutive releases.
+  \item Accessibility escape defects reduced below one per release cycle.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 33: Design System Registry Service}
+\textbf{Context.} This card models a production setting for a design system registry service where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Accessibility regressions appear after seemingly harmless component updates.
+\textbf{Architecture intervention.} Introduce AST-aware patch transactions to preserve local edits while ingesting upstream fixes.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset design-system
+ui-tool add filter-panel status-badge
+ui-tool sync --brand compact --plan
+ui-tool patch filter-panel --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Type-check generated source and fail on unresolved alias paths.
+  \item Run accessibility tests for keyboard flow, focus visibility, and label integrity.
+  \item Compare visual snapshots across compact, comfortable, and spacious density profiles.
+  \item Reject patches that increase bundle size beyond agreed thresholds.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Patch-merge success rate above 95% across three consecutive releases.
+  \item Accessibility escape defects reduced below one per release cycle.
+  \item Mean review time for shared primitive updates below one business day.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 34: White-Label SaaS Product}
+\textbf{Context.} This card models a production setting for a white-label saas product where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Generated components do not match repository conventions, increasing review friction.
+\textbf{Architecture intervention.} Split registry-managed primitives from product compositions under separate directories.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset multibrand
+ui-tool add tenant-switcher policy-editor
+ui-tool sync --brand contrast --plan
+ui-tool patch tenant-switcher --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Run accessibility tests for keyboard flow, focus visibility, and label integrity.
+  \item Compare visual snapshots across compact, comfortable, and spacious density profiles.
+  \item Reject patches that increase bundle size beyond agreed thresholds.
+  \item Verify product-level analytics and event hooks remain present after sync.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Accessibility escape defects reduced below one per release cycle.
+  \item Mean review time for shared primitive updates below one business day.
+  \item Component reuse ratio increases quarter over quarter across active teams.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 35: Financial Workflow Interface}
+\textbf{Context.} This card models a production setting for a financial workflow interface where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Dense tables and filters have drifted into multiple incompatible pattern variants.
+\textbf{Architecture intervention.} Enforce release gates for keyboard traversal, focus return, and ARIA conformance.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset developer-tools
+ui-tool add audit-timeline token-inspector
+ui-tool sync --brand regional --plan
+ui-tool patch audit-timeline --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Compare visual snapshots across compact, comfortable, and spacious density profiles.
+  \item Reject patches that increase bundle size beyond agreed thresholds.
+  \item Verify product-level analytics and event hooks remain present after sync.
+  \item Validate manifest schema and dependency graph integrity before publish.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Mean review time for shared primitive updates below one business day.
+  \item Component reuse ratio increases quarter over quarter across active teams.
+  \item Token-drift incidents reduced to zero in milestone release branches.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 36: High-Density Analytics Surface}
+\textbf{Context.} This card models a production setting for a high-density analytics surface where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Release velocity is high, but rollback confidence is low for shared UI primitives.
+\textbf{Architecture intervention.} Treat component generation as a deterministic pipeline with context hydration and schema validation.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset enterprise-core
+ui-tool add status-badge activity-stream
+ui-tool sync --brand dark --plan
+ui-tool patch status-badge --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Reject patches that increase bundle size beyond agreed thresholds.
+  \item Verify product-level analytics and event hooks remain present after sync.
+  \item Validate manifest schema and dependency graph integrity before publish.
+  \item Run interaction smoke tests for modal, menu, and command-surface behavior.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Component reuse ratio increases quarter over quarter across active teams.
+  \item Token-drift incidents reduced to zero in milestone release branches.
+  \item Rollback frequency decreases while release cadence remains constant.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 37: Customer Success Operations Hub}
+\textbf{Context.} This card models a production setting for a customer success operations hub where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Theming updates require hand-editing dozens of components across product surfaces.
+\textbf{Architecture intervention.} Standardize density and motion as token dimensions rather than per-component overrides.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset startup-saas
+ui-tool add policy-editor permissions-matrix
+ui-tool sync --brand default --plan
+ui-tool patch policy-editor --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Verify product-level analytics and event hooks remain present after sync.
+  \item Validate manifest schema and dependency graph integrity before publish.
+  \item Run interaction smoke tests for modal, menu, and command-surface behavior.
+  \item Confirm token references remain semantic and avoid raw primitive hardcoding.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Token-drift incidents reduced to zero in milestone release branches.
+  \item Rollback frequency decreases while release cadence remains constant.
+  \item Time-to-add-component remains stable as registry size scales.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 38: Multi-Tenant Policy Center}
+\textbf{Context.} This card models a production setting for a multi-tenant policy center where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Patch merges overwrite product-specific analytics hooks and interaction instrumentation.
+\textbf{Architecture intervention.} Attach rollback metadata to every UI patch so failed releases can be reversed safely.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset regulated-finance
+ui-tool add token-inspector data-grid
+ui-tool sync --brand enterprise --plan
+ui-tool patch token-inspector --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Validate manifest schema and dependency graph integrity before publish.
+  \item Run interaction smoke tests for modal, menu, and command-surface behavior.
+  \item Confirm token references remain semantic and avoid raw primitive hardcoding.
+  \item Type-check generated source and fail on unresolved alias paths.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Rollback frequency decreases while release cadence remains constant.
+  \item Time-to-add-component remains stable as registry size scales.
+  \item Cross-team adoption growth sustained over two planning cycles.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 39: Documentation and API Explorer}
+\textbf{Context.} This card models a production setting for a documentation and api explorer where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Command-line workflows are non-deterministic across developer environments.
+\textbf{Architecture intervention.} Publish component documentation from manifests to keep API, behavior, and tests synchronized.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset ai-ops
+ui-tool add activity-stream command-palette
+ui-tool sync --brand compact --plan
+ui-tool patch activity-stream --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Run interaction smoke tests for modal, menu, and command-surface behavior.
+  \item Confirm token references remain semantic and avoid raw primitive hardcoding.
+  \item Type-check generated source and fail on unresolved alias paths.
+  \item Run accessibility tests for keyboard flow, focus visibility, and label integrity.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Time-to-add-component remains stable as registry size scales.
+  \item Cross-team adoption growth sustained over two planning cycles.
+  \item Patch-merge success rate above 95% across three consecutive releases.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 40: Data Governance Control Plane}
+\textbf{Context.} This card models a production setting for a data governance control plane where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Design and engineering teams use different semantic vocabularies for the same patterns.
+\textbf{Architecture intervention.} Use repository-aware codegen templates that honor local aliases, lint rules, and utility helpers.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset design-system
+ui-tool add permissions-matrix filter-panel
+ui-tool sync --brand contrast --plan
+ui-tool patch permissions-matrix --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Confirm token references remain semantic and avoid raw primitive hardcoding.
+  \item Type-check generated source and fail on unresolved alias paths.
+  \item Run accessibility tests for keyboard flow, focus visibility, and label integrity.
+  \item Compare visual snapshots across compact, comfortable, and spacious density profiles.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Cross-team adoption growth sustained over two planning cycles.
+  \item Patch-merge success rate above 95% across three consecutive releases.
+  \item Accessibility escape defects reduced below one per release cycle.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 41: Incident Response Console}
+\textbf{Context.} This card models a production setting for a incident response console where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Local component forks are diverging and upstream fixes are not propagating safely.
+\textbf{Architecture intervention.} Adopt manifest-driven component metadata with explicit ownership, dependencies, and test contracts.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset multibrand
+ui-tool add data-grid tenant-switcher
+ui-tool sync --brand regional --plan
+ui-tool patch data-grid --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Type-check generated source and fail on unresolved alias paths.
+  \item Run accessibility tests for keyboard flow, focus visibility, and label integrity.
+  \item Compare visual snapshots across compact, comfortable, and spacious density profiles.
+  \item Reject patches that increase bundle size beyond agreed thresholds.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Patch-merge success rate above 95% across three consecutive releases.
+  \item Accessibility escape defects reduced below one per release cycle.
+  \item Mean review time for shared primitive updates below one business day.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 42: Growth Experimentation Studio}
+\textbf{Context.} This card models a production setting for a growth experimentation studio where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Token aliases are inconsistent across brands, producing unstable visual outcomes.
+\textbf{Architecture intervention.} Compile primitive and semantic tokens into CSS variables and Tailwind mappings from one source.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset developer-tools
+ui-tool add command-palette audit-timeline
+ui-tool sync --brand dark --plan
+ui-tool patch command-palette --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Run accessibility tests for keyboard flow, focus visibility, and label integrity.
+  \item Compare visual snapshots across compact, comfortable, and spacious density profiles.
+  \item Reject patches that increase bundle size beyond agreed thresholds.
+  \item Verify product-level analytics and event hooks remain present after sync.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Accessibility escape defects reduced below one per release cycle.
+  \item Mean review time for shared primitive updates below one business day.
+  \item Component reuse ratio increases quarter over quarter across active teams.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 43: Enterprise Admin Console}
+\textbf{Context.} This card models a production setting for a enterprise admin console where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Accessibility regressions appear after seemingly harmless component updates.
+\textbf{Architecture intervention.} Introduce AST-aware patch transactions to preserve local edits while ingesting upstream fixes.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset enterprise-core
+ui-tool add filter-panel status-badge
+ui-tool sync --brand default --plan
+ui-tool patch filter-panel --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Compare visual snapshots across compact, comfortable, and spacious density profiles.
+  \item Reject patches that increase bundle size beyond agreed thresholds.
+  \item Verify product-level analytics and event hooks remain present after sync.
+  \item Validate manifest schema and dependency graph integrity before publish.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Mean review time for shared primitive updates below one business day.
+  \item Component reuse ratio increases quarter over quarter across active teams.
+  \item Token-drift incidents reduced to zero in milestone release branches.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 44: Developer Platform Onboarding}
+\textbf{Context.} This card models a production setting for a developer platform onboarding where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Generated components do not match repository conventions, increasing review friction.
+\textbf{Architecture intervention.} Split registry-managed primitives from product compositions under separate directories.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset startup-saas
+ui-tool add tenant-switcher policy-editor
+ui-tool sync --brand enterprise --plan
+ui-tool patch tenant-switcher --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Reject patches that increase bundle size beyond agreed thresholds.
+  \item Verify product-level analytics and event hooks remain present after sync.
+  \item Validate manifest schema and dependency graph integrity before publish.
+  \item Run interaction smoke tests for modal, menu, and command-surface behavior.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Component reuse ratio increases quarter over quarter across active teams.
+  \item Token-drift incidents reduced to zero in milestone release branches.
+  \item Rollback frequency decreases while release cadence remains constant.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 45: AI Operations Workspace}
+\textbf{Context.} This card models a production setting for a ai operations workspace where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Dense tables and filters have drifted into multiple incompatible pattern variants.
+\textbf{Architecture intervention.} Enforce release gates for keyboard traversal, focus return, and ARIA conformance.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset regulated-finance
+ui-tool add audit-timeline token-inspector
+ui-tool sync --brand compact --plan
+ui-tool patch audit-timeline --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Verify product-level analytics and event hooks remain present after sync.
+  \item Validate manifest schema and dependency graph integrity before publish.
+  \item Run interaction smoke tests for modal, menu, and command-surface behavior.
+  \item Confirm token references remain semantic and avoid raw primitive hardcoding.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Token-drift incidents reduced to zero in milestone release branches.
+  \item Rollback frequency decreases while release cadence remains constant.
+  \item Time-to-add-component remains stable as registry size scales.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 46: Internal Tooling Suite}
+\textbf{Context.} This card models a production setting for a internal tooling suite where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Release velocity is high, but rollback confidence is low for shared UI primitives.
+\textbf{Architecture intervention.} Treat component generation as a deterministic pipeline with context hydration and schema validation.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset ai-ops
+ui-tool add status-badge activity-stream
+ui-tool sync --brand contrast --plan
+ui-tool patch status-badge --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Validate manifest schema and dependency graph integrity before publish.
+  \item Run interaction smoke tests for modal, menu, and command-surface behavior.
+  \item Confirm token references remain semantic and avoid raw primitive hardcoding.
+  \item Type-check generated source and fail on unresolved alias paths.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Rollback frequency decreases while release cadence remains constant.
+  \item Time-to-add-component remains stable as registry size scales.
+  \item Cross-team adoption growth sustained over two planning cycles.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 47: Design System Registry Service}
+\textbf{Context.} This card models a production setting for a design system registry service where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Theming updates require hand-editing dozens of components across product surfaces.
+\textbf{Architecture intervention.} Standardize density and motion as token dimensions rather than per-component overrides.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset design-system
+ui-tool add policy-editor permissions-matrix
+ui-tool sync --brand regional --plan
+ui-tool patch policy-editor --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Run interaction smoke tests for modal, menu, and command-surface behavior.
+  \item Confirm token references remain semantic and avoid raw primitive hardcoding.
+  \item Type-check generated source and fail on unresolved alias paths.
+  \item Run accessibility tests for keyboard flow, focus visibility, and label integrity.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Time-to-add-component remains stable as registry size scales.
+  \item Cross-team adoption growth sustained over two planning cycles.
+  \item Patch-merge success rate above 95% across three consecutive releases.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 48: White-Label SaaS Product}
+\textbf{Context.} This card models a production setting for a white-label saas product where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Patch merges overwrite product-specific analytics hooks and interaction instrumentation.
+\textbf{Architecture intervention.} Attach rollback metadata to every UI patch so failed releases can be reversed safely.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset multibrand
+ui-tool add token-inspector data-grid
+ui-tool sync --brand dark --plan
+ui-tool patch token-inspector --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Confirm token references remain semantic and avoid raw primitive hardcoding.
+  \item Type-check generated source and fail on unresolved alias paths.
+  \item Run accessibility tests for keyboard flow, focus visibility, and label integrity.
+  \item Compare visual snapshots across compact, comfortable, and spacious density profiles.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Cross-team adoption growth sustained over two planning cycles.
+  \item Patch-merge success rate above 95% across three consecutive releases.
+  \item Accessibility escape defects reduced below one per release cycle.
+\end{itemize}
+\clearpage
+\subsection*{Atlas Card 49: Financial Workflow Interface}
+\textbf{Context.} This card models a production setting for a financial workflow interface where a component system must support speed, reliability, and long-lived maintainability.
+\textbf{Problem signature.} Command-line workflows are non-deterministic across developer environments.
+\textbf{Architecture intervention.} Publish component documentation from manifests to keep API, behavior, and tests synchronized.
+\textbf{Implementation sequence.}
+\begin{enumerate}[leftmargin=*, itemsep=0.28em]
+  \item Create or update the component manifest with ownership, dependency, and a11y metadata.
+  \item Run a context-aware generation pass to align imports, aliases, and utility helpers.
+  \item Apply semantic token remapping and validate density or motion variants.
+  \item Execute patch diff review and preserve product-specific instrumentation.
+  \item Publish only after passing type, accessibility, interaction, and visual gates.
+\end{enumerate}
+\textbf{Reference command flow.}
+\begin{verbatim}
+ui-tool init --preset developer-tools
+ui-tool add activity-stream command-palette
+ui-tool sync --brand default --plan
+ui-tool patch activity-stream --strategy semantic-merge
+ui-tool doctor --strict
+\end{verbatim}
+\textbf{Quality gates.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Type-check generated source and fail on unresolved alias paths.
+  \item Run accessibility tests for keyboard flow, focus visibility, and label integrity.
+  \item Compare visual snapshots across compact, comfortable, and spacious density profiles.
+  \item Reject patches that increase bundle size beyond agreed thresholds.
+\end{itemize}
+\textbf{Exit criteria.}
+\begin{itemize}[leftmargin=*, itemsep=0.24em]
+  \item Patch-merge success rate above 95% across three consecutive releases.
+  \item Accessibility escape defects reduced below one per release cycle.
+  \item Mean review time for shared primitive updates below one business day.
+\end{itemize}

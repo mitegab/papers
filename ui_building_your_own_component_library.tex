@@ -1,0 +1,292 @@
+\clearpage
+\section{Building Your Own Component Library}
+
+There are two reasons teams decide to build their own component library. The first is necessity: no existing system matches the product's constraints, brand language, or operating model. The second is control: the team wants source ownership, predictable extension points, and a maintenance path that matches its internal architecture.
+
+Building a component library is not a shortcut around complexity. It is a commitment to owning it. The team must decide what is standardized, what remains flexible, what gets versioned, and how change flows from design to code to release.
+
+\subsection{When to build versus buy}
+The build-versus-buy decision should be made with operational evidence rather than taste. A library should be built when the product requires strong local ownership, nonstandard interaction models, multiple brand skins, or a tight design-code loop that external packages cannot support well. It should be bought when speed, coverage, and established defaults matter more than exact control.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Build versus buy decision factors}
+  \begin{tabularx}{\textwidth}{@{}p{0.22\textwidth}p{0.30\textwidth}Y@{}}
+    \toprule
+    \textbf{Factor} & \textbf{Build when...} & \textbf{Buy when...} \\
+    \midrule
+    Brand uniqueness & The interface must feel highly specific and differentiated. & A common enterprise look is acceptable. \\
+    Team size & The org has enough frontend skill to own the system. & The team is small and needs speed over ownership. \\
+    Product complexity & Workflows are domain-specific and unusually custom. & Common forms, tables, and nav patterns dominate. \\
+    Compliance & The team needs exact auditability and local control. & Vendor governance is sufficient for the product. \\
+    Design evolution & Tokens and variants change often. & The design language is relatively stable. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+A useful rule is to build only when the system is strategic. If the UI layer is simply a commodity, a mature external library is usually better.
+
+\subsection{Minimum viable design system architecture}
+The minimum viable design system is not a huge catalog. It is a small, coherent foundation that can support the product's most important screens.
+
+\begin{enumerate}[leftmargin=*, itemsep=0.35em]
+  \item A token layer that defines spacing, color, radius, typography, motion, and density.
+  \item A primitive layer with buttons, inputs, labels, dialogs, menus, and basic layout blocks.
+  \item A pattern layer for forms, navigation shells, empty states, and tables.
+  \item A documentation layer with usage examples and accessibility notes.
+  \item A release layer with versioning, tests, and changelog discipline.
+\end{enumerate}
+
+The wrong instinct is to start by building every widget. The right instinct is to build only the components that the product repeats most often.
+
+\subsection{Repository structure for an internal component library}
+A clear repository structure reduces ownership ambiguity and makes automation easier. Monorepo and standalone repo patterns can both work, but the folder boundaries should be deliberate.
+
+\begin{verbatim}
+packages/
+  tokens/
+  icons/
+  primitives/
+  patterns/
+  docs/
+  storybook/
+apps/
+  playground/
+  docs-site/
+configs/
+  tsconfig/
+  eslint/
+  testing/
+\end{verbatim}
+
+A typical package split keeps the tokens and primitives independent from the higher-level patterns so that the design language can evolve without forcing every pattern to rewrite itself.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Recommended internal library package boundaries}
+  \begin{tabularx}{\textwidth}{@{}p{0.24\textwidth}Y@{}}
+    \toprule
+    \textbf{Package} & \textbf{Responsibility} \\
+    \midrule
+    tokens & Design variables, semantic maps, and theme outputs. \\
+    primitives & Low-level controls such as button, input, dialog, and menu. \\
+    patterns & Multi-component compositions such as forms and shells. \\
+    icons & Shared icon set with naming and export discipline. \\
+    docs & Written guidance, examples, and migration notes. \\
+    playground & Safe place for experimentation and visual review. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Build tooling setup: Vite, Rollup, and tsup}
+The build tool should match the package shape. Vite is excellent for the documentation app and playground. Rollup is powerful for library packaging and fine-grained control. tsup is attractive when the team wants a simple TypeScript-first packaging path with less configuration overhead.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Build tooling comparison}
+  \begin{tabularx}{\textwidth}{@{}p{0.18\textwidth}p{0.20\textwidth}p{0.20\textwidth}Y@{}}
+    \toprule
+    \textbf{Tool} & \textbf{Strength} & \textbf{Weakness} & \textbf{Best use} \\
+    \midrule
+    Vite & Fast local dev and docs iteration. & Not always the simplest packaging answer. & Storybook, playgrounds, and docs sites. \\
+    Rollup & Precise output control and mature bundling. & More configuration and maintenance. & Production library builds. \\
+    tsup & Minimal setup and good TypeScript ergonomics. & Less nuanced than hand-tuned bundling. & Small to mid-size internal libraries. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+A common pattern is to use Vite for docs and playgrounds, then tsup or Rollup for the actual library package. This keeps local iteration fast while preserving control over published output.
+
+\subsection{Example package and export strategy}
+A good package layout keeps the public API explicit. The `exports` field should make it easy to consume supported entry points and hard to import internal implementation details accidentally.
+
+\begin{verbatim}
+{
+  "name": "@acme/ui",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./tokens": {
+      "types": "./dist/tokens.d.ts",
+      "import": "./dist/tokens.js"
+    }
+  }
+}
+\end{verbatim}
+
+The export map should reflect the contract the team is willing to support. If a path is not part of the public API, it should not be exported casually.
+
+\subsection{Package publishing with npm and private registries}
+Publishing strategy depends on whether the library is public, internal, or dual-use. Public packages need provenance, support discipline, and clear semver behavior. Private registries need access controls, artifact retention policy, and release authorization rules.
+
+\begin{itemize}[leftmargin=*, itemsep=0.35em]
+  \item Use npm for open source or broadly reusable packages.
+  \item Use private registries for internal enterprise distribution when access control matters.
+  \item Keep publishing credentials outside the repository and restrict them in CI.
+  \item Sign or verify artifacts where the security model requires stronger provenance.
+\end{itemize}
+
+\subsection{Peer dependency management strategy}
+Peer dependencies are a major source of friction if they are too broad or too loose. A component library should declare peers only when it must share runtime ownership with the consuming app. React itself is the most common example, but styling and routing dependencies should be considered carefully.
+
+\begin{verbatim}
+{
+  "peerDependencies": {
+    "react": ">=18 <20",
+    "react-dom": ">=18 <20"
+  },
+  "peerDependenciesMeta": {
+    "react-dom": { "optional": false }
+  }
+}
+\end{verbatim}
+
+The safest policy is to keep peer ranges intentional and to document why each peer exists. If a dependency is only used internally by the library, it should usually be bundled or installed normally rather than exposed as a peer.
+
+\subsection{Semantic versioning for component libraries}
+Semver works only if the team agrees on what counts as breaking. In UI libraries, breaking changes are not limited to prop removal. Behavior shifts, accessibility regressions, variant default changes, and token renames can all be breaking.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Semver interpretation for UI libraries}
+  \begin{tabularx}{\textwidth}{@{}p{0.18\textwidth}Y@{}}
+    \toprule
+    \textbf{Release type} & \textbf{Meaning in a UI library context} \\
+    \midrule
+    Patch & Bug fixes, docs improvements, and compatible behavior corrections. \\
+    Minor & New components, new variants, or backward-compatible improvements. \\
+    Major & Breaking prop changes, token changes, behavior shifts, or removed features. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Versioning discipline is what makes migration manageable. Without it, consumers cannot plan upgrade work and the library loses trust.
+
+\subsection{Automated changelog generation}
+Automated changelogs are essential for internal libraries because they reduce the burden of release communication. Tools such as Changesets or conventional commit pipelines can generate release notes that reflect component-level change categories.
+
+\begin{itemize}[leftmargin=*, itemsep=0.35em]
+  \item Keep release notes short and user-facing.
+  \item Highlight breaking changes at the top.
+  \item Link migration examples directly to docs.
+  \item Record accessibility and visual-risk changes explicitly.
+\end{itemize}
+
+\subsection{Storybook as the development and documentation environment}
+Storybook is the best default environment for most internal libraries because it serves as both a test bench and a docs workspace. The team can isolate states, review visual changes, and explain usage without hunting through application code.
+
+\begin{verbatim}
+export default {
+  title: "Primitives/Button",
+  component: Button,
+  tags: ["autodocs"],
+} satisfies Meta<typeof Button>
+\end{verbatim}
+
+The strongest Storybook setup includes controls, docs pages, accessibility add-ons, and interaction tests. Storybook should not be a decorative gallery. It should be the place where the library proves itself.
+
+\subsection{Figma synchronization strategies}
+Figma sync works best when the team treats tokens and component metadata as structured data instead of informal design hints. The sync path should move tokens first, then component variants, then documentation notes.
+
+\begin{enumerate}[leftmargin=*, itemsep=0.35em]
+  \item Export token values from Figma in a controlled format.
+  \item Validate the export against a schema before generating code.
+  \item Map semantic tokens to the component library theme layer.
+  \item Record variant and state changes for implementation review.
+  \item Reconcile mismatches before release, not after.
+\end{enumerate}
+
+The most useful sync systems preserve human review. Design should inform the code, but not replace code review.
+
+\subsection{Token pipeline from design to code}
+Tokens should flow from design tools into a canonical manifest, then into generated code, and finally into runtime theme variables.
+
+\begin{verbatim}
+Figma -> token manifest -> validation -> codegen -> CSS variables -> component themes
+\end{verbatim}
+
+A good pipeline keeps source-of-truth boundaries explicit. The design team owns the meaning of the token. The engineering team owns the generated application of that token. No layer should silently rewrite the other.
+
+\subsection{Automated accessibility testing in the build pipeline}
+Accessibility checks should run before merge and before publish. The library should not allow new primitives or patterns unless they pass keyboard, label, and contrast checks.
+
+\begin{itemize}[leftmargin=*, itemsep=0.35em]
+  \item Run axe or equivalent checks against the component sandbox.
+  \item Add keyboard traversal tests for dialogs, menus, and form controls.
+  \item Check focus return and modal trapping behavior.
+  \item Fail the build on missing accessible names for core controls.
+\end{itemize}
+
+\subsection{Visual regression testing in CI}
+Visual regression is not optional for a component library. The published package is a visual contract, and CI should catch changes that alter spacing, typography, layout, or theme output unexpectedly.
+
+\begin{verbatim}
+# pseudo CI steps
+pnpm test:unit
+pnpm test:a11y
+pnpm test:storybook
+pnpm test:visual
+pnpm build
+\end{verbatim}
+
+Use stable stories, controlled viewport presets, and locale variants. If the library supports RTL or dark mode, those states should be part of the visual baseline.
+
+\subsection{Documentation site generation}
+The docs site should be generated from source metadata whenever possible. Static site generators such as VitePress, Docusaurus, or a Next.js docs app can all work. The selection should depend on how much customization and interactivity the documentation needs.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Docs site generator comparison}
+  \begin{tabularx}{\textwidth}{@{}p{0.2\textwidth}p{0.22\textwidth}Y@{}}
+    \toprule
+    \textbf{Generator} & \textbf{Strength} & \textbf{Tradeoff} \\
+    \midrule
+    VitePress & Fast and simple for technical docs. & Less flexible for highly custom portals. \\
+    Docusaurus & Mature docs features and navigation. & More opinionated and heavier. \\
+    Next.js docs app & Maximum control and app integration. & More engineering effort to maintain. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The docs should include usage examples, dos and don'ts, accessibility notes, and migration guidance.
+
+\subsection{Community and contribution guidelines}
+Internal libraries still need contribution rules. Without them, teams either stop contributing or contribute inconsistently.
+
+\begin{itemize}[leftmargin=*, itemsep=0.35em]
+  \item Define who can propose primitives and patterns.
+  \item Require design and accessibility review for new shared components.
+  \item Document contribution templates and ownership expectations.
+  \item Keep examples realistic and product-linked.
+\end{itemize}
+
+\subsection{Internal adoption strategy}
+The library only matters if product teams use it. Adoption requires pilot teams, migration support, and visible wins.
+
+\begin{enumerate}[leftmargin=*, itemsep=0.35em]
+  \item Start with one high-visibility internal product.
+  \item Replace a few high-frequency components first.
+  \item Track reduction in duplicated UI code.
+  \item Publish migration examples and office hours.
+  \item Celebrate stability metrics, not just new components.
+\end{enumerate}
+
+\subsection{Launch checklist}
+\begin{enumerate}[leftmargin=*, itemsep=0.35em]
+  \item Tokens are stable and documented.
+  \item The public API is minimal and explicit.
+  \item Tests cover behavior, accessibility, and visuals.
+  \item Docs are generated and reviewed.
+  \item Release automation is reproducible.
+  \item Adoption plan has a pilot team and support window.
+\end{enumerate}
+
+\begin{highlightbox}{Build principle}
+Build your own component library only when you are also prepared to build the systems around it: tokens, tests, docs, releases, and adoption support.
+\end{highlightbox}

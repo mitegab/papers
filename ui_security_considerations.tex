@@ -1,0 +1,174 @@
+\clearpage
+\section{Security Considerations}
+
+User interface libraries often look harmless because they render pixels rather than manage secrets. That assumption is dangerous. UI code is a major security boundary because it accepts untrusted content, mediates authentication flows, renders third-party data, and frequently sits adjacent to sensitive operations.
+
+\subsection{Threat model}
+The practical threat model for UI libraries includes cross-site scripting, malicious dependency updates, unsafe HTML rendering, clickjacking, data exfiltration through embedded content, and accidental exposure of personal information through logs or analytics.
+
+A serious UI security posture assumes the browser is not a trusted runtime. It treats all untrusted content as hostile until sanitized, encoded, isolated, or removed.
+
+\subsection{Cross-site scripting and untrusted content}
+XSS is the most common UI security failure because it is easy to introduce while rendering rich content, markdown, comments, previews, or CMS-driven pages. The safest default is to render text, not HTML.
+
+\begin{verbatim}
+// Prefer text rendering
+<div>{userComment}</div>
+
+// Avoid unless content is sanitized and validated
+<div dangerouslySetInnerHTML={{ __html: trustedHtml }} />
+\end{verbatim}
+
+If HTML rendering is unavoidable, use a sanitizer with a strict allowlist and then test the output as if it were attacker-controlled. Sanitization should happen before the content reaches the component layer, and the component should only accept already-vetted input.
+
+\subsection{Safe rich-text rendering}
+Rich text editors and CMS integrations usually need structured rendering rules rather than raw HTML passthrough. A safer pattern is to transform a known schema into React elements or DOM nodes.
+
+\begin{verbatim}
+function RenderBlock({ block }: { block: Block }) {
+  switch (block.type) {
+    case "paragraph":
+      return <p>{block.text}</p>
+    case "link":
+      return <a href={sanitizeUrl(block.href)}>{block.label}</a>
+    default:
+      return null
+  }
+}
+\end{verbatim}
+
+This approach is more work than HTML injection, but it sharply reduces attack surface and makes allowed formatting explicit.
+
+\subsection{Content Security Policy compatibility}
+CSP is an important defense, but some UI libraries create friction because they rely on inline styles, runtime style injection, or dynamically generated class names.
+
+\begin{table}[htbp]
+  \centering
+  \caption{CSP compatibility considerations}
+  \begin{tabularx}{\textwidth}{@{}p{0.24\textwidth}X@{}}
+    \toprule
+    \textbf{Area} & \textbf{Security concern} \\
+    \midrule
+    Inline styles & Require either a nonce strategy or a CSP policy that permits trusted style injection. \\
+    Runtime style tags & Need deterministic injection points and a policy that covers generated style elements. \\
+    Third-party widgets & Often require separate allowlists or sandboxing because they bypass normal UI controls. \\
+    Inline event handlers & Should be avoided entirely in modern component systems. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Teams should verify CSP support early, because retrofitting it after widespread adoption can be disruptive.
+
+\subsection{Dependency and supply-chain risk}
+UI libraries often sit on top of a wide dependency graph. Even a minor component package may transitively pull in styling utilities, build helpers, markdown parsers, or icon libraries. Supply-chain risk should therefore be treated as a release discipline issue, not merely an IT concern.
+
+Good practice includes lockfile discipline, automated vulnerability scanning, provenance checks where available, and a policy for reviewing high-risk packages before adoption.
+
+\begin{itemize}[leftmargin=*, itemsep=0.35em]
+  \item Pin dependencies rather than floating major ranges in production packages.
+  \item Scan transitive dependencies for known vulnerabilities in CI.
+  \item Review packages that execute code during build or install phases.
+  \item Prefer small, well-maintained libraries for critical security-sensitive helpers.
+\end{itemize}
+
+\subsection{Third-party script isolation}
+Analytics, chat widgets, and embedded partner tools are frequent sources of security and privacy problems. These scripts should be isolated as much as possible and never granted more privilege than they require.
+
+A common pattern is to load third-party content in a sandboxed iframe with restrictive permissions.
+
+\begin{verbatim}
+<iframe
+  src="https://trusted-widget.example"
+  sandbox="allow-scripts allow-forms"
+  referrerPolicy="no-referrer"
+/>
+\end{verbatim}
+
+The sandbox flags should be deliberately minimal. Never grant capabilities just because they are convenient.
+
+\subsection{Auth UI patterns}
+Authentication and account surfaces require special care because they often mix sensitive state with user feedback. UI code should never assume it can safely store credentials in long-lived browser storage.
+
+Safer patterns include HttpOnly session cookies, ephemeral UI state, short-lived CSRF-aware interactions, and clear separation between display state and authentication state.
+
+\begin{itemize}[leftmargin=*, itemsep=0.35em]
+  \item Do not store access tokens in localStorage unless the architecture absolutely requires it and the risks are understood.
+  \item Keep password visibility toggles purely presentational.
+  \item Avoid echoing secrets back into the DOM.
+  \item Prevent auth error messages from leaking sensitive validation detail.
+\end{itemize}
+
+\subsection{Input validation and sanitization}
+Client-side validation improves usability, but it is not a security control on its own. Server-side validation remains authoritative. The UI should validate for clarity, then sanitize for safety, and finally submit to backend enforcement.
+
+\begin{verbatim}
+function sanitizeUrl(value: string) {
+  try {
+    const url = new URL(value)
+    return ["http:", "https:"].includes(url.protocol) ? url.toString() : ""
+  } catch {
+    return ""
+  }
+}
+\end{verbatim}
+
+This kind of defensive helper is especially useful for link components, rich text renderers, and external navigation controls.
+
+\subsection{Risk posture by component type}
+Not all components carry the same security risk. The following patterns deserve special attention.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Component risk priorities}
+  \begin{tabularx}{\textwidth}{@{}p{0.28\textwidth}X@{}}
+    \toprule
+    \textbf{Component type} & \textbf{Primary security concern} \\
+    \midrule
+    Rich text viewer & XSS and malicious link handling. \\
+    Markdown renderer & Embedded HTML, unsafe links, and code-block escapes. \\
+    File upload UI & Filename spoofing, preview rendering, and metadata leakage. \\
+    Auth forms & Credential handling, CSRF context, and sensitive error feedback. \\
+    Dashboard embeds & Third-party script isolation and clickjacking. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Privacy and GDPR considerations}
+UI teams frequently collect more data than they need. Privacy-by-design means minimizing what gets stored, displayed, and logged. It also means surfacing consent controls in a way that is understandable rather than manipulative.
+
+\begin{itemize}[leftmargin=*, itemsep=0.35em]
+  \item Minimize collection of personal data in component props and telemetry.
+  \item Mask sensitive fields in screenshots, logs, and support exports.
+  \item Provide clear consent and preference management surfaces.
+  \item Avoid defaulting to aggressive tracking or hidden personalization.
+\end{itemize}
+
+\subsection{Audit logging}
+Audit trails are useful when a UI exposes administrative actions, security settings, or destructive workflows. The UI should record meaningful state transitions without storing secrets.
+
+A good audit event captures who acted, what changed, when it happened, and which resource was affected. It does not need to store passwords, tokens, or full sensitive payloads.
+
+\subsection{Security testing strategy}
+Security testing should be layered just like functional testing.
+
+\begin{enumerate}[leftmargin=*, itemsep=0.3em]
+  \item Dependency scanning for known vulnerabilities.
+  \item Static analysis for unsafe DOM usage and dangerous HTML flows.
+  \item Targeted component tests for sanitization and link behavior.
+  \item CSP validation in staging and release environments.
+  \item Penetration-style manual review for high-risk surfaces such as auth, uploads, and admin tools.
+\end{enumerate}
+
+\subsection{Library-specific implementation notes}
+Different UI libraries influence security posture in different ways.
+
+\begin{itemize}[leftmargin=*, itemsep=0.35em]
+  \item Source-owned primitives are easier to audit because the code path is visible.
+  \item Highly abstracted component suites may hide style injection or DOM structure that matters for CSP and accessibility.
+  \item Heavy theming systems should be checked for safe handling of token values that may come from external configuration.
+  \item Icon and markdown helpers should be reviewed because they often become untracked expansion points for unsafe content.
+\end{itemize}
+
+\begin{highlightbox}{Security principle}
+The safest UI library is not the one with the most defensive options. It is the one that defaults to safe rendering, exposes sharp edges clearly, and makes risky behavior rare and deliberate.
+\end{highlightbox}

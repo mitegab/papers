@@ -1,0 +1,513 @@
+\clearpage
+\section{Complete Code Reference Library}
+
+This section is written as a practical implementation atlas. Each pattern is presented as production-oriented reference material so teams can compare architecture, ergonomics, and maintenance implications directly in code.
+
+\subsection{Authentication and User Management Patterns}
+
+\subsubsection{Login form implementations in each library with full code}
+
+\paragraph{shadcn and local primitives}
+\begin{verbatim}
+"use client"
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+
+export function LoginShadcn() {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [loading, setLoading] = useState(false)
+
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    setLoading(true)
+    try {
+      await fakeLogin({ email, password })
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <Card className="max-w-md">
+      <CardHeader>
+        <CardTitle>Sign in</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <form className="space-y-4" onSubmit={onSubmit}>
+          <div>
+            <Label htmlFor="email">Email</Label>
+            <Input id="email" type="email" value={email} onChange={e => setEmail(e.target.value)} />
+          </div>
+          <div>
+            <Label htmlFor="password">Password</Label>
+            <Input id="password" type="password" value={password} onChange={e => setPassword(e.target.value)} />
+          </div>
+          <Button className="w-full" disabled={loading}>
+            {loading ? "Signing in..." : "Sign in"}
+          </Button>
+        </form>
+      </CardContent>
+    </Card>
+  )
+}
+\end{verbatim}
+
+\paragraph{Material UI}
+\begin{verbatim}
+import { useState } from "react"
+import { Box, Button, Card, CardContent, CardHeader, TextField } from "@mui/material"
+
+export function LoginMUI() {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [loading, setLoading] = useState(false)
+
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    setLoading(true)
+    try {
+      await fakeLogin({ email, password })
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <Card sx={{ maxWidth: 460 }}>
+      <CardHeader title="Sign in" />
+      <CardContent>
+        <Box component="form" onSubmit={onSubmit} sx={{ display: "grid", gap: 2 }}>
+          <TextField label="Email" type="email" value={email} onChange={e => setEmail(e.target.value)} />
+          <TextField label="Password" type="password" value={password} onChange={e => setPassword(e.target.value)} />
+          <Button variant="contained" type="submit" disabled={loading}>
+            {loading ? "Signing in..." : "Sign in"}
+          </Button>
+        </Box>
+      </CardContent>
+    </Card>
+  )
+}
+\end{verbatim}
+
+\paragraph{Chakra UI}
+\begin{verbatim}
+import { useState } from "react"
+import {
+  Box, Button, Card, Field, Input, Stack,
+} from "@chakra-ui/react"
+
+export function LoginChakra() {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [loading, setLoading] = useState(false)
+
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    setLoading(true)
+    try {
+      await fakeLogin({ email, password })
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <Card.Root maxW="md">
+      <Card.Header>Sign in</Card.Header>
+      <Card.Body>
+        <Box as="form" onSubmit={onSubmit}>
+          <Stack gap={3}>
+            <Field.Root>
+              <Field.Label>Email</Field.Label>
+              <Input type="email" value={email} onChange={e => setEmail(e.target.value)} />
+            </Field.Root>
+            <Field.Root>
+              <Field.Label>Password</Field.Label>
+              <Input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+            </Field.Root>
+            <Button type="submit" loading={loading}>Sign in</Button>
+          </Stack>
+        </Box>
+      </Card.Body>
+    </Card.Root>
+  )
+}
+\end{verbatim}
+
+\paragraph{Ant Design}
+\begin{verbatim}
+import { Button, Card, Form, Input } from "antd"
+
+export function LoginAnt() {
+  const [form] = Form.useForm()
+
+  async function onFinish(values: { email: string; password: string }) {
+    await fakeLogin(values)
+  }
+
+  return (
+    <Card title="Sign in" style={{ maxWidth: 460 }}>
+      <Form form={form} layout="vertical" onFinish={onFinish}>
+        <Form.Item label="Email" name="email" rules={[{ required: true, type: "email" }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item label="Password" name="password" rules={[{ required: true }]}>
+          <Input.Password />
+        </Form.Item>
+        <Button htmlType="submit" type="primary" block>
+          Sign in
+        </Button>
+      </Form>
+    </Card>
+  )
+}
+\end{verbatim}
+
+\paragraph{Radix primitives with Tailwind}
+\begin{verbatim}
+import * as Form from "@radix-ui/react-form"
+
+export function LoginRadix() {
+  return (
+    <Form.Root className="max-w-md rounded-lg border p-6 space-y-4">
+      <h2 className="text-xl font-semibold">Sign in</h2>
+      <Form.Field name="email" className="space-y-1">
+        <Form.Label>Email</Form.Label>
+        <Form.Control asChild>
+          <input type="email" className="w-full rounded border px-3 py-2" required />
+        </Form.Control>
+      </Form.Field>
+      <Form.Field name="password" className="space-y-1">
+        <Form.Label>Password</Form.Label>
+        <Form.Control asChild>
+          <input type="password" className="w-full rounded border px-3 py-2" required />
+        </Form.Control>
+      </Form.Field>
+      <Form.Submit asChild>
+        <button className="w-full rounded bg-black text-white py-2">Sign in</button>
+      </Form.Submit>
+    </Form.Root>
+  )
+}
+\end{verbatim}
+
+\subsubsection{Registration flows with multi-step wizard patterns}
+\begin{verbatim}
+type RegistrationState = {
+  account: { email: string; password: string }
+  profile: { fullName: string; role: string }
+  company: { name: string; size: string }
+}
+
+function useStepWizard(totalSteps: number) {
+  const [step, setStep] = useState(0)
+  const next = () => setStep(s => Math.min(s + 1, totalSteps - 1))
+  const prev = () => setStep(s => Math.max(s - 1, 0))
+  return { step, next, prev, isFirst: step === 0, isLast: step === totalSteps - 1 }
+}
+\end{verbatim}
+
+A production wizard should persist partial progress, validate per-step schemas, and support recovery on refresh for high-friction onboarding funnels.
+
+\subsubsection{Password reset UI patterns}
+Include three screens: request email, enter verification token, and set new password. Avoid combining these in one form if support teams need clear event traces.
+
+\begin{verbatim}
+const resetFlow = ["request", "verify", "change"] as const
+\end{verbatim}
+
+\subsubsection{OAuth button implementations}
+Implement provider-specific loading states and failure reasons.
+
+\begin{verbatim}
+<Button onClick={() => signIn("google")} disabled={pendingProvider === "google"}>
+  Continue with Google
+</Button>
+\end{verbatim}
+
+\subsubsection{Two-factor authentication input components}
+Use segmented input with paste support and explicit error semantics.
+
+\begin{verbatim}
+const [otp, setOtp] = useState(["", "", "", "", "", ""])
+\end{verbatim}
+
+\subsubsection{Session management UI indicators}
+Expose explicit session state in the shell: active workspace, token expiration warning, and device/session management panel.
+
+\subsection{Dashboard Layout Patterns}
+
+\subsubsection{Sidebar navigation with collapsible sections in each library}
+
+\paragraph{shadcn and local sidebar}
+\begin{verbatim}
+<aside className="w-72 border-r h-screen p-3">
+  {sections.map(section => (
+    <Collapsible key={section.id}>
+      <CollapsibleTrigger>{section.label}</CollapsibleTrigger>
+      <CollapsibleContent>
+        {section.items.map(item => <NavItem key={item.href} {...item} />)}
+      </CollapsibleContent>
+    </Collapsible>
+  ))}
+</aside>
+\end{verbatim}
+
+\paragraph{Material UI drawer}
+\begin{verbatim}
+<Drawer variant="permanent" open>
+  <List>
+    {groups.map(group => (
+      <Fragment key={group.id}>
+        <ListItemButton onClick={() => toggle(group.id)}>{group.label}</ListItemButton>
+        <Collapse in={open[group.id]}>
+          {group.items.map(item => <ListItemButton key={item.href}>{item.label}</ListItemButton>)}
+        </Collapse>
+      </Fragment>
+    ))}
+  </List>
+</Drawer>
+\end{verbatim}
+
+\paragraph{Chakra accordion nav}
+\begin{verbatim}
+<Accordion.Root multiple>
+  {groups.map(group => (
+    <Accordion.Item key={group.id} value={group.id}>
+      <Accordion.ItemTrigger>{group.label}</Accordion.ItemTrigger>
+      <Accordion.ItemContent>
+        {group.items.map(item => <NavLink key={item.href} href={item.href}>{item.label}</NavLink>)}
+      </Accordion.ItemContent>
+    </Accordion.Item>
+  ))}
+</Accordion.Root>
+\end{verbatim}
+
+\paragraph{Ant Design menu}
+\begin{verbatim}
+<Menu mode="inline" items={menuItems} inlineCollapsed={collapsed} />
+\end{verbatim}
+
+\paragraph{Radix navigation with custom shell}
+\begin{verbatim}
+<Accordion.Root type="multiple" className="space-y-2">
+  {groups.map(g => (
+    <Accordion.Item value={g.id} key={g.id}>
+      <Accordion.Trigger>{g.label}</Accordion.Trigger>
+      <Accordion.Content>{/* links */}</Accordion.Content>
+    </Accordion.Item>
+  ))}
+</Accordion.Root>
+\end{verbatim}
+
+\subsubsection{Top navigation with dropdown menus}
+\begin{verbatim}
+<Menu.Root>
+  <Menu.Trigger>Workspace</Menu.Trigger>
+  <Menu.Content>
+    <Menu.Item onSelect={switchWorkspace}>Switch workspace</Menu.Item>
+    <Menu.Item onSelect={openBilling}>Billing</Menu.Item>
+    <Menu.Separator />
+    <Menu.Item onSelect={logout}>Log out</Menu.Item>
+  </Menu.Content>
+</Menu.Root>
+\end{verbatim}
+
+\subsubsection{Breadcrumb systems for deep navigation hierarchies}
+\begin{verbatim}
+const crumbs = ["Dashboard", "Billing", "Invoices", `Invoice #${id}`]
+\end{verbatim}
+
+\subsubsection{Dashboard grid layouts with responsive breakpoints}
+\begin{verbatim}
+<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+  {cards.map(card => <MetricCard key={card.key} {...card} />)}
+</div>
+\end{verbatim}
+
+\subsubsection{Card-based metric displays}
+Pattern requires value, trend delta, period selector, loading skeleton, and drill-down action.
+
+\subsubsection{Activity feed components}
+\begin{verbatim}
+<ul>
+  {events.map(event => (
+    <li key={event.id}>
+      <p>{event.actor} {event.action}</p>
+      <small>{formatDistanceToNow(event.time)}</small>
+    </li>
+  ))}
+</ul>
+\end{verbatim}
+
+\subsubsection{Notification center implementations}
+Support unread segmentation, bulk action, and event deep-linking.
+
+\subsection{Data Display Patterns}
+
+\subsubsection{Complex table implementations with sorting, filtering, and pagination}
+\begin{verbatim}
+const table = useReactTable({
+  data,
+  columns,
+  state: { sorting, columnFilters, pagination },
+  onSortingChange: setSorting,
+  onColumnFiltersChange: setColumnFilters,
+  onPaginationChange: setPagination,
+  getCoreRowModel: getCoreRowModel(),
+  getSortedRowModel: getSortedRowModel(),
+  getFilteredRowModel: getFilteredRowModel(),
+})
+\end{verbatim}
+
+\subsubsection{Virtualized list implementations for large datasets}
+\begin{verbatim}
+const rowVirtualizer = useVirtualizer({
+  count: rows.length,
+  getScrollElement: () => containerRef.current,
+  estimateSize: () => 44,
+  overscan: 8,
+})
+\end{verbatim}
+
+\subsubsection{Kanban board component architecture}
+Use lane-level virtualization, collision-aware drag strategy, and optimistic update rollback.
+
+\subsubsection{Calendar and date range picker integrations}
+Use explicit timezone normalization and server-safe serialization.
+
+\subsubsection{Chart integration patterns with Recharts and Chart.js}
+\begin{verbatim}
+<ResponsiveContainer width="100%" height={280}>
+  <LineChart data={series}>
+    <XAxis dataKey="date" />
+    <YAxis />
+    <Tooltip />
+    <Line type="monotone" dataKey="value" stroke="#1f2937" />
+  </LineChart>
+</ResponsiveContainer>
+\end{verbatim}
+
+\subsubsection{Tree view implementations for hierarchical data}
+\begin{verbatim}
+function renderNode(node: Node) {
+  return (
+    <TreeItem key={node.id} nodeId={node.id} label={node.label}>
+      {node.children?.map(renderNode)}
+    </TreeItem>
+  )
+}
+\end{verbatim}
+
+\subsubsection{Timeline components for audit logs and history}
+Use immutable event records, explicit actor identity, and event diff previews.
+
+\subsection{Form Patterns}
+
+\subsubsection{Multi-step form wizard with state management}
+\begin{verbatim}
+const schemaByStep = [accountSchema, profileSchema, companySchema]
+const currentSchema = schemaByStep[step]
+\end{verbatim}
+
+\subsubsection{Dynamic form generation from JSON schema}
+\begin{verbatim}
+function DynamicField({ field }: { field: JSONField }) {
+  switch (field.kind) {
+    case "text": return <Input name={field.name} />
+    case "select": return <Select options={field.options} />
+    case "checkbox": return <Checkbox name={field.name} />
+  }
+}
+\end{verbatim}
+
+\subsubsection{File upload with preview and progress}
+\begin{verbatim}
+const upload = new XMLHttpRequest()
+upload.upload.onprogress = (e) => setProgress(Math.round((e.loaded / e.total) * 100))
+\end{verbatim}
+
+\subsubsection{Rich text editor integration}
+Use controlled serialization and sanitize output before render.
+
+\subsubsection{Address autocomplete forms}
+Throttle API calls and keep keyboard-first result navigation.
+
+\subsubsection{Payment form patterns with Stripe integration}
+\begin{verbatim}
+const result = await stripe.confirmPayment({
+  elements,
+  confirmParams: { return_url: `${origin}/billing/result` },
+})
+\end{verbatim}
+
+\subsubsection{Search with instant results and keyboard navigation}
+\begin{verbatim}
+const deferredQuery = useDeferredValue(query)
+const results = useMemo(() => index.search(deferredQuery), [deferredQuery])
+\end{verbatim}
+
+\subsection{Feedback and Communication Patterns}
+
+\subsubsection{Toast notification systems compared across libraries}
+A high-quality toast system supports deduplication, action buttons, accessibility announcements, and clear queue behavior under burst events.
+
+\subsubsection{Modal and drawer patterns with focus trap management}
+\begin{verbatim}
+<Dialog open={open} onOpenChange={setOpen}>
+  <DialogContent onOpenAutoFocus={preventNonCriticalFocusShift}>
+    ...
+  </DialogContent>
+</Dialog>
+\end{verbatim}
+
+\subsubsection{Confirmation dialog patterns}
+Confirmations should include action summary, irreversible warning language, and secondary safe exit.
+
+\subsubsection{Inline editing implementations}
+\begin{verbatim}
+const [editing, setEditing] = useState(false)
+const [draft, setDraft] = useState(value)
+\end{verbatim}
+
+\subsubsection{Skeleton loading states}
+Match skeleton geometry to final content dimensions to reduce visual instability.
+
+\subsubsection{Error boundary UI patterns}
+\begin{verbatim}
+class FeatureErrorBoundary extends React.Component {
+  state = { hasError: false }
+  static getDerivedStateFromError() { return { hasError: true } }
+  render() {
+    if (this.state.hasError) return <FeatureFallback />
+    return this.props.children
+  }
+}
+\end{verbatim}
+
+\subsubsection{Empty state illustrations and components}
+Empty states should include context, next action, and optional sample-data bootstrap path.
+
+\begin{highlightbox}{Operational note}
+Code examples in this section are intentionally implementation-first. Teams should adapt naming, token references, and data boundaries to local architecture standards.
+\end{highlightbox}
+
+\input{ui_code_reference_library_part2}
+\input{ui_performance_engineering}
+\input{ui_typescript_integration}
+\input{ui_testing_strategy_encyclopedia}
+\input{ui_design_system_operations}
+\input{ui_security_considerations}
+\input{ui_internationalization_localization_deep_dive}
+\input{ui_mobile_responsive_patterns}
+\input{ui_ai_component_libraries}
+\input{ui_appendix_core_expansions}
+\input{ui_appendix_new_material}
+\input{ui_enterprise_adoption_case_studies}
+\input{ui_future_of_react_ui}
+\input{ui_building_your_own_component_library}
+\input{ui_component_api_design_principles}

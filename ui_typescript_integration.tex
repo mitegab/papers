@@ -1,0 +1,160 @@
+\clearpage
+\section{TypeScript Integration Depth}
+
+TypeScript quality is one of the clearest indicators of whether a UI library can serve a serious product team. Strong type systems improve discoverability, reduce regressions, and make complex component contracts easier to maintain over time.
+
+\subsection{Generic component patterns in each library}
+Generic patterns are essential when components must support multiple data shapes, layout variants, or display modes.
+
+\begin{verbatim}
+type TableProps<T> = {
+  data: T[]
+  renderRow: (row: T) => React.ReactNode
+}
+
+function Table<T>({ data, renderRow }: TableProps<T>) {
+  return <>{data.map(renderRow)}</>
+}
+\end{verbatim}
+
+\subsubsection{shadcn and Radix-oriented patterns}
+Local source ownership usually gives teams the clearest type surfaces because component props are authored in-repo and can be constrained precisely.
+
+\subsubsection{MUI patterns}
+MUI commonly relies on strongly typed component props and theme augmentation. Large teams should keep wrapper types narrow so the API remains readable.
+
+\subsubsection{Chakra UI patterns}
+Chakra's prop model is ergonomic, but teams should be careful to avoid losing type precision when composing many helper wrappers.
+
+\subsubsection{Ant Design patterns}
+Ant Design type surfaces are broad and practical for enterprise data workflows. Teams often need local wrapper types to keep app code manageable.
+
+\subsubsection{Tailwind and custom primitives}
+Tailwind-oriented systems often pair with explicit prop interfaces and utility builders to recover type safety that would otherwise be hidden inside class strings.
+
+\subsection{Prop type inheritance and extension}
+Extending native element props is common, but teams should keep the inheritance surface intentional.
+
+\begin{verbatim}
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  tone?: "primary" | "secondary"
+}
+\end{verbatim}
+
+\subsection{Discriminated union APIs}
+Discriminated unions make complex component modes explicit and easier to validate.
+
+\begin{verbatim}
+type InputProps =
+  | { kind: "text"; value: string }
+  | { kind: "select"; options: string[]; value: string }
+  | { kind: "date"; value: Date }
+\end{verbatim}
+
+\subsection{Theme type augmentation}
+Theme augmentation is critical in MUI and similarly valuable in token-driven custom systems.
+
+\begin{verbatim}
+declare module "@mui/material/styles" {
+  interface Palette {
+    brand: Palette["primary"]
+  }
+  interface PaletteOptions {
+    brand?: PaletteOptions["primary"]
+  }
+}
+\end{verbatim}
+
+\subsection{Event handler typing patterns}
+Strong event typing reduces accidental mismatch between DOM state and component state.
+
+\begin{verbatim}
+function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+  setValue(e.target.value)
+}
+\end{verbatim}
+
+\subsection{Ref forwarding with TypeScript}
+Ref forwarding is important for focus management, integration with form libraries, and composition with primitives.
+
+\begin{verbatim}
+const Input = React.forwardRef<HTMLInputElement, React.ComponentPropsWithoutRef<"input">>(
+  function Input(props, ref) {
+    return <input ref={ref} {...props} />
+  }
+)
+\end{verbatim}
+
+\subsection{Polymorphic component typing strategies}
+Polymorphic `as` patterns are useful but should be wrapped carefully so the API remains understandable.
+
+\begin{verbatim}
+type AsProp<C extends React.ElementType> = {
+  as?: C
+}
+
+type PolymorphicProps<C extends React.ElementType, Props = {}> = Props &
+  AsProp<C> & Omit<React.ComponentPropsWithoutRef<C>, keyof Props | "as">
+\end{verbatim}
+
+\subsection{Using satisfies for theme configuration}
+The `satisfies` operator helps keep literal values narrow while still enforcing shape.
+
+\begin{verbatim}
+const theme = {
+  colors: { brand: "#1f2937" },
+  radius: { sm: 4, md: 8 },
+} satisfies ThemeConfig
+\end{verbatim}
+
+\subsection{Type-safe token systems}
+Tokens should be modeled as unions or mapped types rather than loose strings.
+
+\begin{verbatim}
+type TokenName = "surface.primary" | "surface.muted" | "action.primary"
+type TokenMap = Record<TokenName, string>
+\end{verbatim}
+
+\subsection{Autocomplete support across libraries}
+Autocomplete quality depends on declaration quality, generic clarity, and the absence of too many indirection layers. Libraries with precise local wrappers often provide the strongest editor support.
+
+\subsection{Common TypeScript errors and solutions}
+\begin{table}[htbp]
+  \centering
+  \caption{Common TypeScript issues in UI libraries}
+  \begin{tabularx}{\textwidth}{@{}p{0.28\textwidth}p{0.34\textwidth}Y@{}}
+    \toprule
+    \textbf{Issue} & \textbf{Typical cause} & \textbf{Typical solution} \\
+    \midrule
+    Excessively wide prop unions & Overextended wrapper abstractions & Split into discriminated variants or smaller wrapper layers. \\
+    Theme augmentation errors & Missing module augmentation or mismatched declarations & Add explicit augmentation file and keep theme types centralized. \\
+    Ref typing mismatch & Incorrect `forwardRef` generic order & Use explicit element and prop generics. \\
+    Polymorphic component confusion & Too many `as` combinations & Restrict supported element types or publish helper aliases. \\
+    Narrowing failures in conditional APIs & Missing discriminants & Introduce explicit `kind` or `variant` fields. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Strict mode compatibility}
+Strict mode exposes weak assumptions quickly. Libraries that tolerate loose `any` usage may appear easy to adopt, but they cost more when a team tries to harden types later.
+
+\begin{itemize}[leftmargin=*, itemsep=0.35em]
+  \item Keep prop definitions explicit and readable.
+  \item Avoid implicit `children` assumptions where they are not intended.
+  \item Use local wrapper types for especially broad external APIs.
+  \item Prefer type-safe token keys over arbitrary string interpolation.
+\end{itemize}
+
+\subsection{Generic design patterns by library}
+\begin{itemize}[leftmargin=*, itemsep=0.35em]
+  \item shadcn/ui: strong fit for explicit local prop types and internal design tokens.
+  \item Material UI: strong fit for theme augmentation and broad component wrappers.
+  \item Chakra UI: strong fit for readable prop typing with careful wrapper discipline.
+  \item Ant Design: strong fit for enterprise forms, tables, and workflow contracts.
+  \item Radix UI: strong fit for primitive composition and clear interaction contracts.
+  \item Tailwind UI: strongest when paired with a typed component layer built locally.
+\end{itemize}
+
+\begin{highlightbox}{TypeScript principle}
+The best UI library for TypeScript is the one that lets teams express their product model precisely without turning the app code into a maze of type gymnastics.
+\end{highlightbox}

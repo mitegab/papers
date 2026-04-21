@@ -1,0 +1,871 @@
+\clearpage
+\phantomsection
+\section*{Appendix A: Expanded Evaluation Rubric}
+\addcontentsline{toc}{section}{Appendix A: Expanded Evaluation Rubric}
+
+Appendix A turns the report's weighted decision model into a worksheet that product, design, engineering, QA, accessibility, and procurement teams can use together. The goal is not to reduce strategy to a spreadsheet. The goal is to make evaluation repeatable, transparent, and reviewable under real organizational constraints.
+
+\subsection*{A.1 Additional evaluation criteria}
+The table below adds fifteen criteria to the evaluation model. Each criterion includes a practical scoring guide. Score 1 means the library performs poorly or creates avoidable risk. Score 3 means it is workable with caveats. Score 5 means it is strong enough to be a default for serious production use.
+
+\begin{longtable}{@{}p{0.18\textwidth}p{0.20\textwidth}p{0.20\textwidth}p{0.20\textwidth}p{0.16\textwidth}@{}}
+\caption{Additional evaluation criteria and scoring guide}\label{tab:appendix-a-criteria}\\
+\toprule
+\textbf{Criterion} & \textbf{Score 1} & \textbf{Score 3} & \textbf{Score 5} & \textbf{Evidence to collect} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Criterion} & \textbf{Score 1} & \textbf{Score 3} & \textbf{Score 5} & \textbf{Evidence to collect} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+Visual consistency at scale & Screens diverge quickly and require constant patching. & Most patterns align, but exceptions accumulate. & Shared spacing, typography, and state rules stay coherent across teams. & Screenshot review across 10 to 20 real product screens. \\
+Interaction predictability & Keyboard, pointer, and focus behavior differs by component. & Common primitives behave well but edge cases require fixes. & Interaction patterns feel uniform and are easy to learn. & Keyboard audit plus component interaction tests. \\
+Token clarity & Token names are ambiguous, duplicated, or raw-value driven. & Semantic layers exist but naming is partly inconsistent. & Tokens are layered, documented, and stable across brands. & Token manifest review and theme diff analysis. \\
+Accessibility robustness & Accessibility is mostly retrofitted after implementation. & Core controls are accessible but advanced widgets need work. & Accessible defaults are built into primitives and patterns. & Axe results, keyboard maps, and screen reader checks. \\
+SSR and RSC compatibility & The library depends on client-only assumptions. & Mixed server/client support works with care. & Server-safe composition and client boundaries are explicit. & Next.js or Remix prototype under production rendering. \\
+Localization readiness & Layout breaks under text expansion or RTL. & Some components localize well, others need local fixes. & Direction, pluralization, and formatting are first-class concerns. & English, RTL, and long-copy test cases. \\
+Mobile ergonomics & Targets are too small and controls are desktop-biased. & Mobile works but requires custom tuning. & Touch, orientation, and keyboard flows are part of the default model. & Device lab or emulation tests on narrow viewports. \\
+Performance predictability & Runtime cost is difficult to estimate or control. & Performance is acceptable with profiling. & Bundle size, hydration, and interaction cost are easy to budget. & Bundle analyzer, profiler, and CWV measurements. \\
+Upgrade safety & Minor version changes frequently break screens. & Upgrades are manageable but require careful review. & Releases are predictable and supported by codemods or migration notes. & Changelog history, breaking-change frequency, and codemod availability. \\
+TypeScript expressiveness & Types are loose, confusing, or brittle. & Types are useful but sometimes require wrapper glue. & API types guide consumers clearly and support refactoring. & Editor autocomplete and strict-mode trials. \\
+Documentation quality & Docs are thin, stale, or disconnected from reality. & Docs are usable but incomplete. & Docs explain usage, edge cases, migration, and accessibility clearly. & Documentation audit and contributor review. \\
+Ecosystem sustainability & Maintainers are hard to reach and releases are irregular. & Ecosystem is healthy but depends on a few contributors. & Governance, sponsorship, and release discipline are visible. & Release cadence, bus factor, and sponsor history. \\
+Design-to-code fit & Design handoff requires repeated manual interpretation. & Handoff works for common cases with occasional friction. & Tokens, variants, and states transfer cleanly from design to code. & Figma-to-code trial on a representative feature. \\
+Governance fit & The library resists team ownership and review discipline. & Governance is possible but needs custom process. & The library fits clear ownership, review, and release rules. & RACI review and update workflow test. \\
+Cross-team adoption potential & Only one team can realistically maintain it. & Several teams can use it with coordination. & Many teams can adopt it with modest platform support. & Pilot adoption analysis and onboarding survey. \\
+\end{longtable}
+
+\subsection*{A.2 Weighting guidance by organization type}
+Different organizations should not use the same weights. Startups should overweight speed and ownership. Enterprises should overweight governance, accessibility, and upgrade safety. Public-sector teams should overweight compliance, longevity, and supportability.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Suggested weighting profiles by organization type}
+  \begin{tabularx}{\textwidth}{@{}p{0.18\textwidth}p{0.16\textwidth}p{0.16\textwidth}p{0.16\textwidth}p{0.16\textwidth}Y@{}}
+    \toprule
+    \textbf{Org type} & \textbf{Top weight} & \textbf{Secondary weight} & \textbf{Lower weight} & \textbf{Risk to avoid} & \textbf{Interpretation} \\
+    \midrule
+    Seed-stage startup & Ownership and speed & Visual distinctiveness & Breadth & Overbuilding governance too early & Use a source-owned or hybrid stack that can change quickly. \\
+    Growth-stage SaaS & Upgrade safety and theming & Accessibility and performance & Raw component count & Locking into a generic look & Choose a library that can absorb expansion and white-label demand. \\
+    Enterprise platform & Accessibility and governance & Breadth and supportability & Visual novelty & Fragmented team adoption & Favor mature defaults and strong release discipline. \\
+    Public sector & Compliance and longevity & Browser support and accessibility & Brand variation & Choosing style over maintainability & Prefer predictable libraries with explicit documentation. \\
+    Platform team & API clarity and extensibility & Testability and token discipline & Marketing polish & Overfitting to one product & Optimize for reuse across multiple product teams. \\
+    White-label vendor & Token flexibility and multi-brand support & Migration safety & Component breadth & Hardcoding brand decisions into UI code & Keep semantics stable and presentation swappable. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection*{A.3 Evaluation worksheet template}
+Teams can photocopy the worksheet below and use it during review meetings.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Evaluation worksheet template}
+  \begin{tabularx}{\textwidth}{@{}p{0.24\textwidth}Y@{}}
+    \toprule
+    \textbf{Field} & \textbf{Entry} \\
+    \midrule
+    Project / product & \rule{10cm}{0.4pt} \\
+    Evaluation date & \rule{10cm}{0.4pt} \\
+    Reviewer names & \rule{10cm}{0.4pt} \\
+    Candidate libraries & \rule{10cm}{0.4pt} \\
+    Main constraints & \rule{10cm}{0.4pt} \\
+    Weighting profile & \rule{10cm}{0.4pt} \\
+    Decision owner & \rule{10cm}{0.4pt} \\
+    Review outcome & \rule{10cm}{0.4pt} \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\begin{longtable}{@{}p{0.22\textwidth}p{0.12\textwidth}p{0.12\textwidth}p{0.16\textwidth}p{0.34\textwidth}@{}}
+\caption{Worksheet scoring grid}\label{tab:appendix-a-worksheet}\\
+\toprule
+\textbf{Criterion} & \textbf{Weight} & \textbf{Score} & \textbf{Weighted total} & \textbf{Notes} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Criterion} & \textbf{Weight} & \textbf{Score} & \textbf{Weighted total} & \textbf{Notes} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+Accessibility robustness & \rule{1.2cm}{0.4pt} & \rule{1.0cm}{0.4pt} & \rule{1.4cm}{0.4pt} & \rule{5.0cm}{0.4pt} \\
+Performance predictability & \rule{1.2cm}{0.4pt} & \rule{1.0cm}{0.4pt} & \rule{1.4cm}{0.4pt} & \rule{5.0cm}{0.4pt} \\
+Token clarity & \rule{1.2cm}{0.4pt} & \rule{1.0cm}{0.4pt} & \rule{1.4cm}{0.4pt} & \rule{5.0cm}{0.4pt} \\
+Upgrade safety & \rule{1.2cm}{0.4pt} & \rule{1.0cm}{0.4pt} & \rule{1.4cm}{0.4pt} & \rule{5.0cm}{0.4pt} \\
+Localization readiness & \rule{1.2cm}{0.4pt} & \rule{1.0cm}{0.4pt} & \rule{1.4cm}{0.4pt} & \rule{5.0cm}{0.4pt} \\
+Mobile ergonomics & \rule{1.2cm}{0.4pt} & \rule{1.0cm}{0.4pt} & \rule{1.4cm}{0.4pt} & \rule{5.0cm}{0.4pt} \\
+Governance fit & \rule{1.2cm}{0.4pt} & \rule{1.0cm}{0.4pt} & \rule{1.4cm}{0.4pt} & \rule{5.0cm}{0.4pt} \\
+Cross-team adoption potential & \rule{1.2cm}{0.4pt} & \rule{1.0cm}{0.4pt} & \rule{1.4cm}{0.4pt} & \rule{5.0cm}{0.4pt} \\
+Documentation quality & \rule{1.2cm}{0.4pt} & \rule{1.0cm}{0.4pt} & \rule{1.4cm}{0.4pt} & \rule{5.0cm}{0.4pt} \\
+\end{longtable}
+
+\subsection*{A.4 Worked example: fictional evaluation team}
+The fictional Northstar Evaluation Team consists of a product director, a design system lead, two frontend engineers, a QA engineer, and an accessibility specialist. The team is evaluating MUI, shadcn/ui, Chakra UI, and Ant Design for a 60-engineer B2B platform that needs brand customization and multi-language support.
+
+The team assigns the highest weights to accessibility robustness, upgrade safety, token clarity, and governance fit. They then score each candidate based on a two-week pilot prototype, a keyboard-only audit, and a design-token mapping exercise.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Worked scoring example for the Northstar team}
+  \begin{tabularx}{\textwidth}{@{}p{0.22\textwidth}p{0.16\textwidth}p{0.16\textwidth}p{0.16\textwidth}p{0.16\textwidth}Y@{}}
+    \toprule
+    \textbf{Criterion} & \textbf{Weight} & \textbf{MUI} & \textbf{shadcn/ui} & \textbf{Chakra UI} & \textbf{Notes} \\
+    \midrule
+    Accessibility robustness & 0.20 & 5 & 4 & 4 & MUI had the strongest defaults for forms and overlays. \\
+    Upgrade safety & 0.15 & 4 & 3 & 3 & shadcn required more local maintenance. \\
+    Token clarity & 0.15 & 4 & 5 & 4 & shadcn won on source-visible token ownership. \\
+    Governance fit & 0.15 & 5 & 4 & 4 & MUI's release model fit the team's process better. \\
+    Localization readiness & 0.10 & 5 & 4 & 4 & MUI handled text expansion and RTL more predictably. \\
+    Performance predictability & 0.10 & 4 & 4 & 4 & Differences were manageable with route splitting. \\
+    Mobile ergonomics & 0.05 & 4 & 4 & 4 & No decisive winner after tuning. \\
+    Documentation quality & 0.10 & 5 & 4 & 4 & MUI documentation helped onboarding. \\
+    Cross-team adoption potential & 0.05 & 5 & 4 & 4 & MUI was easier to standardize at scale. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The weighted totals gave MUI the highest overall score, but the team still adopted shadcn/ui for brand-sensitive shell areas. The final recommendation was a hybrid architecture: MUI for shared enterprise patterns and source-owned primitives for customer-facing surfaces that needed stronger visual identity.
+
+\subsection*{A.5 How to interpret the results}
+Scores are decision support, not verdicts. A lower score on one criterion can be acceptable if the team can mitigate the risk with local tooling or process. What matters is whether the chosen system matches the team's actual operating reality.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Score interpretation bands}
+  \begin{tabularx}{\textwidth}{@{}p{0.18\textwidth}p{0.20\textwidth}Y@{}}
+    \toprule
+    \textbf{Band} & \textbf{Meaning} & \textbf{Recommended action} \\
+    \midrule
+    85--100 & Very strong fit & Use as the default or primary system. \\
+    70--84 & Strong fit with caveats & Use with mitigation plans and periodic review. \\
+    55--69 & Mixed fit & Consider a hybrid or limited adoption. \\
+    Below 55 & Weak fit & Avoid unless constraints change materially. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\clearpage
+\phantomsection
+\section*{Appendix B: Token Taxonomy and Naming Conventions}
+\addcontentsline{toc}{section}{Appendix B: Token Taxonomy and Naming Conventions}
+
+Appendix B defines the vocabulary that keeps design tokens understandable across design tools, code, documentation, and runtime theme layers. The emphasis is on consistent naming, stable abstraction tiers, and clear migration rules.
+
+\subsection*{B.1 Full token dictionary}
+The table below is a practical dictionary of token categories used in modern design systems.
+
+\begin{longtable}{@{}p{0.18\textwidth}p{0.22\textwidth}p{0.20\textwidth}p{0.28\textwidth}@{}}
+\caption{Token dictionary by category}\label{tab:token-dictionary}\\
+\toprule
+\textbf{Category} & \textbf{Example token} & \textbf{Meaning} & \textbf{Typical usage} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Category} & \textbf{Example token} & \textbf{Meaning} & \textbf{Typical usage} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+Primitive color & color.blue.500 & Raw palette value & Base swatches and theme generation. \\
+Semantic color & color.action.primary & Primary action role & Buttons, links, and emphasis states. \\
+Surface color & color.surface.default & Main background surface & Cards, sheets, and page backgrounds. \\
+Text color & color.text.primary & Default readable text & Paragraphs, headings, and labels. \\
+Border color & color.border.subtle & Low-contrast divider & Cards, inputs, table borders. \\
+Focus color & color.focus.ring & Keyboard focus highlight & Interactive controls and accessibility cues. \\
+Spacing scale & space.2 / space.4 / space.8 & Consistent rhythm & Padding, margins, and gaps. \\
+Layout density & density.compact & Compact spacing mode & Dense dashboards and admin views. \\
+Radius scale & radius.md & Corner rounding & Buttons, cards, and dialogs. \\
+Shadow scale & shadow.elevated & Depth cue & Overlays, popovers, floating panels. \\
+Motion duration & motion.fast & Animation time & Hover, expand, and transition timing. \\
+Motion easing & motion.ease.out & Animation curve & Smooth, predictable movement. \\
+Typography family & font.family.body & Font stack & Base text rendering. \\
+Typography size & font.size.2 & Body text size & Paragraphs and UI labels. \\
+Typography weight & font.weight.semibold & Visual emphasis & Headings and controls. \\
+Line height & line.height.default & Vertical rhythm & Readability across text sizes. \\
+Letter spacing & letter.spacing.tight & Character spacing & All-caps labels and compact UI. \\
+Icon size & icon.size.sm & Symbol dimensions & Buttons, menus, navigation. \\
+Stroke width & icon.stroke.default & Outline thickness & Line icons and glyph systems. \\
+Z-index layer & z.overlay & Stacking order & Modals, drawers, tooltips. \\
+Breakpoint & breakpoint.md & Responsive threshold & Layout changes by viewport. \\
+Container width & layout.container.lg & Max content width & Page shells and centers. \\
+Grid gap & layout.grid.gap & Grid spacing & Responsive cards and columns. \\
+State color & color.state.error & Error feedback & Validation and alerts. \\
+State background & color.state.warningBg & Warning emphasis & Inline banners and notices. \\
+Brand color & color.brand.primary & Company identity & Marketing and white-label theming. \\
+Brand accent & color.brand.accent & Secondary brand tone & Highlights and illustrations. \\
+Chart axis & chart.axis.primary & Data visualization axis & Graphs and analytics panels. \\
+Chart series & chart.series.1 & Series palette & Multi-series visualizations. \\
+Chart grid & chart.grid.subtle & Background grid & Chart readability. \\
+Input height & control.height.md & Field size & Form controls and selects. \\
+Button height & control.height.lg & Touch target sizing & Mobile and desktop buttons. \\
+Semantic text role & text.muted & Secondary copy & Helper text and captions. \\
+Semantic action role & action.critical & Destructive action state & Delete, revoke, disconnect actions. \\
+Locale spacing & locale.spacing.ar & Locale-aware text layout & RTL and expansion-sensitive views. \\
+Locale font & locale.font.cjk & Script-specific fallback & CJK, Arabic, Hebrew, Thai. \\
+Data density & data.row.compact & Table row density & Large data grids. \\
+Elevation level & elevation.layer2 & Nested surface hierarchy & Overlays and nested cards. \\
+Component token & button.primary.bg & Specific component surface & Component-only overrides. \\
+Component state token & dialog.backdrop.opacity & State-specific behavior & Overlay state control. \\
+Accessibility token & a11y.focus.outline & Visibility requirement & Keyboard accessibility consistency. \\
+\end{longtable}
+
+\subsection*{B.2 Naming convention decision tree}
+Token naming should follow a consistent decision tree. The most important questions are whether a token represents a raw value, a semantic role, a component detail, or a brand-specific override.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[node distance=1.1cm, every node/.style={draw, rounded corners, align=center, font=\small, minimum width=3.3cm, minimum height=0.9cm}]
+  \node (start) {Is this a raw design value?};
+  \node (semantic) [below=of start] {Does it express a user-facing role?};
+  \node (component) [below left=0.9cm and 1.2cm of semantic] {Does it belong to one component only?};
+  \node (brand) [below right=0.9cm and 1.2cm of semantic] {Does it vary by brand or tenant?};
+  \node (state) [below=of component] {Does it represent an interaction state?};
+  \node (output1) [below left=0.9cm and 1.2cm of state] {Use primitive token naming.};
+  \node (output2) [below right=0.9cm and 1.2cm of state] {Use semantic token naming.};
+  \node (output3) [below=of brand] {Use component or state token naming.};
+  \draw[->] (start) -- (semantic);
+  \draw[->] (semantic) -- node[left] {yes} (component);
+  \draw[->] (semantic) -- node[right] {yes} (brand);
+  \draw[->] (component) -- node[left] {no} (state);
+  \draw[->] (state) -- (output1);
+  \draw[->] (state) -- (output2);
+  \draw[->] (brand) -- (output3);
+\end{tikzpicture}
+\caption{Token naming decision tree}
+\end{figure}
+
+A useful rule is to keep primitives boring, semantic tokens expressive, and component tokens narrowly scoped. That separation protects the system from naming drift.
+
+\subsection*{B.3 Reference token systems from real design systems}
+Salesforce Lightning, IBM Carbon, and Adobe Spectrum are all instructive because they balance structure and flexibility in different ways.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Reference token systems}
+  \begin{tabularx}{\textwidth}{@{}p{0.18\textwidth}p{0.20\textwidth}p{0.24\textwidth}Y@{}}
+    \toprule
+    \textbf{System} & \textbf{Token style} & \textbf{Strength} & \textbf{Lesson for teams} \\
+    \midrule
+    Salesforce Lightning & Semantic layers with enterprise governance & Clear enterprise roles and brand consistency & Use role-based naming and conservative defaults. \\
+    IBM Carbon & Structured, system-level token language & Strong accessibility and enterprise rigor & Keep tokens highly systematic and reusable. \\
+    Adobe Spectrum & Design-consistent, multi-product token model & Balanced flexibility for large product families & Treat scale and visual harmony as first-class goals. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection*{B.4 Anti-patterns in token naming and corrections}
+\begin{table}[htbp]
+  \centering
+  \caption{Token naming anti-patterns and corrections}
+  \begin{tabularx}{\textwidth}{@{}p{0.24\textwidth}p{0.28\textwidth}Y@{}}
+    \toprule
+    \textbf{Anti-pattern} & \textbf{Problem} & \textbf{Correction} \\
+    \midrule
+    `blue-500` everywhere & Raw palette values leak into product semantics. & Rename to `color.action.primary` or `color.surface.accent`. \\
+    `spacing-17` & Numbering without scale meaning is hard to maintain. & Use a documented spacing scale such as `space.4` or `space.6`. \\
+    `buttonMargin` & Component implementation details leak into design language. & Use layout or spacing tokens outside the component layer. \\
+    `primary2` & Ambiguous and non-semantic. & Rename to `color.brand.secondary` or `color.action.secondary`. \\
+    `darkText` & Relative visual names break under theming. & Rename to `color.text.primary` or `color.text.muted`. \\
+    `borderGray` & Ties the system to a specific hue. & Use `color.border.subtle` or `color.border.strong`. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection*{B.5 Tooling comparison}
+Style Dictionary, Theo, and Token Pipeline are common approaches to token build and distribution.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Token tooling comparison}
+  \begin{tabularx}{\textwidth}{@{}p{0.18\textwidth}p{0.18\textwidth}p{0.20\textwidth}Y@{}}
+    \toprule
+    \textbf{Tool} & \textbf{Strength} & \textbf{Best fit} & \textbf{Caveat} \\
+    \midrule
+    Style Dictionary & Mature output format support & Teams that need broad multi-platform distribution & Configuration can become verbose. \\
+    Theo & Flexible token transforms & Teams with custom naming and output needs & Smaller ecosystem than Style Dictionary. \\
+    Token Pipeline & Token workflow automation & Teams that want end-to-end design-to-code control & Tooling maturity varies by implementation. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection*{B.6 Migration path from CSS variables to structured tokens}
+Migrating from loose CSS variables to structured tokens should be incremental.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Migration path from CSS variables to structured tokens}
+  \begin{tabularx}{\textwidth}{@{}p{0.18\textwidth}p{0.24\textwidth}Y@{}}
+    \toprule
+    \textbf{Stage} & \textbf{Goal} & \textbf{Deliverable} \\
+    \midrule
+    Inventory & Identify all existing variables and usage sites. & Variable catalog and dependency map. \\
+    Categorize & Split raw values from semantic roles. & Primitive and semantic token maps. \\
+    Normalize & Standardize naming and scale rules. & Documented token taxonomy. \\
+    Generate & Emit code from a canonical source. & CSS variables and theme outputs. \\
+    Validate & Check consistency across products and themes. & Token tests and review reports. \\
+    Govern & Define ownership and change policy. & Token RFC and release process. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection*{B.7 Multi-brand token architecture patterns}
+\begin{table}[htbp]
+  \centering
+  \caption{Multi-brand token architecture patterns}
+  \begin{tabularx}{\textwidth}{@{}p{0.24\textwidth}p{0.26\textwidth}Y@{}}
+    \toprule
+    \textbf{Pattern} & \textbf{When to use} & \textbf{Risk} \\
+    \midrule
+    Global base plus brand overlay & One shared product line with different visual identities. & Brand overlay drift if semantic roles are unclear. \\
+    Per-brand bundle generation & Strong isolation between brands is required. & Package proliferation and maintenance overhead. \\
+    Runtime brand negotiation & Brand choice changes by tenant or user. & Complexity in runtime loading and testing. \\
+    Hybrid tokens with local exceptions & Most brands share a common base but need small overrides. & Exceptions can become ungoverned over time. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\begin{highlightbox}{Token principle}
+Tokens are not just styling variables. They are the contract between design intent, engineering implementation, and long-term brand control.
+\end{highlightbox}
+
+\clearpage
+\phantomsection
+\section*{Appendix C: Migration Checklist}
+\addcontentsline{toc}{section}{Appendix C: Migration Checklist}
+
+Appendix C provides detailed migration checklists for common transitions between component libraries and related UI stacks. The objective is to reduce migration risk by making the work explicit and staged.
+
+\subsection*{C.1 Pairwise migration checklists}
+
+\subsubsection*{Migrating from MUI to shadcn/ui}
+\begin{enumerate}[leftmargin=*, itemsep=0.35em]
+  \item Inventory which MUI components are used for forms, dialogs, tables, and navigation.
+  \item Identify theme assumptions that are embedded in the app code.
+  \item Replace the highest-value primitives first: button, input, dialog, select.
+  \item Preserve accessibility and keyboard behavior in every conversion.
+  \item Rebuild token mapping before changing large layout shells.
+  \item Run visual comparisons across RTL, dark mode, and mobile breakpoints.
+  \item Leave complex enterprise tables on MUI or another proven data layer until parity is proven.
+\end{enumerate}
+
+\subsubsection*{Migrating from Ant Design to MUI}
+\begin{enumerate}[leftmargin=*, itemsep=0.35em]
+  \item Audit dense forms and tables because they are usually the most coupled.
+  \item Map Ant Design layout assumptions to MUI spacing and component structure.
+  \item Validate locale, RTL, and browser support before broad rollout.
+  \item Rebuild notification and feedback patterns as separate shared modules.
+  \item Create codemods for prop renames and theme object migration.
+  \item Keep a compatibility layer for the most critical workflows until QA signs off.
+\end{enumerate}
+
+\subsubsection*{Migrating from Chakra UI to Radix-based primitives}
+\begin{enumerate}[leftmargin=*, itemsep=0.35em]
+  \item Identify style-prop usage that can be replaced with semantic tokens.
+  \item Move from broad composition wrappers to explicit primitive boundaries.
+  \item Recreate the theme layer with CSS variables or a design token pipeline.
+  \item Revalidate focus, portal, and keyboard semantics carefully.
+  \item Build a thin local pattern layer on top of the primitives.
+  \item Use Storybook to keep before-and-after states visible.
+\end{enumerate}
+
+\subsubsection*{Migrating from Radix-based custom UI to shadcn/ui}
+\begin{enumerate}[leftmargin=*, itemsep=0.35em]
+  \item Keep the primitive behavior model and swap in a source-owned shell gradually.
+  \item Audit local wrappers for unnecessary abstractions.
+  \item Move shared styling into tokenized components rather than custom class clusters.
+  \item Preserve accessibility contracts and generated ids.
+  \item Re-run keyboard and screen reader tests after every major shell replacement.
+  \item Confirm that code ownership remains clear after the migration.
+\end{enumerate}
+
+\subsubsection*{Migrating from Tailwind UI patterns to a custom design system}
+\begin{enumerate}[leftmargin=*, itemsep=0.35em]
+  \item Catalog which copied patterns are used most frequently.
+  \item Extract common layout and spacing rules into tokens.
+  \item Replace one-off copied examples with reusable internal patterns.
+  \item Keep the visual tone while removing code duplication.
+  \item Add lint rules or review gates to prevent future copy-paste sprawl.
+  \item Document which Tailwind UI templates remain acceptable as references only.
+\end{enumerate}
+
+\subsubsection*{Migrating from a custom CSS system to MUI}
+\begin{enumerate}[leftmargin=*, itemsep=0.35em]
+  \item Map the custom spacing and typography scale to MUI theme values.
+  \item Identify components that should keep custom rendering because of unique behavior.
+  \item Run a side-by-side pilot on a bounded feature area.
+  \item Use codemods for prop and import changes where possible.
+  \item Prioritize accessibility parity before visual perfection.
+  \item Freeze broad refactors until the pilot proves stable.
+\end{enumerate}
+
+\subsubsection*{Migrating from a legacy CSS variable system to token-first architecture}
+\begin{enumerate}[leftmargin=*, itemsep=0.35em]
+  \item Catalog raw CSS variables by semantic meaning.
+  \item Introduce a canonical token manifest.
+  \item Replace direct variable use in components with token lookups.
+  \item Add validation so new variables require a token category.
+  \item Provide a migration timeline for all product teams using the old variables.
+\end{enumerate}
+
+\subsection*{C.2 Automated migration tooling availability}
+Some migrations are well supported by official tools. Others require custom codemods or manual review.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Migration tooling availability}
+  \begin{tabularx}{\textwidth}{@{}p{0.24\textwidth}p{0.18\textwidth}p{0.22\textwidth}Y@{}}
+    \toprule
+    \textbf{Migration} & \textbf{Official tooling} & \textbf{Custom tooling} & \textbf{Recommendation} \\
+    \midrule
+    MUI upgrades & Strong codemod support in many versions & Theme and wrapper codemods & Use official codemods first, then patch local wrappers. \\
+    Chakra version upgrades & Migration guides and selective codemods & Theme and prop refactors & Pilot on a single route before broad rollout. \\
+    Ant Design major shifts & Documentation and selective upgrade notes & Prop and theme codemods & Treat as a phased platform migration. \\
+    shadcn/ui local source migration & CLI-based generation and replacement flow & Local AST tools & Keep diffs small and track copy ownership carefully. \\
+    Token system adoption & Token export/import tooling in some ecosystems & Custom schema transformers & Establish a canonical token manifest early. \\
+    Legacy CSS to structured tokens & Limited official help & Strong AST/CSS codemods & Plan a long-tail cleanup window. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection*{C.3 Risk assessment framework}
+Use a simple risk matrix before approving a migration wave. Consider probability, impact, detectability, and rollback cost.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Migration risk assessment framework}
+  \begin{tabularx}{\textwidth}{@{}p{0.22\textwidth}p{0.18\textwidth}p{0.18\textwidth}Y@{}}
+    \toprule
+    \textbf{Risk dimension} & \textbf{Low} & \textbf{High} & \textbf{Mitigation} \\
+    \midrule
+    Probability & Few screens use the pattern. & Many screens depend on the pattern. & Pilot first and use metrics to estimate blast radius. \\
+    Impact & Cosmetic or low-risk workflow. & Core workflow or compliance surface. & Add parallel support until the new path stabilizes. \\
+    Detectability & Easy to test automatically. & Requires manual or cross-device validation. & Expand test coverage and review gates. \\
+    Rollback cost & Simple revert with small diff. & Complex rollback with data or workflow dependencies. & Preserve compatibility layers and release tags. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection*{C.4 Rollback planning for failed migrations}
+Every migration should have an explicit rollback plan before the first route or component is cut over.
+
+\begin{enumerate}[leftmargin=*, itemsep=0.35em]
+  \item Define the rollback trigger in advance: test failure, performance regression, accessibility defect, or support incident.
+  \item Keep the old implementation in place behind a switch or parallel branch.
+  \item Tag releases so the previous state can be restored quickly.
+  \item Communicate rollback ownership to engineering, QA, and product stakeholders.
+  \item Verify the rollback path in staging before starting production rollout.
+\end{enumerate}
+
+\subsection*{C.5 Timeline estimation by scale}
+Time estimates depend on the number of screens, shared components, and product teams involved.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Migration timeline estimates by scale}
+  \begin{tabularx}{\textwidth}{@{}p{0.18\textwidth}p{0.18\textwidth}p{0.18\textwidth}Y@{}}
+    \toprule
+    \textbf{Scale} & \textbf{Typical duration} & \textbf{Team shape} & \textbf{Notes} \\
+    \midrule
+    Small product & 2--6 weeks & 1--2 frontend engineers and one designer & Can move quickly if scope is limited to a few screens. \\
+    Mid-size SaaS & 6--12 weeks & 3--6 engineers with QA support & Needs phased rollout and shared token cleanup. \\
+    Enterprise platform & 3--9 months & Cross-functional team with platform ownership & Often requires compatibility layers and stakeholder coordination. \\
+    Multi-product suite & 6--18 months & Platform team plus product migration teams & Needs governance, migration dashboards, and rollout planning. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\begin{highlightbox}{Migration principle}
+The safest migration is one that can be stopped, measured, and reversed without breaking the product's operating assumptions.
+\end{highlightbox}
+
+\clearpage
+\phantomsection
+\section*{Appendix E: Accessibility in Depth}
+\addcontentsline{toc}{section}{Appendix E: Accessibility in Depth}
+
+Appendix E turns accessibility from a checklist into a reference practice. It maps WCAG-relevant criteria to component behavior, compares screen reader outcomes, and provides audit and bug-reporting guidance that teams can use in the normal development cycle.
+
+\subsection*{E.1 WCAG 2.2 criteria mapped to component library support}
+The table below focuses on criteria that routinely surface in component library work. It is not a replacement for full legal or accessibility review, but it is a practical map for teams building interfaces.
+
+\begin{longtable}{@{}p{0.18\textwidth}p{0.34\textwidth}p{0.18\textwidth}p{0.18\textwidth}@{}}
+\caption{WCAG 2.2 criteria map for component libraries}\label{tab:wcag-map}\\
+\toprule
+\textbf{Criterion} & \textbf{Component-level implication} & \textbf{Typical support risk} & \textbf{Verification method} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Criterion} & \textbf{Component-level implication} & \textbf{Typical support risk} & \textbf{Verification method} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+1.1.1 Text Alternatives & Icon buttons and media controls need accessible names. & Missing labels in custom wrappers. & axe, accessible-name queries, manual review. \\
+1.3.1 Info and Relationships & Semantic markup must match visual hierarchy. & Div-based shells that hide structure. & Screen reader tree and DOM review. \\
+1.3.2 Meaningful Sequence & Reading order should match user intent. & CSS reordering that breaks logical flow. & Keyboard and screen reader walk-throughs. \\
+1.4.1 Use of Color & State cannot rely on color alone. & Status chips and validation messages. & Visual and non-color state checks. \\
+1.4.3 Contrast (Minimum) & Text and critical controls need readable contrast. & Theme palettes with weak contrast mapping. & Automated contrast testing. \\
+1.4.10 Reflow & Content should work at narrow widths without two-dimensional scrolling. & Tables and dense shells. & Browser zoom and small viewport tests. \\
+1.4.11 Non-text Contrast & Focus rings, icons, and borders need sufficient contrast. & Thin outlines in custom themes. & Manual and automated contrast review. \\
+1.4.12 Text Spacing & Users should be able to adjust spacing without breaking layout. & Hard-coded line-height assumptions. & Text-spacing overrides in browser. \\
+1.4.13 Content on Hover or Focus & Hover-only content must be dismissible and persistent enough. & Tooltips and menus that vanish too soon. & Keyboard interaction tests. \\
+2.1.1 Keyboard & All controls should be reachable without a pointer. & Custom gestures without keyboard fallback. & Full keyboard traversal. \\
+2.1.2 No Keyboard Trap & Focus should always be escapable. & Modals and custom overlays. & Focus trap and escape checks. \\
+2.1.4 Character Key Shortcuts & Single-key shortcuts need disable or remap support. & Dense developer tools. & Shortcut settings and keyboard scripts. \\
+2.2.1 Timing Adjustable & Time limits should be extendable or avoidable. & Session timeout flows. & Auth and form timing tests. \\
+2.2.2 Pause, Stop, Hide & Moving content should be controllable. & Carousels and motion-heavy banners. & Reduced-motion and pause controls. \\
+2.2.3 No Flashing & Flashing content should be avoided. & Animated marketing modules. & Content review and motion testing. \\
+2.2.4 Interruptions & Users should not lose work unexpectedly. & Toast overload and modal spam. & Workflow testing and interruption review. \\
+2.2.5 Re-authenticating & Saved work should survive re-authentication. & Long forms and secure portals. & Session-expiry scenarios. \\
+2.3.1 Three Flashes or Below Threshold & Motion should not trigger seizures. & Flashing charts and alerts. & Visual motion review. \\
+2.4.1 Bypass Blocks & Main navigation should be skippable. & Repeated nav shells. & Skip-link and landmark tests. \\
+2.4.3 Focus Order & Focus should follow a logical path. & Portals and reordered DOM. & Keyboard sequence review. \\
+2.4.4 Link Purpose & Links need understandable names. & Icon-only links and generic copy. & Accessible-name validation. \\
+2.4.5 Multiple Ways & Users should have more than one way to locate pages. & Deep navigation systems. & Sitemap and nav review. \\
+2.4.6 Headings and Labels & Section labels should be descriptive. & Empty or generic component labels. & Structure audit. \\
+2.4.7 Focus Visible & Keyboard focus must be obvious. & Theme overrides that hide rings. & Visual focus tests. \\
+2.4.11 Focus Not Obscured & Focus should not be hidden by sticky elements. & Fixed headers and footers. & Zoom and viewport tests. \\
+2.4.12 Focus Not Obscured (Enhanced) & Stronger focus visibility under overlays. & Complex sticky workflows. & Overlay and scroll checks. \\
+2.5.1 Pointer Gestures & Gestures need simpler alternatives. & Swipe-only controls. & Pointer and keyboard parity testing. \\
+2.5.2 Pointer Cancellation & Mistaps should be recoverable. & Destructive tap targets. & Pointer-down and cancel tests. \\
+2.5.3 Label in Name & Visible labels should match accessible names. & Mismatched translated labels. & Accessible-name comparison. \\
+2.5.4 Motion Actuation & Motion triggers need a manual alternative. & Tilt or shake shortcuts. & Alternate control checks. \\
+2.5.7 Dragging Movements & Drag actions need non-drag alternatives. & Kanban and reorder lists. & Keyboard reordering support review. \\
+2.5.8 Target Size (Minimum) & Hit areas need sufficient size. & Tiny icon controls. & Device and pointer tests. \\
+3.2.1 On Focus & Focus should not trigger confusing context changes. & Auto-submit and menu jumps. & Keyboard focus behavior review. \\
+3.2.2 On Input & Input should not surprise users with side effects. & Auto-formatting or auto-navigation. & Form interaction tests. \\
+3.2.3 Consistent Navigation & Navigation should behave consistently. & Repeated nav locations that differ by page. & Shell review. \\
+3.2.4 Consistent Identification & Components with the same function should look and act consistently. & Multiple button styles for the same action. & Pattern audit. \\
+3.3.1 Error Identification & Errors must be described clearly. & Validation without text explanation. & Error-state tests. \\
+3.3.2 Labels or Instructions & Forms need instructions and labels. & Placeholder-only forms. & Form audit. \\
+3.3.7 Redundant Entry & Repeated input should be avoided. & Long wizard flows. & Workflow review. \\
+3.3.8 Accessible Authentication (Minimum) & Authentication should not require cognitive puzzle solving. & Poor password resets or challenge flows. & Auth flow tests. \\
+4.1.2 Name, Role, Value & Custom controls need explicit semantics. & Div-based buttons and toggles. & Role and accessibility tree tests. \\
+\end{longtable}
+
+\subsection*{E.2 ARIA pattern reference for interactive components}
+\begin{table}[htbp]
+  \centering
+  \caption{ARIA pattern reference by component type}
+  \begin{tabularx}{\textwidth}{@{}p{0.18\textwidth}p{0.18\textwidth}p{0.20\textwidth}Y@{}}
+    \toprule
+    \textbf{Component type} & \textbf{Required semantics} & \textbf{Common mistakes} & \textbf{Reference behavior} \\
+    \midrule
+    Button & Native button role and clear accessible name. & Divs with click handlers. & Keyboard activation with space and enter. \\
+    Menu & Menu, menuitem, and focus-managed popup. & Hover-only menus. & Arrow key navigation and escape close. \\
+    Dialog & Dialog role, label, description, focus trap. & Hidden close controls or broken return focus. & Escape key closes and focus returns. \\
+    Tabs & Tablist, tab, tabpanel relationships. & Visual tabs without semantic linkage. & Arrow key navigation and active state. \\
+    Accordion & Heading button and region association. & Nested div structure without labels. & Toggle with announcement of expanded state. \\
+    Combobox & Input, listbox, option state, autocomplete. & Custom select with no keyboard support. & Type-ahead and option navigation. \\
+    Tree view & Tree, treeitem, parent-child relationships. & Collapsed DOM structure without roles. & Arrow navigation and expansion state. \\
+    Slider & Slider role, min/max/now values. & Custom drag control with no announcement. & Keyboard and pointer movement. \\
+    Tooltip & Described-by association and delayed display. & Hover-only explanation with no accessible fallback. & Non-blocking, dismissible information. \\
+    Toast & Live region announcement and action support. & Silent notification banners. & Announced status and dismiss control. \\
+    Data grid & Grid semantics, header relationships, cell navigation. & Table markup that breaks interactive navigation. & Arrow key traversal and sort labels. \\
+    Form field & Label, description, error message, relation. & Placeholder-only hints. & Clear label and error announcement. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection*{E.3 Screen reader testing results across NVDA, JAWS, and VoiceOver}
+The table below presents fictional but realistic screen reader results from a shared test matrix.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Screen reader test matrix}\label{tab:sr-matrix}
+  \begin{tabularx}{\textwidth}{@{}p{0.18\textwidth}p{0.18\textwidth}p{0.18\textwidth}p{0.18\textwidth}Y@{}}
+    \toprule
+    \textbf{Library} & \textbf{NVDA} & \textbf{JAWS} & \textbf{VoiceOver} & \textbf{Notes} \\
+    \midrule
+    shadcn/ui & Strong & Strong & Strong & Behavior depends on local implementation quality, but source ownership makes fixes straightforward. \\
+    Material UI & Strong & Strong & Strong & Mature semantics and broad testing history. \\
+    Chakra UI & Strong & Strong & Good & Some custom wrappers need additional review. \\
+    Ant Design & Strong & Strong & Good & Enterprise widgets are solid, but custom composition can drift. \\
+    Radix UI & Strong & Strong & Strong & Excellent primitive semantics when host styling remains accessible. \\
+    Tailwind UI & Good & Good & Good & Depends heavily on local semantics because it is pattern-based rather than behavior-based. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection*{E.4 Keyboard navigation map by library}
+\begin{table}[htbp]
+  \centering
+  \caption{Keyboard navigation map}\label{tab:keyboard-map}
+  \begin{tabularx}{\textwidth}{@{}p{0.18\textwidth}p{0.20\textwidth}p{0.18\textwidth}Y@{}}
+    \toprule
+    \textbf{Library} & \textbf{Tab order stability} & \textbf{Arrow key support} & \textbf{Notes} \\
+    \midrule
+    shadcn/ui & High if primitives are used well & Depends on Radix primitives & Excellent when local wrappers preserve semantics. \\
+    Material UI & High & Strong in many complex widgets & Good default focus management across components. \\
+    Chakra UI & High & Moderate to strong & Provider behavior should be reviewed on large pages. \\
+    Ant Design & High & Strong in enterprise widgets & Dense UI can require extra focus tuning. \\
+    Radix UI & High & Strong primitive support & Behavior-first model is ideal for keyboard workflows. \\
+    Tailwind UI & Variable & Variable & Depends on the host app's actual component semantics. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection*{E.5 Accessibility audit methodology}
+A practical audit should combine automated and manual testing.
+
+\begin{enumerate}[leftmargin=*, itemsep=0.35em]
+  \item Run static checks for common violations.
+  \item Walk critical screens with keyboard only.
+  \item Test a screen reader flow in at least one Windows and one macOS environment.
+  \item Validate color contrast, focus rings, and text scaling.
+  \item Check overlays, dialogs, and escape behavior.
+  \item Repeat against RTL and localization cases.
+  \item Record issues as component-specific bugs with clear reproduction steps.
+\end{enumerate}
+
+\subsection*{E.6 How to file effective accessibility bug reports}
+Good bug reports are specific about the user impact and the reproduction path.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Accessibility bug report template}
+  \begin{tabularx}{\textwidth}{@{}p{0.22\textwidth}Y@{}}
+    \toprule
+    \textbf{Field} & \textbf{What to include} \\
+    \midrule
+    Component name & Exact component and version or commit. \\
+    User impact & What a keyboard or assistive-technology user cannot do. \\
+    Reproduction steps & Minimal deterministic steps to reproduce the issue. \\
+    Expected behavior & What the component should do instead. \\
+    Evidence & Screenshot, screen recording, or screen reader log if available. \\
+    Severity & How much the issue blocks normal task completion. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection*{E.7 Legal landscape for accessibility compliance}
+Accessibility compliance is not only a technical matter. It has legal and procurement implications.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Legal and procurement landscape}
+  \begin{tabularx}{\textwidth}{@{}p{0.18\textwidth}p{0.20\textwidth}Y@{}}
+    \toprule
+    \textbf{Framework} & \textbf{What it means} & \textbf{Component library implication} \\
+    \midrule
+    WCAG 2.2 & Accessibility success criteria for digital content. & Libraries should support keyboard, semantics, and perceivable state. \\
+    ADA & U.S. disability rights law with strong digital implications. & UI failures can create legal exposure for public-facing products. \\
+    Section 508 & U.S. federal accessibility procurement requirement. & Public-sector and vendor products need demonstrable compliance. \\
+    EN 301 549 & European accessibility standard for ICT. & Global enterprise products often need aligned documentation. \\
+    Procurement policy & Contractual requirements for accessibility evidence. & Teams need audit trails, test reports, and remediation records. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection*{E.8 Accessibility testing tools comparison}
+\begin{table}[htbp]
+  \centering
+  \caption{Accessibility testing tools}\label{tab:a11y-tools}
+  \begin{tabularx}{\textwidth}{@{}p{0.20\textwidth}p{0.18\textwidth}p{0.20\textwidth}Y@{}}
+    \toprule
+    \textbf{Tool} & \textbf{Strength} & \textbf{Best use} & \textbf{Caveat} \\
+    \midrule
+    axe-core & Fast automated violation detection & CI and component tests & Cannot judge every behavioral issue. \\
+    pa11y & Flexible accessibility automation & Page-level audits and scripted checks & Needs stable test environments. \\
+    Storybook a11y addon & Fast component feedback & Developer sandbox and visual review & Should be paired with other tests. \\
+    eslint-plugin-jsx-a11y & Early code-level guidance & Local linting and review & Only covers static source patterns. \\
+    Playwright accessibility scripts & End-to-end interaction verification & Keyboard and focus flows & Requires good scenario design. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\begin{highlightbox}{Accessibility principle}
+A component library is accessible only when its semantics survive real content, real keyboard use, real localization, and real assistive-technology testing.
+\end{highlightbox}
+
+\clearpage
+\phantomsection
+\section*{Appendix O: Reference Architecture}
+\addcontentsline{toc}{section}{Appendix O: Reference Architecture}
+
+Appendix O defines a practical reference architecture for a component registry, including the data flow, data model, public API, CLI surface, plugin model, security controls, and scaling considerations.
+
+\subsection*{O.1 Full technical specification with data flow diagram}
+The architecture begins with a canonical token and component source, passes through validation and generation layers, and ends in published packages and telemetry feedback.
+
+\begin{figure}[p]
+\centering
+\begin{tikzpicture}[node distance=1.2cm, every node/.style={draw, rounded corners, align=center, font=\small, minimum width=3.4cm, minimum height=0.9cm}]
+  \node (design) {Design source\\Figma tokens and component intent};
+  \node (validate) [below=of design] {Validation layer\\Schema, naming, and accessibility checks};
+  \node (registry) [below=of validate] {Registry service\\Versioned component manifests and metadata};
+  \node (generate) [below=of registry] {Code generation\\Source-owned components, docs, and tests};
+  \node (publish) [below=of generate] {Package publishing\\npm or private registry distribution};
+  \node (consume) [below=of publish] {Consumer apps\\Product teams and shared platforms};
+  \node (telemetry) [right=4.3cm of registry] {Telemetry and feedback\\Usage, audits, and regression signals};
+  \draw[->] (design) -- (validate);
+  \draw[->] (validate) -- (registry);
+  \draw[->] (registry) -- (generate);
+  \draw[->] (generate) -- (publish);
+  \draw[->] (publish) -- (consume);
+  \draw[->] (consume.east) -- ++(1.2,0) |- (telemetry.east);
+  \draw[->] (telemetry.west) |- (registry.east);
+\end{tikzpicture}
+\caption{Reference architecture data flow}
+\end{figure}
+
+The key principle is that design intent, code generation, and runtime usage should all be observable. A registry that cannot explain what it generated, who uses it, and which changes are risky is not yet a reference architecture.
+
+\subsection*{O.2 Database schema for the component registry}
+The tables below describe a practical relational model for the registry metadata layer.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Registry database schema overview}
+  \begin{tabularx}{\textwidth}{@{}p{0.18\textwidth}p{0.28\textwidth}Y@{}}
+    \toprule
+    \textbf{Table} & \textbf{Primary fields} & \textbf{Purpose} \\
+    \midrule
+    components & id, name, owner, status, public\_api\_version & Tracks the canonical component record. \\
+    component\_versions & id, component\_id, semver, changelog, release\_date & Stores published versions and release metadata. \\
+    tokens & id, token\_name, category, value, source, brand\_scope & Holds the token dictionary and brand mappings. \\
+    audits & id, component\_version\_id, audit\_type, result, reviewer, notes & Stores accessibility, security, and visual audit outcomes. \\
+    usage\_events & id, component\_id, app\_name, event\_type, timestamp & Records adoption and product usage signals. \\
+    plugins & id, plugin\_name, hook\_point, enabled, owner & Tracks extension modules for automation. \\
+    migration\_plans & id, source\_version, target\_version, scope, rollback\_plan & Captures controlled migration records. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection*{O.3 REST API specification for registry endpoints}
+A small but explicit API surface makes the registry easier to automate and easier to secure.
+
+\begin{longtable}{@{}p{0.16\textwidth}p{0.14\textwidth}p{0.24\textwidth}p{0.26\textwidth}@{}}
+\caption{REST API specification for the registry}\label{tab:registry-api}\\
+\toprule
+\textbf{Endpoint} & \textbf{Method} & \textbf{Purpose} & \textbf{Important notes} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Endpoint} & \textbf{Method} & \textbf{Purpose} & \textbf{Important notes} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+/api/components & GET & List available components and metadata. & Support filtering by tag, version, and owner. \\
+/api/components & POST & Register a new component manifest. & Requires validation and authorization. \\
+/api/components/{id} & GET & Fetch a component record and related versions. & Should support ETags or caching. \\
+/api/components/{id} & PATCH & Update metadata or ownership. & Must audit who changed what and why. \\
+/api/components/{id}/versions & GET & List version history. & Useful for migrations and rollback planning. \\
+/api/components/{id}/publish & POST & Publish a new version. & Should trigger tests, checks, and changelog generation. \\
+/api/tokens & GET & Export token catalog. & Allow brand filters and output formats. \\
+/api/audits & POST & Submit an audit result. & Store accessibility and security signals. \\
+/api/plugins & GET & List active plugins. & Include hook points and compatibility state. \\
+/api/plugins & POST & Register a plugin. & Require sandboxing and version validation. \\
+/api/telemetry & POST & Send usage events. & Minimize personal data and sensitive payloads. \\
+\end{longtable}
+
+\subsection*{O.4 CLI command reference}
+The CLI should expose the architecture in a form that developers can use without opening a separate portal.
+
+\begin{longtable}{@{}p{0.18\textwidth}p{0.24\textwidth}p{0.24\textwidth}p{0.22\textwidth}@{}}
+\caption{CLI command reference}\label{tab:cli-reference}\\
+\toprule
+\textbf{Command} & \textbf{Flags} & \textbf{Function} & \textbf{Typical use} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Command} & \textbf{Flags} & \textbf{Function} & \textbf{Typical use} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+ui-tool init & --preset, --brand, --tokens & Scaffold a new project or workspace. & New product setup or brand onboarding. \\
+ui-tool add & --component, --pattern, --dry-run & Add a component or pattern to the repo. & Source-owned component generation. \\
+ui-tool sync & --from-figma, --from-manifest, --check & Synchronize design and code sources. & Token and variant updates. \\
+ui-tool diff & --base, --target, --patch & Show local and upstream changes. & Review incoming updates. \\
+ui-tool patch & --strategy, --safe, --interactive & Apply safe updates to local source. & Controlled component maintenance. \\
+ui-tool doctor & --strict, --json, --fix & Run health checks for the workspace. & CI and developer diagnostics. \\
+ui-tool docs & --open, --search, --section & Open component documentation. & Developer onboarding and support. \\
+ui-tool audit & --a11y, --security, --visual & Run quality audits. & Release candidate validation. \\
+ui-tool publish & --registry, --tag, --access & Publish packages or manifests. & Release pipeline integration. \\
+ui-tool rollback & --version, --reason, --force & Revert to a prior version. & Failed rollout recovery. \\
+\end{longtable}
+
+\subsection*{O.5 Plugin architecture specification}
+Plugins extend the registry without making the core unmanageable. The architecture should define hook points for validation, generation, auditing, and docs.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Plugin architecture overview}
+  \begin{tabularx}{\textwidth}{@{}p{0.20\textwidth}p{0.22\textwidth}Y@{}}
+    \toprule
+    \textbf{Plugin type} & \textbf{Hook point} & \textbf{Responsibility} \\
+    \midrule
+    Validation plugin & Pre-commit or pre-publish & Enforce naming, schema, and accessibility rules. \\
+    Generation plugin & Scaffold and patch workflows & Produce source-owned code and examples. \\
+    Audit plugin & Test and inspection stages & Summarize quality results and issue risk. \\
+    Docs plugin & Post-generation stage & Build docs from metadata and stories. \\
+    Telemetry plugin & Runtime event capture & Measure adoption and detect regressions. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Plugins should be sandboxed, versioned, and narrowly scoped. The registry core should remain stable even if the plugin ecosystem evolves quickly.
+
+\subsection*{O.6 Security model for the registry}
+The registry security model should cover authentication, authorization, supply-chain integrity, and audit logging.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Registry security model}
+  \begin{tabularx}{\textwidth}{@{}p{0.20\textwidth}p{0.22\textwidth}Y@{}}
+    \toprule
+    \textbf{Threat area} & \textbf{Control} & \textbf{Operational note} \\
+    \midrule
+    Unauthorized publish & Role-based access control and signed release flows. & Publishing should require explicit approval. \\
+    Malicious package injection & Manifest validation and dependency scanning. & Treat generated output as untrusted until checked. \\
+    Token tampering & Token schema validation and review gates. & The token source of truth must be protected. \\
+    Plugin abuse & Sandboxing and permission scopes. & Plugins should not reach arbitrary secrets or filesystem paths. \\
+    Audit gaps & Immutable logs and change history. & Support investigations and compliance review. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection*{O.7 Scalability analysis}
+The registry should remain useful as the number of components and teams grows.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Scalability analysis by organization size}
+  \begin{tabularx}{\textwidth}{@{}p{0.18\textwidth}p{0.22\textwidth}Y@{}}
+    \toprule
+    \textbf{Scale} & \textbf{Likely bottleneck} & \textbf{Recommended architecture} \\
+    \midrule
+    Small team & Too much process overhead. & Lightweight manifests and simple CLI workflow. \\
+    Mid-size product org & Version drift and duplication. & Central registry with token governance and docs automation. \\
+    Large multi-product org & Ownership, governance, and API stability. & Strong approval flows, telemetry, and plugin sandboxing. \\
+    Enterprise platform & Distribution and compliance. & Role-based permissions, audit trails, and staged rollout controls. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection*{O.8 Hosting cost estimates}
+The table below gives rough hosting cost categories for a registry service. Costs vary by provider and traffic pattern, but the ranges are useful for planning.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Hosting cost estimates by scale}
+  \begin{tabularx}{\textwidth}{@{}p{0.20\textwidth}p{0.18\textwidth}p{0.18\textwidth}Y@{}}
+    \toprule
+    \textbf{Scale} & \textbf{Typical traffic} & \textbf{Monthly cost band} & \textbf{Cost drivers} \\
+    \midrule
+    Pilot & Low and internal & 20 to 100 USD & Static hosting, minimal API use, few builds. \\
+    Team & Moderate internal & 100 to 500 USD & CI usage, registry storage, docs hosting. \\
+    Department & Multi-team & 500 to 2,000 USD & API traffic, audit storage, build pipelines. \\
+    Enterprise & High and multi-region & 2,000+ USD & Redundancy, security, telemetry, and compliance support. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\begin{highlightbox}{Architecture principle}
+A registry architecture should keep design intent, component source, token governance, and release control in one traceable system rather than scattering responsibility across unrelated tools.
+\end{highlightbox}
